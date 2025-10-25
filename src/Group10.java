@@ -10,7 +10,7 @@ Methods that needed to be written
 4. single player game. OK
 5. multiplayer game.
  */
-
+// deneme
 public class Group10 {
     public static void main(String[] args) {
         Scanner inputSize = new Scanner(System.in);
