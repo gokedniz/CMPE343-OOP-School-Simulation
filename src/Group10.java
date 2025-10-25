@@ -386,153 +386,150 @@ public class Group10 {
         System.out.println();
     }
 
-}
-
-
-////GÜLFEM 
+////GÜLFEM
  //* Option A: Zodiac and Sign kısmı
 
     /* Öncelikle kullanıcıdan doğum gününün tarihini ve saatini almam gerekiyor,
     ardından bu bilgilere göre yaş ve burç hesaplaması yapacağım.
-    */ 
+    */
 
     public static void ageAndZodiacDetection(){
         Scanner input = new Scanner(System.in);
 
         System.out.println("Age and Zodiac Sign Detection");
-    
-    //Öncelikle kullanıcıdan doğum tarihini aldım.
 
-    System.out.print("Enter your birth 'day' (1-31):");
-    int birthDay = input.nextInt();
-    System.out.print("Enter your birth 'month' (1-12):");
-    int birthMonth = input.nextInt();
-    System.out.print("Enter your birth 'year':");
-    int birthYear = input.nextInt();
+        //Öncelikle kullanıcıdan doğum tarihini aldım.
 
-    //Bu kısımda girdiği doğum günü tarihlerinin geçerli olup olmadığını kontrol ettim.
-    if (!isValidDate(birthDay, birthMonth, birthYear)) {
-            System.out.println("Invalid birth date.");            
-            return;
+        System.out.print("Enter your birth 'day' (1-31):");
+        int birthDay = input.nextInt();
+        System.out.print("Enter your birth 'month' (1-12):");
+        int birthMonth = input.nextInt();
+        System.out.print("Enter your birth 'year':");
+        int birthYear = input.nextInt();
+
+        //Bu kısımda girdiği doğum günü tarihlerinin geçerli olup olmadığını kontrol ettim.
+        if (!isValidDate(birthDay, birthMonth, birthYear)) {
+                System.out.println("Invalid birth date.");
+                return;
+            }
+
+        System.out.println("Your birthday: " + birthDay + "/" + birthMonth + "/" + birthYear);
+
+
+        //Sonrasında ise mevcut tarihi aldım.
+        System.out.print("Enter the current 'day' (1-31):");
+        int currentDay = input.nextInt();
+        System.out.print("Enter the current 'month' (1-12):");
+        int currentMonth = input.nextInt();
+        System.out.print("Enter the current 'year':");
+        int currentYear = input.nextInt();
+
+        //Bu kısımda da girdiği 'currentDay, currentMonth ve currentYear' kısımlarıının geçerli olup olmadığını kontrol ettim.
+
+         if (!isValidDate(currentDay, currentMonth, currentYear)) {
+                System.out.println("Invalid current date.");
+                return;
+            }
+
+        System.out.println("Current date: " + currentDay + "/" + currentMonth + "/" + currentYear);
+
+
+        // ---------- YAŞ HESAPLAMA
+
+       // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
+       //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
+
+       int age = currentYear - birthYear;
+
+        // Kullanıcının girdiği yılda yaş gününü geçmediyse yaşını 1 azalttım.
+        // Çünkü o yılki yaşını henüz doldurmadı.
+
+       if (currentMonth < birthMonth ||
+       (currentMonth == birthMonth && currentDay < birthDay)) {
+        age--;
+    }
+        //Eğer yaş negatif hesaplanıyorsa kullanıcımız şimdiki zamana kıyasla doğum tarihinden önceki bir yılı girmiştir.
+        //Girdiği tarihte henüz doğmamış olacağını gördüğüm için aşağıdaki mesajı verdim.
+
+        if (age < 0) {
+        System.out.println("Invalid birth and current date. Birth date is in the future.");
+        return;
+
         }
 
-    System.out.println("Your birthday: " + birthDay + "/" + birthMonth + "/" + birthYear);
-   
+            System.out.println("Your age is: " + age);
 
-    //Sonrasında ise mevcut tarihi aldım.
-    System.out.print("Enter the current 'day' (1-31):");
-    int currentDay = input.nextInt();
-    System.out.print("Enter the current 'month' (1-12):");
-    int currentMonth = input.nextInt();
-    System.out.print("Enter the current 'year':");
-    int currentYear = input.nextInt();  
+        // ----------- BURÇ HESAPLAMA
 
-    //Bu kısımda da girdiği 'currentDay, currentMonth ve currentYear' kısımlarıının geçerli olup olmadığını kontrol ettim.
+        String zodiac = calculateZodiac(birthDay, birthMonth);
 
-     if (!isValidDate(currentDay, currentMonth, currentYear)) {
-            System.out.println("Invalid current date.");            
-            return;
+
+        System.out.println("Your Zodiac Sign is: " + zodiac);
+
+    }
+
+
+    public static boolean isValidDate(int day, int month, int year) {
+
+        //Girilen ayın kontrolü
+        if (month < 1 || month > 12) {
+            return false;
         }
 
-    System.out.println("Current date: " + currentDay + "/" + currentMonth + "/" + currentYear);
+        //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
+        if (day < 1) {
+            return false;
+        }
 
+        if (month == 1 && day > 31) {
+            return false;
+        }
+        if (month == 2 && day > 28) {
+        }
+        if (month == 3 && day > 31) {
+            return false;
+        }
+        if (month == 4 && day > 30) {
+            return false;
+        }
+        if (month == 5 && day > 31) {
+            return false;
+        }
+        if (month == 6 && day > 30) {
+            return false;
+        }
+        if (month == 7 && day > 31) {
+            return false;
+        }
+        if (month == 8 && day > 31) {
+            return false;
+        }
+        if (month == 9 && day > 30) {
+            return false;
+        }
+        if (month == 10 && day > 31) {
+            return false;
+        }
+        if (month == 11 && day > 30) {
+            return false;
+        }
+        if (month == 12 && day > 31) {
+            return false;
+        }
 
-    // ---------- YAŞ HESAPLAMA
-    
-   // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
-   //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
+        /*Artık yıl kontrolünü burada yapmam gerekiyor
+        ama 29 şubatta doğan kişiler genelde 28 şubat veya 1 mart
+        tarihleri arasında yazdırıldığı için eklemiyorum ama sonrasında ekleyeceğim.
+        */
 
-   int age = currentYear - birthYear;
-
-    // Kullanıcının girdiği yılda yaş gününü geçmediyse yaşını 1 azalttım.
-    // Çünkü o yılki yaşını henüz doldurmadı.
-
-   if (currentMonth < birthMonth || 
-   (currentMonth == birthMonth && currentDay < birthDay)) {
-    age--;
-}
-    //Eğer yaş negatif hesaplanıyorsa kullanıcımız şimdiki zamana kıyasla doğum tarihinden önceki bir yılı girmiştir.
-    //Girdiği tarihte henüz doğmamış olacağını gördüğüm için aşağıdaki mesajı verdim.
-
-    if (age < 0) {
-    System.out.println("Invalid birth and current date. Birth date is in the future.");
-    return;
-
-    }
-    
-        System.out.println("Your age is: " + age);
-
-    // ----------- BURÇ HESAPLAMA
-
-    String zodiac = calculateZodiac(birthDay, birthMonth);
-    
-    
-    System.out.println("Your Zodiac Sign is: " + zodiac);
-   
-    }
-
-
-     public static boolean isValidDate(int day, int month, int year) {
-
-    //Girilen ayın kontrolü
-    if (month < 1 || month > 12) {
-        return false;
-    }
-
-    //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
-    if (day < 1) {
-        return false;
-    }
-
-    if (month == 1 && day > 31) {
-        return false;
-    }
-    if (month == 2 && day > 28) { 
-    }
-    if (month == 3 && day > 31) {
-        return false;
-    }
-    if (month == 4 && day > 30) {
-        return false;
-    }
-    if (month == 5 && day > 31) {
-        return false;
-    }
-    if (month == 6 && day > 30) {
-        return false;
-    }
-    if (month == 7 && day > 31) {
-        return false;
-    }
-    if (month == 8 && day > 31) {
-        return false;
-    }
-    if (month == 9 && day > 30) {
-        return false;
-    }
-    if (month == 10 && day > 31) {
-        return false;
-    }
-    if (month == 11 && day > 30) {
-        return false;
-    }
-    if (month == 12 && day > 31) {
-        return false;
-    }
-
-    /*Artık yıl kontrolünü burada yapmam gerekiyor 
-    ama 29 şubatta doğan kişiler genelde 28 şubat veya 1 mart 
-    tarihleri arasında yazdırıldığı için eklemiyorum ama sonrasında ekleyeceğim.
-    */
-
-    return true;
+        return true;
 }
 
-        
-    
-       
-    
-    
+
+
+
+
+
     public static String calculateZodiac(int day, int month) {
         String zodiac = "";
         if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = "Aquarius";
@@ -548,10 +545,13 @@ public class Group10 {
         else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) zodiac = "Sagittarius";
         else if ((month == 12 && day >=22) || (month ==1 && day <=19)) zodiac = "Capricorn";
         else    zodiac = "Invalid";
-        
+
         return zodiac;
 
-        
+
     }
-    
+
 }
+}
+
+
