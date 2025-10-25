@@ -17,31 +17,27 @@ public class Group10 {
     }
 
     public static void universityMenu(){
-        Scanner inputSize = new Scanner(System.in);
-        Scanner inputGameMode = new Scanner(System.in);
-        Scanner inputMove = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
 
-        char[][] table = chooseTableSize(inputSize);
+        char[][] table = chooseTableSize(input);
         fillTableWithAsterisk(table);
 
-        choiceOfGameMode = chooseGameMode(inputGameMode);
+        choiceOfGameMode = chooseGameMode(input);
 
         switch (choiceOfGameMode){
             case "s":
-                playSingleplayer(table, inputMove);
+                playSingleplayer(table, input);
                 break;
             case "m":
-                playMultiplayer(table, inputMove);
+                playMultiplayer(table, input);
                 break;
         }
 
-        inputSize.close();
-        inputGameMode.close();
-        inputMove.close();
+        input.close();
     }
 
-    public static char[][] chooseTableSize(Scanner inputSize){
+    public static char[][] chooseTableSize(Scanner input){
         String choiceOfTableSize;
         char[][] table = new char[0][0];
         do{
@@ -49,7 +45,7 @@ public class Group10 {
             System.out.println("A-) 5x4");
             System.out.println("B-) 6x5");
             System.out.println("C-) 7x6");
-            choiceOfTableSize = inputSize.next();
+            choiceOfTableSize = input.next();
             if((!choiceOfTableSize.equalsIgnoreCase("a")) &&
                     !(choiceOfTableSize.equalsIgnoreCase("b")) &&
                     !(choiceOfTableSize.equalsIgnoreCase("c")))
@@ -74,11 +70,11 @@ public class Group10 {
         return table;
     }
 
-    public static String chooseGameMode(Scanner inputGameMode){
+    public static String chooseGameMode(Scanner input){
         String choiceOfGameMode;
         do{
             System.out.println("Single Player or Multiplayer (s/m)?");
-            choiceOfGameMode = inputGameMode.next();
+            choiceOfGameMode = input.next();
             if(!choiceOfGameMode.equalsIgnoreCase("s") &&
                     !choiceOfGameMode.equalsIgnoreCase("m"))
                 System.out.println("Invalid input. Please try again.");
@@ -89,7 +85,7 @@ public class Group10 {
         return choiceOfGameMode;
     }
 
-    public static void playSingleplayer(char[][] table, Scanner inputMove){
+    public static void playSingleplayer(char[][] table, Scanner input){
         char currentPlayer = '1';
         boolean gameContinues = true;
         Random random = new Random();
@@ -108,7 +104,7 @@ public class Group10 {
 
                 while (!validInput) {
                     try {
-                        choiceOfColumn = inputMove.nextByte();
+                        choiceOfColumn = input.nextByte();
                         if (choiceOfColumn == 0){
                             System.out.println("Player " + currentPlayer + ", has quit the game.");
                             return;
@@ -120,7 +116,7 @@ public class Group10 {
                         }
                     } catch (Exception a) {
                         System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
-                        inputMove.nextLine();
+                        input.nextLine();
                     }
                 }
 
@@ -153,9 +149,22 @@ public class Group10 {
             }
             currentPlayer = (currentPlayer == '1') ? '2' : '1';
         }
+        String nextAction = postGameMenu(input);
+        switch(nextAction){
+            case"r":
+                fillTableWithAsterisk(table);
+                playSingleplayer(table, input);
+                return;
+            case"m":
+                universityMenu();
+                return;
+            case "q":
+                System.out.println("Returning to Main Menu...");
+                return;
+        }
     }
 
-    public static void playMultiplayer(char[][] table, Scanner inputMove){
+    public static void playMultiplayer(char[][] table, Scanner input){
         char currentPlayer = '1';
         boolean gameContinues = true;
 
@@ -171,7 +180,7 @@ public class Group10 {
 
             while (!validInput) {
                 try {
-                    choiceOfColumn = inputMove.nextByte();
+                    choiceOfColumn = input.nextByte();
                     if (choiceOfColumn == 0){
                         System.out.println("Player " + currentPlayer + ", has quit the game.");
                         return;
@@ -183,7 +192,7 @@ public class Group10 {
                     }
                 } catch (Exception a) {
                     System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
-                    inputMove.nextLine();
+                    input.nextLine();
                 }
             }
 
@@ -200,8 +209,41 @@ public class Group10 {
                 gameContinues = false;
             }
             currentPlayer = (currentPlayer == '1') ? '2' : '1';
-
         }
+        String nextAction = postGameMenu(input);
+        switch(nextAction){
+            case"r":
+                fillTableWithAsterisk(table);
+                playMultiplayer(table, input);
+                return;
+            case"m":
+                universityMenu();
+                return;
+            case "q":
+                System.out.println("Returning to Main Menu...");
+                return;
+        }
+    }
+
+    public static String postGameMenu(Scanner input){
+        String selection;
+
+        do{
+            System.out.println();
+            System.out.println("What would you like to do?");
+            System.out.println("R-) Restart the game with the same settings.");
+            System.out.println("M-) Return to University Menu.");
+            System.out.println("Q-) Quit the University Menu.");
+            System.out.println("Please enter your choice: ");
+            selection = input.next().trim().toLowerCase();
+
+            if(!selection.equals("r") && !selection.equals("m") &&  !selection.equals("q")){
+                System.out.println("Invalid input. Please try again.");
+            }
+
+        }while(!selection.equals("r") && !selection.equals("m") &&  !selection.equals("q"));
+
+        return selection;
     }
 
     public static void clearScreen() {
