@@ -333,12 +333,57 @@ public class Group10 {
         }
     }
 
-    public static void printTable(char[][] table){
-        for (char[] chars : table) {
-            for (char aChar : chars) {
-                System.out.print(aChar + " ");
+    public static void printTable(char[][] table) {
+        int rows = table.length;
+        int cols = table[0].length;
+
+        // Top border
+        System.out.print("╔");
+        for (int c = 0; c < cols - 1; c++) {
+            System.out.print("═══╦");
+        }
+        System.out.println("═══╗");
+
+        // Draw each row
+        for (int r = 0; r < rows; r++) {
+            System.out.print("║");
+            for (int c = 0; c < cols; c++) {
+                char cell = table[r][c];
+
+                // Color setup
+                if (cell == '1') {
+                    System.out.print(" \u001B[31m" + cell + "\u001B[0m ║"); // Red for Player 1
+                } else if (cell == '2') {
+                    System.out.print(" \u001B[33m" + cell + "\u001B[0m ║"); // Yellow for Player 2
+                } else {
+                    System.out.print(" " + cell + " ║"); // Normal for empty
+                }
             }
             System.out.println();
+
+            // Middle separators between rows
+            if (r != rows - 1) {
+                System.out.print("╠");
+                for (int c = 0; c < cols - 1; c++) {
+                    System.out.print("═══╬");
+                }
+                System.out.println("═══╣");
+            }
         }
+
+        // Bottom border
+        System.out.print("╚");
+        for (int c = 0; c < cols - 1; c++) {
+            System.out.print("═══╩");
+        }
+        System.out.println("═══╝");
+
+        // Column numbers
+        System.out.print("  ");
+        for (int c = 1; c <= cols; c++) {
+            System.out.print(" " + c + "  ");
+        }
+        System.out.println();
     }
+
 }
