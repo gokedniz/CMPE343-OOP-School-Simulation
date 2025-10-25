@@ -13,6 +13,10 @@ Methods that needed to be written
 
 public class Group10 {
     public static void main(String[] args) {
+        universityMenu();
+    }
+
+    public static void universityMenu(){
         Scanner inputSize = new Scanner(System.in);
         Scanner inputGameMode = new Scanner(System.in);
         Scanner inputMove = new Scanner(System.in);
@@ -26,8 +30,8 @@ public class Group10 {
             System.out.println("C-) 7x6");
             choiceOfTableSize = inputSize.next();
             if((!choiceOfTableSize.equalsIgnoreCase("a")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("b")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("c")))
+                    !(choiceOfTableSize.equalsIgnoreCase("b")) &&
+                    !(choiceOfTableSize.equalsIgnoreCase("c")))
                 System.out.println("Invalid input. Please try again.");
         }while((!choiceOfTableSize.equalsIgnoreCase("a")) &&
                 !(choiceOfTableSize.equalsIgnoreCase("b")) &&
@@ -51,10 +55,10 @@ public class Group10 {
             System.out.println("Single Player or Multiplayer (s/y)?");
             choiceOfGameMode = inputGameMode.next();
             if(!choiceOfGameMode.equalsIgnoreCase("s") &&
-                !choiceOfGameMode.equalsIgnoreCase("y"))
+                    !choiceOfGameMode.equalsIgnoreCase("y"))
                 System.out.println("Invalid input. Please try again.");
         }while(!choiceOfGameMode.equalsIgnoreCase("s") &&
-               !choiceOfGameMode.equalsIgnoreCase("y"));
+                !choiceOfGameMode.equalsIgnoreCase("y"));
 
         choiceOfGameMode = choiceOfGameMode.trim().toLowerCase();
 
@@ -108,10 +112,12 @@ public class Group10 {
                 gameContinues = false;
             }
             currentPlayer = (currentPlayer == '1') ? '2' : '1';
+
         }
-
+        inputSize.close();
+        inputGameMode.close();
+        inputMove.close();
     }
-
     public static boolean isColumnValid(char[][] table, byte colNum){
         if(colNum <= 0 || colNum > table[0].length)
             return false;
