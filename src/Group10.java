@@ -16,7 +16,10 @@ public class Group10 {
         universityMenu();
     }
 
-    //Kerem scanner
+    // C: High School Menu Scanner (Taha's scanner) 
+    static Scanner sc = new Scanner(System.in);
+
+    // Kerem's scanner
     static Scanner scanner = new Scanner(System.in);
 
     public static void universityMenu(){
@@ -732,12 +735,270 @@ public class Group10 {
         sieveOfAtkin(intNum);
     }
     
-
     public static void evaluation() {
         System.out.println("=== MATH MENU ===");
     }
 
+    // Taha's methods
+
+    public static void HighSchoolMenu(){
+        while (true) {
+            // Menu
+            System.out.println("=== C: High School Menu ===");
+            System.out.println("1) Statistical Information about an Array");
+            System.out.println("2) Distance between Two Arrays");
+            System.out.println("3) Return to Main Menu");
+            System.out.print("Please choose your operation (1-3): ");
+
+            int choice = readIntInRange(1, 3);
+            switch (choice) {
+                case 1:
+                    statisticalInformation();
+                    promptEnterToContinue();
+                    break;
+                case 2:
+                    distanceBetweenTwoArrays();
+                    promptEnterToContinue();
+                    break;
+                case 3:
+                    System.out.println("Returnin to previous menu...");
+                    return;
+                default:
+                    // unreachable due to readIntInRange
+                    break;
+            }
+        }        
+    }
+
+    // Menu selection 1
+     private static void statisticalInformation() {
+        System.out.println("--- Statistical Information about an Array ---");
+        int n;
+        while (true) {
+            System.out.print("Enter the length of your array: ");
+            n = readPositiveInt();
+            if (n <= 0) {
+                System.out.println("Length must be positive integer. Please try again: ");
+            } 
+            else {
+                break;
+            }
+        }
+        // Populating the array
+        double[] arr = new double[n];
+        System.out.println("Enter the members of your array:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
+        }
+
+        Arrays.sort(arr); // Sorting for the median
+
+        // Calculations
+        double median = computeMedian(arr);
+        double arithmeticMean = computeArithmeticMean(arr);
+        Double geometricMean = computeGeometricMean(arr); 
+        Double harmonicMean = computeHarmonicMeanRecursive(arr); 
+        // Printing the calculations
+        System.out.println("\n--- Results ---");
+        System.out.printf("Sorted array: %s%n", Arrays.toString(arr));
+        System.out.printf("Median: %s%n", formatDoubleOrMsg(median, ""));
+        System.out.printf("Arithmetic Mean: %s%n", formatDoubleOrMsg(arithmeticMean, ""));
+        if (geometricMean == null) {
+            System.out.println("Geometric Mean: Undefined (One of the members in this array is <= 0)");
+        } else {
+            System.out.printf("Geometric Mean: %s%n", formatDoubleOrMsg(geometricMean, ""));
+        }
+        if (harmonicMean == null) {
+            System.out.println("Harmonic Mean: Undefined (One of the members in this array is <= 0)");
+        } else {
+            System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
+        }
+    }
+
+    // Menu selection 2
+    private static void distanceBetweenTwoArrays() {
+        System.out.println("--- Distance between Two Arrays ---");
+        int dim;
+        while (true) {
+            System.out.print("Enter the length of your array: ");
+            dim = readPositiveInt();
+            if (dim <= 0) {
+                System.out.println("Legnth must be positive integer. Please try again.");
+            } else {
+                break;
+            }
+        }
+
+        System.out.println("Enter memmbers of the first array (Must be 0-9 integer):");
+        int[] a = new int[dim];
+        for (int i = 0; i < dim; i++) {
+            a[i] = readIntInRangeWithPrompt(0, 9, "a[" + i + "]: ");
+        }
+
+        System.out.println("Enter memmbers of the second array (Must be 0-9 integer):");
+        int[] b = new int[dim];
+        for (int i = 0; i < dim; i++) {
+            b[i] = readIntInRangeWithPrompt(0, 9, "b[" + i + "]: ");
+        }
+        // Calculations
+        double manhattan = computeManhattan(a, b);
+        double euclidean = computeEuclidean(a, b);
+        Double cosine = computeCosineSimilarity(a, b);
+        // Printing the Results
+        System.out.println("\n--- Results ---");
+        System.out.printf("First Array: %s%n", Arrays.toString(a));
+        System.out.printf("Second Array: %s%n", Arrays.toString(b));
+        System.out.printf("Manhattan Distance: %s%n", formatDoubleOrMsg(manhattan, ""));
+        System.out.printf("Euclidean Distance: %s%n", formatDoubleOrMsg(euclidean, ""));
+        if (cosine == null) {
+            System.out.println("Cosine Similarity: Undefined (The array has a norm of 0).");
+        } else {
+            System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
+        }
+    }
+
+    /* -------------------- Calculation Methods -------------------- */
+    private static double computeMedian(double[] sortedArr) {
+        int n = sortedArr.length;
+        if (n % 2 == 1) {
+            return sortedArr[n / 2];
+        } else {
+            // even: average of two middle elements
+            return (sortedArr[n / 2 - 1] + sortedArr[n / 2]) / 2.0;
+        }
+    }
+
+    private static double computeArithmeticMean(double[] arr) {
+        double sum = 0.0;
+        for (double v : arr) sum += v;
+        return sum / arr.length;
+    }
+
+    private static Double computeGeometricMean(double[] arr) {
+        for (double v : arr) {
+            if (v <= 0.0) return null;
+        }
+        double logSum = 0.0;
+        for (double v : arr) {
+            logSum += Math.log(v);
+        }
+        return Math.exp(logSum / arr.length);
+    }
+
+    private static Double computeHarmonicMeanRecursive(double[] arr) {
+        for (double v : arr) {
+            if (v == 0.0) return null;
+        }
+        double reciprocalSum = sumReciprocalRecursive(arr, 0);
+        return arr.length / reciprocalSum;
+    }
+    // Recursive Methods
+    private static double sumReciprocalRecursive(double[] arr, int idx) {
+        if (idx >= arr.length) return 0.0;
+        return (1.0 / arr[idx]) + sumReciprocalRecursive(arr, idx + 1);
+    }
+
+    private static double computeManhattan(int[] a, int[] b) {
+        double sum = 0.0;
+        for (int i = 0; i < a.length; i++) {
+            sum += Math.abs(a[i] - b[i]);
+        }
+        return sum;
+    }
+
+    private static double computeEuclidean(int[] a, int[] b) {
+        double sumsq = 0.0;
+        for (int i = 0; i < a.length; i++) {
+            double d = a[i] - b[i];
+            sumsq += d * d;
+        }
+        return Math.sqrt(sumsq);
+    }
+
+    private static Double computeCosineSimilarity(int[] a, int[] b) {
+        double dot = 0.0;
+        double na = 0.0;
+        double nb = 0.0;
+        for (int i = 0; i < a.length; i++) {
+            dot += a[i] * b[i];
+            na += a[i] * a[i];
+            nb += b[i] * b[i];
+        }
+        double normA = Math.sqrt(na);
+        double normB = Math.sqrt(nb);
+        if (normA == 0.0 || normB == 0.0) return null;
+        return dot / (normA * normB);
+    }
+
+    // Input and output validation
+
+    private static int readIntInRange(int min, int max) {
+        while (true) {
+            try {
+                int val = Integer.parseInt(sc.nextLine().trim());
+                if (val < min || val > max) {
+                    System.out.printf("Please enter an integer between %d and %d.", min, max);
+                    continue;
+                }
+                return val;
+            } catch (NumberFormatException ex) {
+                System.out.print("Invalid input, please try again: ");
+            }
+        }
+    }
+
+    private static int readIntInRangeWithPrompt(int min, int max, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                String line = sc.nextLine().trim();
+                int val = Integer.parseInt(line);
+                if (val < min || val > max) {
+                    System.out.printf("Invalid input. Please enter an integer between %d and %d.%n", min, max);
+                    continue;
+                }
+                return val;
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input, please try again: ");
+            }
+        }
+    }
+
+    private static int readPositiveInt() {
+        while (true) {
+            try {
+                String line = sc.nextLine().trim();
+                int v = Integer.parseInt(line);
+                if (v <= 0) {
+                    System.out.print("Enter an positive integer: ");
+                    continue;
+                }
+                return v;
+            } catch (NumberFormatException ex) {
+                System.out.print("Invalid input, please try again: ");
+            }
+        }
+    }
+
+    private static double readDoubleWithPrompt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                String line = sc.nextLine().trim().replace(',', '.'); // Replace comma with a dot
+                return Double.parseDouble(line);
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input, please try again: ");
+            }
+        }
+    }
+
+    private static String formatDoubleOrMsg(double d, String unused) {
+        return String.format("%.6f", d);
+    }
+
+    private static void promptEnterToContinue() {
+        System.out.println("\nPress Enter to continue...");
+        sc.nextLine();
+    }
+
 }
-
-
-
