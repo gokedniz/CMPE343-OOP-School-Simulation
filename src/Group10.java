@@ -16,6 +16,9 @@ public class Group10 {
         universityMenu();
     }
 
+    //Kerem scanner
+    static Scanner scanner = new Scanner(System.in);
+
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
@@ -549,6 +552,189 @@ public class Group10 {
         return zodiac;
 
 
+    }
+
+    //KEREM IRFANOGLU 
+    //Checking the input is integer or not:
+    public static boolean isInt(String input) {
+        try {
+            //use Integer.parseInt(input);
+            Integer.valueOf(input);
+            return true;
+        } 
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    //Checking the input is between 1-3:
+    public static boolean isValidMenu(String input) {
+        try {
+            int number = Integer.parseInt(input);
+            return number >= 1 && number <= 3;
+        } 
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static void mainMenu(){
+
+        System.out.println("");
+        System.out.println("[1] Prime Numbers");
+        System.out.println("[2] Step-by-step Evaluation of Expression");
+        System.out.println("[3] Return to Main Menu\n");
+
+        while (true) {
+            System.out.print("Enter your choice (1-3): "); 
+            String input = scanner.nextLine();
+
+            //If the input is integer or not?
+            if (!isInt(input)) {
+                System.out.println("\nInvalid input! ");
+                continue;
+            }
+
+            //If the input is between 1-3?
+            if(!isValidMenu(input)){
+                System.out.println("\nInvalid input! ");
+                continue;
+            }
+            
+            //string to integer
+            int choice = Integer.parseInt(input);
+
+            //Sending to choosen choice
+            switch (choice) {
+                case 1 -> primeNumbers();
+                case 2 -> evaluation();
+                case 3 -> System.out.println("Returning to main menu...");
+            }
+            break; 
+
+        }
+
+    }
+
+    public static void sieveOfEratosthenes(int intNum) {
+        
+        System.out.println("\nSieve of Eratosthenes:");
+
+        boolean[] isPrime = new boolean[intNum+1];
+
+        //Assuming all integers are prime (true)
+        for (int i = 2; i <= intNum; i++) {
+            isPrime[i] = true;
+        }
+
+        //start time
+        long startTime = System.nanoTime();
+
+        //If i is not prime, make it false
+        for (int i = 2; i * i <= intNum; i++) {
+            if (isPrime[i]) {
+                
+                for (int j = i * i; j <= intNum; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        //end time
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
+
+        for (int i = 2; i <= intNum; i++) {
+            if (isPrime[i]) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println("\nExecution time: " + executionTime + " ms");
+    }
+    
+    public static void sieveOfSundaram(int intNum){
+        
+        System.out.println("\nSieve of Sundaram:");
+
+        int nNew = (intNum - 1)/2;
+        boolean[] marked = new boolean[nNew +1];
+
+        //start time
+        long startTime = System.nanoTime();
+
+        for (int i = 1; i <= nNew; i++){
+            for (int j = i; i+j+2*i*j <= nNew; j++){
+                marked[i+j+2*i*j] = true;
+            }
+        }
+
+        //end time
+        long endTime = System.nanoTime();
+        long executionTime = (endTime - startTime);
+
+        //printing "2" separately because 2 is even and not included to the algorithm.
+        if(intNum > 2){
+            System.out.print("2 ");
+        }
+        //printing all the false values
+        for (int i = 1; i <= nNew; i++){
+            if(marked[i] == false){
+                System.out.print(2*i+1 + " ");
+            }
+        }
+        System.out.println("\nExecution time: " + executionTime + " ms");
+    }
+
+    public static void sieveOfAtkin(int intNum){
+
+        System.out.println("\nSieve of Atkin:");
+
+        boolean[] prime = new boolean[intNum + 1];
+        
+        int sqrt = (int) Math.sqrt(intNum);
+
+        for(int i = 1; i <= sqrt; i++){
+            for(int j=1; j<= sqrt; j++){
+                
+            }
+        }
+
+    }
+    
+    public static void primeNumbers() {
+
+        int intNum;
+
+        while (true) {
+            System.out.print("Please enter an integer (n >= 12): ");
+            String num = scanner.nextLine().trim();
+    
+            if (!isInt(num)) {
+                System.out.println("");
+                System.out.println("Invalid input! ");
+                continue;
+            }
+    
+            intNum = Integer.parseInt(num);
+
+            if (intNum < 12) {
+                System.out.println("");
+                System.out.println("Invalid input! ");
+                continue;
+            }
+            break;
+        }
+
+        sieveOfEratosthenes(intNum);
+        System.out.println("");
+        sieveOfSundaram(intNum);
+        System.out.println("");
+        sieveOfAtkin(intNum);
+    }
+    
+
+    public static void evaluation() {
+        System.out.println("=== MATH MENU ===");
     }
 
 }
