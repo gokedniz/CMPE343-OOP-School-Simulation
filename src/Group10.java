@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.util.Random;
 /*
 Methods that needed to be written
 1. if the chosen column is valid. OK
@@ -20,8 +20,29 @@ public class Group10 {
         Scanner inputSize = new Scanner(System.in);
         Scanner inputGameMode = new Scanner(System.in);
         Scanner inputMove = new Scanner(System.in);
-        String choiceOfTableSize;
         String choiceOfGameMode;
+
+        char[][] table = chooseTableSize(inputSize);
+        fillTableWithAsterisk(table);
+
+        choiceOfGameMode = chooseGameMode(inputGameMode);
+
+        switch (choiceOfGameMode){
+            case "s":
+                playSingleplayer(table, inputMove);
+                break;
+            case "m":
+                playMultiplayer(table, inputMove);
+                break;
+        }
+
+        inputSize.close();
+        inputGameMode.close();
+        inputMove.close();
+    }
+
+    public static char[][] chooseTableSize(Scanner inputSize){
+        String choiceOfTableSize;
         char[][] table = new char[0][0];
         do{
             System.out.println("Please select your choice of table size:");
@@ -50,37 +71,100 @@ public class Group10 {
                 table = new char[6][7];
                 break;
         }
+        return table;
+    }
 
+    public static String chooseGameMode(Scanner inputGameMode){
+        String choiceOfGameMode;
         do{
-            System.out.println("Single Player or Multiplayer (s/y)?");
+            System.out.println("Single Player or Multiplayer (s/m)?");
             choiceOfGameMode = inputGameMode.next();
             if(!choiceOfGameMode.equalsIgnoreCase("s") &&
-                    !choiceOfGameMode.equalsIgnoreCase("y"))
+                    !choiceOfGameMode.equalsIgnoreCase("m"))
                 System.out.println("Invalid input. Please try again.");
         }while(!choiceOfGameMode.equalsIgnoreCase("s") &&
-                !choiceOfGameMode.equalsIgnoreCase("y"));
+                !choiceOfGameMode.equalsIgnoreCase("m"));
 
         choiceOfGameMode = choiceOfGameMode.trim().toLowerCase();
+        return choiceOfGameMode;
+    }
 
-        /* NOW WE ARE JUST PLAYING THIS WITH THE MULTIPLAYER
-        switch (choiceOfGameMode){
-            case "s":
-                // start the single player mode
-                break;
-            case "m":
-                // start the multiplayer mode
-                break;
+    public static void playSingleplayer(char[][] table, Scanner inputMove){
+        char currentPlayer = '1';
+        boolean gameContinues = true;
+        Random random = new Random();
+
+        while(gameContinues){
+            clearScreen();
+            printTable(table);
+
+            if(currentPlayer == '1'){
+                System.out.println("Player number " + currentPlayer + ", please make your move.");
+                System.out.println("Please enter a valid column number between 1 - " + table[0].length + ": ");
+                System.out.println("Enter '0' if you want to quit the game.");
+
+                byte choiceOfColumn = -1;
+                boolean validInput = false;
+
+                while (!validInput) {
+                    try {
+                        choiceOfColumn = inputMove.nextByte();
+                        if (choiceOfColumn == 0){
+                            System.out.println("Player " + currentPlayer + ", has quit the game.");
+                            return;
+                        }
+                        if (!isColumnValid(table, choiceOfColumn)) {
+                            System.out.println("Invalid move. Please try again.");
+                        } else {
+                            validInput = true;
+                        }
+                    } catch (Exception a) {
+                        System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
+                        inputMove.nextLine();
+                    }
+                }
+
+                dropDisc(table, choiceOfColumn, currentPlayer);
+            }
+            else{
+                byte computersMove;
+                do {
+                    computersMove = (byte) (random.nextInt(table[0].length) + 1);
+                } while (!isColumnValid(table, computersMove));
+                System.out.println("Computer chooses column " + computersMove + ".");
+                dropDisc(table, computersMove, currentPlayer);
+            }
+
+
+            if(determineWinner(table, currentPlayer)){
+                printTable(table);
+                if(currentPlayer == '1'){
+                    System.out.println("Congratulations! You won the game!");
+                }
+                else{
+                    System.out.println("The computer wins!");
+                }
+                gameContinues = false;
+            }
+            else if (isTableFull(table)){
+                printTable(table);
+                System.out.println("It's a draw!");
+                gameContinues = false;
+            }
+            currentPlayer = (currentPlayer == '1') ? '2' : '1';
         }
-         */
-        fillTableWithAsterisk(table);
+    }
 
+    public static void playMultiplayer(char[][] table, Scanner inputMove){
         char currentPlayer = '1';
         boolean gameContinues = true;
 
         while(gameContinues){
+            clearScreen();
             printTable(table);
-            System.out.println("Player number " + currentPlayer + "please make your move.");
+            System.out.println("Player number " + currentPlayer + ", please make your move.");
             System.out.println("Please enter a valid column number between 1 - " + table[0].length + ": ");
+            System.out.println("Enter '0' if you want to quit the game.");
 
             byte choiceOfColumn = -1;
             boolean validInput = false;
@@ -88,6 +172,10 @@ public class Group10 {
             while (!validInput) {
                 try {
                     choiceOfColumn = inputMove.nextByte();
+                    if (choiceOfColumn == 0){
+                        System.out.println("Player " + currentPlayer + ", has quit the game.");
+                        return;
+                    }
                     if (!isColumnValid(table, choiceOfColumn)) {
                         System.out.println("Invalid move. Please try again.");
                     } else {
@@ -114,10 +202,14 @@ public class Group10 {
             currentPlayer = (currentPlayer == '1') ? '2' : '1';
 
         }
-        inputSize.close();
-        inputGameMode.close();
-        inputMove.close();
     }
+
+    public static void clearScreen() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
     public static boolean isColumnValid(char[][] table, byte colNum){
         if(colNum <= 0 || colNum > table[0].length)
             return false;
@@ -146,8 +238,6 @@ public class Group10 {
                 return;
             }
         }
-        System.out.println("You can not drop the disc there.");
-        System.out.println("Try again.");
     }
 
     public static boolean determineWinner(char[][] table, char player) {
@@ -206,7 +296,7 @@ public class Group10 {
             for (char aChar : chars) {
                 System.out.print(aChar + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
