@@ -24,12 +24,17 @@ public class Group10 {
             System.out.println("║     Press Choose an option and start !     ║");
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.println(COLOR_RESET);
-
-            System.out.println("[A] Primary School");
-            System.out.println("[B] Secondary School");
-            System.out.println("[C] High School");
-            System.out.println("[D] University");
-            System.out.println("[E] Exit");
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║     [A] Primary School                     ║");
+            System.out.println("║════════════════════════════════════════════║");
+            System.out.println("║     [B] Secondary School                   ║");
+            System.out.println("║════════════════════════════════════════════║");
+            System.out.println("║     [C] High School                        ║");
+            System.out.println("║════════════════════════════════════════════║");
+            System.out.println("║     [D] University                         ║");
+            System.out.println("║════════════════════════════════════════════║");
+            System.out.println("║     [E] Exit                               ║");
+            System.out.println("╚════════════════════════════════════════════╝");
             String menuChoice = inputGame.next().trim().toLowerCase();
 
             switch (menuChoice) {
@@ -91,18 +96,24 @@ public class Group10 {
                 "| |  | | ___| | ___ ___  _ __ ___   ___   | |_ ___    \\ `--.  ___| |__   ___   ___ | |  \\ `--. _ _ __ ___  _   _| | __ _| |_ ___  _ __ \n" +
                 "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\  | __/ _ \\    `--. \\/ __| '_ \\ / _ \\ / _ \\| |   `--. \\ | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__|\n" +
                 "\\  /\\  /  __/ | (_| (_) | | | | | |  __/  | || (_) |  /\\__/ / (__| | | | (_) | (_) | |  /\\__/ / | | | | | | |_| | | (_| | || (_) | |   \n" +
-                " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|   \\__\\___/   \\____/ \\___|_| |_|\\___/ \\___/|_|  \\____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|   \n" +
-                "                                                                                                                                       \n" +
-                "                                                                                                                                       \n" + COLOR_RESET);
+                " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|   \\__\\___/   \\____/ \\___|_| |_|\\___/ \\___/|_|  \\____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|   \n"+
+                COLOR_RESET);
     }
 
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
 
-        System.out.println("=== D: University Menu ===");
+        System.out.println(COLOR_RED);
+        System.out.println("╔════════════════════════════════════════════╗");
+        System.out.println("║         === D: University Menu ===         " + COLOR_YELLOW + "║");
+        System.out.println("╚════════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
 
         char[][] table = chooseTableSize(input);
+        if (table == null) {
+            return;
+        }
         fillTableWithAsterisk(table);
 
         choiceOfGameMode = chooseGameMode(input);
@@ -121,18 +132,32 @@ public class Group10 {
         String choiceOfTableSize;
         char[][] table = new char[0][0];
         do{
-            System.out.println("Please select your choice of table size:");
-            System.out.println("A-) 5x4");
-            System.out.println("B-) 6x5");
-            System.out.println("C-) 7x6");
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║  Please select your choice of table size:  ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println();
+            System.out.println("╔══════════════════════════════════╗");
+            System.out.println("║     A-) 5x4                      ║");
+            System.out.println("╚══════════════════════════════════╝");
+            System.out.println("╔══════════════════════════════════╗");
+            System.out.println("║     B-) 6x5                      ║");
+            System.out.println("╚══════════════════════════════════╝");
+            System.out.println("╔══════════════════════════════════╗");
+            System.out.println("║     C-) 7x6                      ║");
+            System.out.println("╚══════════════════════════════════╝");
+            System.out.println("╔══════════════════════════════════╗");
+            System.out.println("║     E-) Return to main menu.     ║");
+            System.out.println("╚══════════════════════════════════╝");
             choiceOfTableSize = input.next();
             if((!choiceOfTableSize.equalsIgnoreCase("a")) &&
                     !(choiceOfTableSize.equalsIgnoreCase("b")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("c")))
+                    !(choiceOfTableSize.equalsIgnoreCase("c")) &&
+                    !(choiceOfTableSize.equalsIgnoreCase("e")))
                 System.out.println("Invalid input. Please try again.");
         }while((!choiceOfTableSize.equalsIgnoreCase("a")) &&
                 !(choiceOfTableSize.equalsIgnoreCase("b")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("c")));
+                !(choiceOfTableSize.equalsIgnoreCase("c")) &&
+                !(choiceOfTableSize.equalsIgnoreCase("e")));
 
         choiceOfTableSize = choiceOfTableSize.trim().toLowerCase();
 
@@ -146,6 +171,9 @@ public class Group10 {
             case "c":
                 table = new char[6][7];
                 break;
+            case "e":
+                System.out.println("Returning to main menu...");
+                return null;
         }
         return table;
     }
@@ -153,11 +181,13 @@ public class Group10 {
     public static String chooseGameMode(Scanner input){
         String choiceOfGameMode;
         do{
-            System.out.println("Single Player or Multiplayer (s/m)?");
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║    Single Player or Multiplayer (s/m)?     ║");
+            System.out.println("╚════════════════════════════════════════════╝");
             choiceOfGameMode = input.next();
             if(!choiceOfGameMode.equalsIgnoreCase("s") &&
                     !choiceOfGameMode.equalsIgnoreCase("m"))
-                System.out.println("Invalid input. Please try again.");
+                System.out.println("===Invalid input. Please try again.===");
         }while(!choiceOfGameMode.equalsIgnoreCase("s") &&
                 !choiceOfGameMode.equalsIgnoreCase("m"));
 
@@ -329,7 +359,7 @@ public class Group10 {
             System.out.println("What would you like to do?");
             System.out.println("R-) Restart the game with the same settings.");
             System.out.println("M-) Return to University Menu.");
-            System.out.println("Q-) Quit the University Menu.");
+            System.out.println("Q-) Quit and return to main menu.");
             System.out.println("Please enter your choice: ");
             selection = input.next().trim().toLowerCase();
 
