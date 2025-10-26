@@ -13,7 +13,60 @@ Methods that needed to be written
 
 public class Group10 {
     public static void main(String[] args) {
-        universityMenu();
+        Scanner inputGame = new Scanner(System.in);
+        boolean menuContinues = true;
+
+        while (menuContinues) {
+            clearScreen();
+            displayWelcomeMessage();
+            System.out.println(COLOR_YELLOW); // Magenta
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║     Press Choose an option and start !     ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+
+            System.out.println("[A] Primary School");
+            System.out.println("[B] Secondary School");
+            System.out.println("[C] High School");
+            System.out.println("[D] University");
+            System.out.println("[E] Exit");
+            String menuChoice = inputGame.next().trim().toLowerCase();
+
+            switch (menuChoice) {
+                case "a":
+                    clearScreen();
+                    System.out.println("=== A: Primary School Menu ===");
+                    break;
+
+                case "b":
+                    clearScreen();
+                    System.out.println("=== B: Secondary School Menu ===");
+                    break;
+
+                case "c":
+                    clearScreen();
+                    HighSchoolMenu();
+                    break;
+
+                case "d":
+                    clearScreen();
+                    universityMenu();
+                    break;
+
+                case "e":
+                    System.out.println("Exiting program... Goodbye!");
+                    menuContinues = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid input! Please press any key to try again.");
+                    // Clean leftover '\n' from buffer
+                    inputGame.nextLine();
+                    // Wait for user to press Enter
+                    inputGame.nextLine();
+                    break;
+            }
+        }
     }
 
     // C: High School Menu Scanner (Taha's scanner) 
@@ -22,9 +75,32 @@ public class Group10 {
     // Kerem's scanner
     static Scanner scanner = new Scanner(System.in);
 
+    // Gokdeniz's methods
+
+    public static final String COLOR_RESET = "\u001B[0m";
+    public static final String COLOR_RED   = "\u001B[31m";
+    public static final String COLOR_GREEN = "\u001B[32m";
+    public static final String COLOR_YELLOW= "\u001B[33m";
+    public static final String COLOR_BLUE  = "\u001B[34m";
+// … and so on
+
+
+    public static void displayWelcomeMessage() {
+        System.out.println(COLOR_RED + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
+                "| |  | |    | |                           | |         /  ___|    | |               | |  /  ___(_)               | |     | |            \n" +
+                "| |  | | ___| | ___ ___  _ __ ___   ___   | |_ ___    \\ `--.  ___| |__   ___   ___ | |  \\ `--. _ _ __ ___  _   _| | __ _| |_ ___  _ __ \n" +
+                "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\  | __/ _ \\    `--. \\/ __| '_ \\ / _ \\ / _ \\| |   `--. \\ | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__|\n" +
+                "\\  /\\  /  __/ | (_| (_) | | | | | |  __/  | || (_) |  /\\__/ / (__| | | | (_) | (_) | |  /\\__/ / | | | | | | |_| | | (_| | || (_) | |   \n" +
+                " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|   \\__\\___/   \\____/ \\___|_| |_|\\___/ \\___/|_|  \\____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|   \n" +
+                "                                                                                                                                       \n" +
+                "                                                                                                                                       \n" + COLOR_RESET);
+    }
+
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
+
+        System.out.println("=== D: University Menu ===");
 
         char[][] table = chooseTableSize(input);
         fillTableWithAsterisk(table);
@@ -39,8 +115,6 @@ public class Group10 {
                 playMultiplayer(table, input);
                 break;
         }
-
-        input.close();
     }
 
     public static char[][] chooseTableSize(Scanner input){
@@ -112,16 +186,22 @@ public class Group10 {
                     try {
                         choiceOfColumn = input.nextByte();
                         if (choiceOfColumn == 0){
+                            clearScreen();
                             System.out.println("Player " + currentPlayer + ", has quit the game.");
+                            universityMenu();
                             return;
                         }
                         if (!isColumnValid(table, choiceOfColumn)) {
-                            System.out.println("Invalid move. Please try again.");
+                            clearScreen();
+                            printTable(table);
+                            System.out.println("The column you entered is not valid. Please enter a number between 1 and " + table[0].length + ".");
+                            System.out.println("Enter '0' if you want to quit the game.");
                         } else {
                             validInput = true;
                         }
                     } catch (Exception a) {
                         System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
+                        System.out.println("Enter '0' if you want to quit the game.");
                         input.nextLine();
                     }
                 }
@@ -139,6 +219,7 @@ public class Group10 {
 
 
             if(determineWinner(table, currentPlayer)){
+                clearScreen();
                 printTable(table);
                 if(currentPlayer == '1'){
                     System.out.println("Congratulations! You won the game!");
@@ -162,6 +243,7 @@ public class Group10 {
                 playSingleplayer(table, input);
                 return;
             case"m":
+                clearScreen();
                 universityMenu();
                 return;
             case "q":
@@ -188,16 +270,22 @@ public class Group10 {
                 try {
                     choiceOfColumn = input.nextByte();
                     if (choiceOfColumn == 0){
+                        clearScreen();
                         System.out.println("Player " + currentPlayer + ", has quit the game.");
+                        universityMenu();
                         return;
                     }
                     if (!isColumnValid(table, choiceOfColumn)) {
-                        System.out.println("Invalid move. Please try again.");
+                        clearScreen();
+                        printTable(table);
+                        System.out.println("The column you entered is not valid. Please enter a number between 1 and " + table[0].length + ".");
+                        System.out.println("Enter '0' if you want to quit the game.");
                     } else {
                         validInput = true;
                     }
                 } catch (Exception a) {
                     System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
+                    System.out.println("Enter '0' if you want to quit the game.");
                     input.nextLine();
                 }
             }
@@ -205,6 +293,7 @@ public class Group10 {
             dropDisc(table, choiceOfColumn, currentPlayer);
 
             if(determineWinner(table, currentPlayer)){
+                clearScreen();
                 printTable(table);
                 System.out.println("Player " + currentPlayer + " has won the game.");
                 gameContinues = false;
@@ -223,6 +312,7 @@ public class Group10 {
                 playMultiplayer(table, input);
                 return;
             case"m":
+                clearScreen();
                 universityMenu();
                 return;
             case "q":
@@ -244,6 +334,7 @@ public class Group10 {
             selection = input.next().trim().toLowerCase();
 
             if(!selection.equals("r") && !selection.equals("m") &&  !selection.equals("q")){
+                clearScreen();
                 System.out.println("Invalid input. Please try again.");
             }
 
@@ -392,8 +483,8 @@ public class Group10 {
         System.out.println();
     }
 
-////GÜLFEM
- //* Option A: Zodiac and Sign kısmı
+    ////GÜLFEM
+    //* Option A: Zodiac and Sign kısmı
 
     /* Öncelikle kullanıcıdan doğum gününün tarihini ve saatini almam gerekiyor,
     ardından bu bilgilere göre yaş ve burç hesaplaması yapacağım.
