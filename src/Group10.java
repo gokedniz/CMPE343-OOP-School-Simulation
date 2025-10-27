@@ -1431,10 +1431,11 @@ public class Group10 {
         return Long.parseLong(tk);
     }
 
-    // Taha's methods
+    // -------------  Taha's methods ----------------
 
     public static void HighSchoolMenu(){
         while (true) {
+            clearScreen();
             // Menu
             System.out.println("=== C: High School Menu ===");
             System.out.println("1) Statistical Information about an Array");
@@ -1445,10 +1446,12 @@ public class Group10 {
             int choice = readIntInRange(1, 3);
             switch (choice) {
                 case 1:
+                    clearScreen();
                     statisticalInformation();
                     promptEnterToContinue();
                     break;
                 case 2:
+                    clearScreen();
                     distanceBetweenTwoArrays();
                     promptEnterToContinue();
                     break;
@@ -1470,7 +1473,7 @@ public class Group10 {
             System.out.print("Enter the length of your array: ");
             n = readPositiveInt();
             if (n <= 0) {
-                System.out.println("Length must be positive integer. Please try again: ");
+                System.out.println("Length must be a positive integer. Please try again: ");
             } 
             else {
                 break;
@@ -1497,12 +1500,14 @@ public class Group10 {
         System.out.printf("Arithmetic Mean: %s%n", formatDoubleOrMsg(arithmeticMean, ""));
         if (geometricMean == null) {
             System.out.println("Geometric Mean: Undefined (One of the members in this array is <= 0)");
-        } else {
+        } 
+        else {
             System.out.printf("Geometric Mean: %s%n", formatDoubleOrMsg(geometricMean, ""));
         }
         if (harmonicMean == null) {
             System.out.println("Harmonic Mean: Undefined (One of the members in this array is <= 0)");
-        } else {
+        } 
+        else {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
     }
@@ -1516,7 +1521,8 @@ public class Group10 {
             dim = readPositiveInt();
             if (dim <= 0) {
                 System.out.println("Legnth must be positive integer. Please try again.");
-            } else {
+            } 
+            else {
                 break;
             }
         }
@@ -1544,17 +1550,19 @@ public class Group10 {
         System.out.printf("Euclidean Distance: %s%n", formatDoubleOrMsg(euclidean, ""));
         if (cosine == null) {
             System.out.println("Cosine Similarity: Undefined (The array has a norm of 0).");
-        } else {
+        } 
+        else {
             System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
         }
     }
 
-    /* -------------------- Calculation Methods -------------------- */
+    // Calculation Methods
     private static double computeMedian(double[] sortedArr) {
         int n = sortedArr.length;
         if (n % 2 == 1) {
             return sortedArr[n / 2];
-        } else {
+        } 
+        else {
             // even: average of two middle elements
             return (sortedArr[n / 2 - 1] + sortedArr[n / 2]) / 2.0;
         }
@@ -1568,7 +1576,9 @@ public class Group10 {
 
     private static Double computeGeometricMean(double[] arr) {
         for (double v : arr) {
-            if (v <= 0.0) return null;
+            if (v <= 0.0){
+                return null;
+            }
         }
         double logSum = 0.0;
         for (double v : arr) {
@@ -1579,14 +1589,18 @@ public class Group10 {
 
     private static Double computeHarmonicMeanRecursive(double[] arr) {
         for (double v : arr) {
-            if (v == 0.0) return null;
+            if (v == 0.0){
+                return null;
+            }
         }
         double reciprocalSum = sumReciprocalRecursive(arr, 0);
         return arr.length / reciprocalSum;
     }
     // Recursive Methods
     private static double sumReciprocalRecursive(double[] arr, int idx) {
-        if (idx >= arr.length) return 0.0;
+        if (idx >= arr.length){
+            return 0.0;
+        }
         return (1.0 / arr[idx]) + sumReciprocalRecursive(arr, idx + 1);
     }
 
@@ -1618,22 +1632,24 @@ public class Group10 {
         }
         double normA = Math.sqrt(na);
         double normB = Math.sqrt(nb);
-        if (normA == 0.0 || normB == 0.0) return null;
+        if (normA == 0.0 || normB == 0.0){
+            return null;
+        }
         return dot / (normA * normB);
     }
 
     // Input and output validation
-
     private static int readIntInRange(int min, int max) {
         while (true) {
             try {
                 int val = Integer.parseInt(sc.nextLine().trim());
                 if (val < min || val > max) {
-                    System.out.printf("Please enter an integer between %d and %d.", min, max);
+                    System.out.printf("Input out of range. Please enter an integer between %d and %d.", min, max);
                     continue;
                 }
                 return val;
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 System.out.print("Invalid input, please try again: ");
             }
         }
@@ -1650,8 +1666,9 @@ public class Group10 {
                     continue;
                 }
                 return val;
-            } catch (NumberFormatException ex) {
-                System.out.println("Invalid input, please try again: ");
+            } 
+            catch (NumberFormatException ex) {
+                System.out.println("Invalid input please try again: ");
             }
         }
     }
@@ -1662,12 +1679,13 @@ public class Group10 {
                 String line = sc.nextLine().trim();
                 int v = Integer.parseInt(line);
                 if (v <= 0) {
-                    System.out.print("Enter an positive integer: ");
+                    System.out.print("Enter a positive integer: ");
                     continue;
                 }
                 return v;
-            } catch (NumberFormatException ex) {
-                System.out.print("Invalid input, please try again: ");
+            } 
+            catch (NumberFormatException ex) {
+                System.out.print("Invalid input, please enter a positive integer: ");
             }
         }
     }
@@ -1678,8 +1696,9 @@ public class Group10 {
             try {
                 String line = sc.nextLine().trim().replace(',', '.'); // Replace comma with a dot
                 return Double.parseDouble(line);
-            } catch (NumberFormatException ex) {
-                System.out.println("Invalid input, please try again: ");
+            } 
+            catch (NumberFormatException ex) {
+                System.out.println("Invalid input, please enter the values in double data type: ");
             }
         }
     }
@@ -1691,6 +1710,13 @@ public class Group10 {
     private static void promptEnterToContinue() {
         System.out.println("\nPress Enter to continue...");
         sc.nextLine();
+    }
+    
+    // Function for a fresh terminal
+    public static void clearScreen() {
+        for (int i = 0; i < 50; ++i) {
+            System.out.println();
+        }
     }
 
 }
