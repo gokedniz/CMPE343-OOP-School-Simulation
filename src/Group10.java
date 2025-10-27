@@ -680,7 +680,7 @@ public class Group10 {
 
     }
 
-        //================KEREM IRFANOGLU================
+        //================KEREM IRFANOGLU================ ...
     //====================Secondary School====================
     public static void secondarySchool(){
 
