@@ -23,7 +23,7 @@ public class Group10 {
             displayWelcomeMessage();
             System.out.println(COLOR_YELLOW); // Yellow
             System.out.println("╔════════════════════════════════════════════╗");
-            System.out.println("║     Press Choose an option and start !     ║");
+            System.out.println("║    Please choose an option and start !     ║");
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.println(COLOR_RESET);
             System.out.println("╔════════════════════════════════════════════╗");
@@ -37,12 +37,12 @@ public class Group10 {
             System.out.println("║════════════════════════════════════════════║");
             System.out.println("║     [E] Exit                               ║");
             System.out.println("╚════════════════════════════════════════════╝");
+            System.out.print("Your choice: ");
             String menuChoice = inputGame.next().trim().toLowerCase();
 
             switch (menuChoice) {
                 case "a":
                     clearScreen();
-                    System.out.println("=== A: Primary School Menu ===");
                     PrimarySchoolMenu();
                     break;
 
