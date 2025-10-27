@@ -149,41 +149,44 @@ public class Group10 {
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.println();
             System.out.println("╔══════════════════════════════════╗");
-            System.out.println("║     A-) 5x4                      ║");
+            System.out.println("║     1-) 5x4                      ║");
             System.out.println("╚══════════════════════════════════╝");
             System.out.println("╔══════════════════════════════════╗");
-            System.out.println("║     B-) 6x5                      ║");
+            System.out.println("║     2-) 6x5                      ║");
             System.out.println("╚══════════════════════════════════╝");
             System.out.println("╔══════════════════════════════════╗");
-            System.out.println("║     C-) 7x6                      ║");
+            System.out.println("║     3-) 7x6                      ║");
             System.out.println("╚══════════════════════════════════╝");
             System.out.println("╔══════════════════════════════════╗");
-            System.out.println("║     E-) Return to main menu.     ║");
+            System.out.println("║     4-) Return to main menu.     ║");
             System.out.println("╚══════════════════════════════════╝");
+            System.out.print("Your choice: ");
             choiceOfTableSize = input.next();
-            if((!choiceOfTableSize.equalsIgnoreCase("a")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("b")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("c")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("e")))
-                System.out.println("Invalid input. Please try again.");
-        }while((!choiceOfTableSize.equalsIgnoreCase("a")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("b")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("c")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("e")));
+            if((!choiceOfTableSize.equalsIgnoreCase("1")) &&
+                    !(choiceOfTableSize.equalsIgnoreCase("2")) &&
+                    !(choiceOfTableSize.equalsIgnoreCase("3")) &&
+                    !(choiceOfTableSize.equalsIgnoreCase("4"))){
+                clearScreen();
+                System.out.println(COLOR_RED + "Invalid input. Please try again." + COLOR_RESET);
+            }
+        }while((!choiceOfTableSize.equalsIgnoreCase("1")) &&
+                !(choiceOfTableSize.equalsIgnoreCase("2")) &&
+                !(choiceOfTableSize.equalsIgnoreCase("3")) &&
+                !(choiceOfTableSize.equalsIgnoreCase("4")));
 
         choiceOfTableSize = choiceOfTableSize.trim().toLowerCase();
 
         switch (choiceOfTableSize){
-            case "a":
+            case "1":
                 table = new char[4][5];
                 break;
-            case "b":
+            case "2":
                 table = new char[5][6];
                 break;
-            case "c":
+            case "3":
                 table = new char[6][7];
                 break;
-            case "e":
+            case "4":
                 System.out.println("Returning to main menu...");
                 return null;
         }
