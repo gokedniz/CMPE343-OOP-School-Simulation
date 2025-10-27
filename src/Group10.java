@@ -183,6 +183,7 @@ public class Group10 {
     public static String chooseGameMode(Scanner input){
         String choiceOfGameMode;
         do{
+            clearScreen();
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║    Single Player or Multiplayer (s/m)?     ║");
             System.out.println("╚════════════════════════════════════════════╝");
