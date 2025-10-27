@@ -36,7 +36,9 @@ public class Group10 {
                 case "a":
                     clearScreen();
                     System.out.println("=== A: Primary School Menu ===");
+                    PrimarySchoolMenu();
                     break;
+
 
                 case "b":
                     clearScreen();
@@ -71,7 +73,8 @@ public class Group10 {
 
     // C: High School Menu Scanner (Taha's scanner) 
     static Scanner sc = new Scanner(System.in);
-
+    // Gülfem's scanner
+    static Scanner input = new Scanner(System.in);
     // Kerem's scanner
     static Scanner scanner = new Scanner(System.in);
 
@@ -484,21 +487,56 @@ public class Group10 {
     }
 
     ////GÜLFEM
-    //* Option A: Zodiac and Sign kısmı
+    
+    public static void PrimarySchoolMenu() {
+                    boolean subMenu = true;
+                    while (subMenu) {
+                        //clearScreen();  //Alt menü başında ekranı temizle
+                        
+                        System.out.println("\nDo you want to select:");
+                        System.out.println("[1] Age and Zodiac");
+                        System.out.println("[2] Reverse Words");
+                        System.out.println("[3] Back to Main Menu");
+                        System.out.print("Enter choice: ");
+                        String choice = input.nextLine().trim();
+
+                        switch (choice) {
+                            case "1":
+                                clearScreen(); // Age and Zodiac başlamadan önce ekranı temizle
+                                ageAndZodiacDetection();
+                                System.out.println("\nPress Enter to return to Primary School Menu...");
+                                input.nextLine();
+                                break;
+                            case "2":
+                                clearScreen(); // Reverse Words başlamadan önce ekranı temizle
+                                reverseTheWords();
+                                System.out.println("\nPress Enter to return to Primary School Menu...");
+                                input.nextLine();
+                                break;
+                            case "3":
+                                subMenu = false;
+                                break;
+                                default:
+                                clearScreen(); 
+                                System.out.println("Invalid choice.");
+                                System.out.println("Press Enter to continue...");
+                                input.nextLine();
+                                break;
+                        }
+                    }
+                        }
+    ///* Option A: Zodiac and Sign kısmı
 
     /* Öncelikle kullanıcıdan doğum gününün tarihini ve saatini almam gerekiyor,
     ardından bu bilgilere göre yaş ve burç hesaplaması yapacağım.
-    */
-
-    public static void ageAndZodiacDetection(){
-        Scanner input = new Scanner(System.in);
+    */ 
+    public static void ageAndZodiacDetection() {
 
         System.out.println("Age and Zodiac Sign Detection");
 
         //Öncelikle kullanıcıdan doğum tarihini aldım.
-
-        System.out.print("Enter your birth 'day' (1-31):");
-        int birthDay = input.nextInt();
+         System.out.print("Enter your birth 'day' (1-31):");
+         int birthDay = input.nextInt();
         System.out.print("Enter your birth 'month' (1-12):");
         int birthMonth = input.nextInt();
         System.out.print("Enter your birth 'year':");
@@ -506,12 +544,11 @@ public class Group10 {
 
         //Bu kısımda girdiği doğum günü tarihlerinin geçerli olup olmadığını kontrol ettim.
         if (!isValidDate(birthDay, birthMonth, birthYear)) {
-                System.out.println("Invalid birth date.");
-                return;
-            }
+            System.out.println("Invalid birth date.");  
+            return;
+        }
 
         System.out.println("Your birthday: " + birthDay + "/" + birthMonth + "/" + birthYear);
-
 
         //Sonrasında ise mevcut tarihi aldım.
         System.out.print("Enter the current 'day' (1-31):");
@@ -519,114 +556,102 @@ public class Group10 {
         System.out.print("Enter the current 'month' (1-12):");
         int currentMonth = input.nextInt();
         System.out.print("Enter the current 'year':");
-        int currentYear = input.nextInt();
+        int currentYear = input.nextInt();  
+
 
         //Bu kısımda da girdiği 'currentDay, currentMonth ve currentYear' kısımlarıının geçerli olup olmadığını kontrol ettim.
-
-         if (!isValidDate(currentDay, currentMonth, currentYear)) {
-                System.out.println("Invalid current date.");
-                return;
-            }
+        if (!isValidDate(currentDay, currentMonth, currentYear)) {
+            System.out.println("Invalid current date.");   
+            return;
+        }
 
         System.out.println("Current date: " + currentDay + "/" + currentMonth + "/" + currentYear);
 
-
         // ---------- YAŞ HESAPLAMA
-
-       // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
-       //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
-
-       int age = currentYear - birthYear;
+    
+        // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
+        //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
+        int age = currentYear - birthYear;
 
         // Kullanıcının girdiği yılda yaş gününü geçmediyse yaşını 1 azalttım.
         // Çünkü o yılki yaşını henüz doldurmadı.
+        if (currentMonth < birthMonth || 
+            (currentMonth == birthMonth && currentDay < birthDay)) {
+            age--;
+        }
 
-       if (currentMonth < birthMonth ||
-       (currentMonth == birthMonth && currentDay < birthDay)) {
-        age--;
-    }
         //Eğer yaş negatif hesaplanıyorsa kullanıcımız şimdiki zamana kıyasla doğum tarihinden önceki bir yılı girmiştir.
         //Girdiği tarihte henüz doğmamış olacağını gördüğüm için aşağıdaki mesajı verdim.
-
         if (age < 0) {
-        System.out.println("Invalid birth and current date. Birth date is in the future.");
-        return;
-
+            System.out.println("Invalid birth and current date. Birth date is in the future.");
+            return;
         }
 
-            System.out.println("Your age is: " + age);
+        System.out.println("Your age is: " + age);
 
         // ----------- BURÇ HESAPLAMA
-
         String zodiac = calculateZodiac(birthDay, birthMonth);
-
-
         System.out.println("Your Zodiac Sign is: " + zodiac);
-
     }
 
-
     public static boolean isValidDate(int day, int month, int year) {
-
-        //Girilen ayın kontrolü
         if (month < 1 || month > 12) {
-            return false;
-        }
+        return false;
+    }
 
-        //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
-        if (day < 1) {
-            return false;
-        }
+    //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
+    if (day < 1) {
+        return false;
+    }
 
-        if (month == 1 && day > 31) {
+    if (month == 1 && day > 31) {
+        return false;
+    }
+    if (month == 2 && day > 28) { 
+    }
+    if (month == 3 && day > 31) {
+        return false;
+    }
+    if (month == 4 && day > 30) {
+        return false;
+    }
+    if (month == 5 && day > 31) {
+        return false;
+    }
+    if (month == 6 && day > 30) {
+        return false;
+    }
+    if (month == 7 && day > 31) {
+        return false;
+    }
+    if (month == 8 && day > 31) {
+        return false;
+    }
+    if (month == 9 && day > 30) {
+        return false;
+    }
+    if (month == 10 && day > 31) {
+        return false;
+    }
+    if (month == 11 && day > 30) {
+        return false;
+    }
+    if (month == 12 && day > 31) {
+        return false;
+    }
+     if (month == 2 && day ==29) {
+        if (year % 4 == 0) {
+            return true;
+        } else {
             return false;
         }
-        if (month == 2 && day > 28) {
-        }
-        if (month == 3 && day > 31) {
-            return false;
-        }
-        if (month == 4 && day > 30) {
-            return false;
-        }
-        if (month == 5 && day > 31) {
-            return false;
-        }
-        if (month == 6 && day > 30) {
-            return false;
-        }
-        if (month == 7 && day > 31) {
-            return false;
-        }
-        if (month == 8 && day > 31) {
-            return false;
-        }
-        if (month == 9 && day > 30) {
-            return false;
-        }
-        if (month == 10 && day > 31) {
-            return false;
-        }
-        if (month == 11 && day > 30) {
-            return false;
-        }
-        if (month == 12 && day > 31) {
-            return false;
-        }
-
-        /*Artık yıl kontrolünü burada yapmam gerekiyor
-        ama 29 şubatta doğan kişiler genelde 28 şubat veya 1 mart
-        tarihleri arasında yazdırıldığı için eklemiyorum ama sonrasında ekleyeceğim.
-        */
-
-        return true;
+    }
+    return true;
 }
 
+   
 
-
-
-
-
+        
     public static String calculateZodiac(int day, int month) {
         String zodiac = "";
         if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = "Aquarius";
@@ -641,12 +666,65 @@ public class Group10 {
         else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) zodiac = "Scorpio";
         else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) zodiac = "Sagittarius";
         else if ((month == 12 && day >=22) || (month ==1 && day <=19)) zodiac = "Capricorn";
-        else    zodiac = "Invalid";
-
+        else zodiac = "Invalid";
         return zodiac;
-
-
     }
+       
+
+    // * Option A: Reverse the Words kısmı
+    // Bu kısımda kullanıcıdan aldığım cümledeki kelimeleri tek tek ters çevireceğim.
+    public static void reverseTheWords() {
+        System.out.println("Reverse the Words");
+
+        // Kullanıcıdan bir cümle alıyorum.
+        System.out.print("Enter a sentence: ");
+        String sentence = input.nextLine();
+
+        // Sonucu saklayacağım değişken
+        String result = "";
+
+        // Geçici olarak bir kelimeyi tutmak için
+        String word = "";
+
+        // Cümlenin her harfini tek tek kontrol edeceğim
+        for (int i = 0; i < sentence.length(); i++) {
+            char c = sentence.charAt(i); // sıradaki karakteri al
+            if (c == ' ' || c == ',' || c == '.' || c == '!' || c == '?' || c == ';' || c == ':' || c == '"') {
+
+                int letterCount = 0;
+                for (int j = 0; j < word.length(); j++) {
+                    if (Character.isLetter(word.charAt(j))) letterCount++;
+                }
+
+                if (letterCount >= 2) word = reverseWord(word);
+
+                result += word + c;
+                word = "";
+            } else {
+                word += c;
+            }
+        }
+
+        if (word.length() > 0) {
+            int letterCount = 0;
+            for (int j = 0; j < word.length(); j++) {
+                if (Character.isLetter(word.charAt(j))) letterCount++;
+            }
+
+            if (letterCount >= 2) word = reverseWord(word);
+            result += word;
+        }
+
+        System.out.println("\nReversed sentence:");
+        System.out.println(result);
+    }
+
+    public static String reverseWord(String word) {
+        if (word.length() <= 1) return word;
+        return word.charAt(word.length() - 1) + reverseWord(word.substring(0, word.length() - 1));
+    }
+
+   
 
     //KEREM IRFANOGLU 
     //Checking the input is integer or not:
