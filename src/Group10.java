@@ -21,7 +21,7 @@ public class Group10 {
         while (menuContinues) {
             clearScreen();
             displayWelcomeMessage();
-            System.out.println(COLOR_YELLOW); // Yellow
+            System.out.println(COLOR_YELLOW); // Yellow.
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║    Please choose an option and start !     ║");
             System.out.println("╚════════════════════════════════════════════╝");
