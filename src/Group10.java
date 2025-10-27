@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 /*
@@ -19,7 +21,7 @@ public class Group10 {
         while (menuContinues) {
             clearScreen();
             displayWelcomeMessage();
-            System.out.println(COLOR_YELLOW); // Magenta
+            System.out.println(COLOR_YELLOW); // Yellow
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║     Press Choose an option and start !     ║");
             System.out.println("╚════════════════════════════════════════════╝");
@@ -45,7 +47,7 @@ public class Group10 {
 
                 case "b":
                     clearScreen();
-                    System.out.println("=== B: Secondary School Menu ===");
+                    secondarySchool();
                     break;
 
                 case "c":
@@ -678,32 +680,11 @@ public class Group10 {
 
     }
 
-    //KEREM IRFANOGLU 
-    //Checking the input is integer or not:
-    public static boolean isInt(String input) {
-        try {
-            //use Integer.parseInt(input);
-            Integer.valueOf(input);
-            return true;
-        } 
-        catch (NumberFormatException e) {
-            return false;
-        }
-    }
+        //================KEREM IRFANOGLU================
+    //====================Secondary School====================
+    public static void secondarySchool(){
 
-    //Checking the input is between 1-3:
-    public static boolean isValidMenu(String input) {
-        try {
-            int number = Integer.parseInt(input);
-            return number >= 1 && number <= 3;
-        } 
-        catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public static void mainMenu(){
-
+        clearScreen();
         System.out.println("");
         System.out.println("[1] Prime Numbers");
         System.out.println("[2] Step-by-step Evaluation of Expression");
@@ -712,19 +693,16 @@ public class Group10 {
         while (true) {
             System.out.print("Enter your choice (1-3): "); 
             String input = scanner.nextLine();
-
             //If the input is integer or not?
             if (!isInt(input)) {
                 System.out.println("\nInvalid input! ");
                 continue;
             }
-
             //If the input is between 1-3?
             if(!isValidMenu(input)){
                 System.out.println("\nInvalid input! ");
                 continue;
             }
-            
             //string to integer
             int choice = Integer.parseInt(input);
 
@@ -734,10 +712,49 @@ public class Group10 {
                 case 2 -> evaluation();
                 case 3 -> System.out.println("Returning to main menu...");
             }
-            break; 
-
+            break;
         }
+    }
+    //Checking the input is integer or not:
+    private static boolean isInt(String input) {
+        try {
+            //use Integer.parseInt(input);
+            Integer.valueOf(input);
+            return true;
+        } 
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    //Checking the input is between 1-3:
+    private static boolean isValidMenu(String input) {
+        try {
+            int number = Integer.parseInt(input);
+            return number >= 1 && number <= 3;
+        } 
+        catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
+    static boolean repeat(String message){
+        String answer;
+        while(true) {
+            System.out.print(message);
+            answer = scanner.nextLine().trim().toUpperCase();
+            switch (answer) {
+                case "A" -> {
+                    return true;
+                }
+                case "M" -> {
+                    return false;
+                }
+                default -> {
+                    clearScreen(); 
+                    System.out.println("\nPlease enter 'A' or 'M'!");
+                }
+            }
+        }
     }
 
     public static void sieveOfEratosthenes(int intNum) {
@@ -768,12 +785,30 @@ public class Group10 {
         long endTime = System.nanoTime();
         long executionTime = endTime - startTime;
 
-        for (int i = 2; i <= intNum; i++) {
-            if (isPrime[i]) {
-                System.out.print(i + " ");
+        //Because of we want an integer more than or equal to 12, the first three primes are always 2, 3 and 5.
+        System.out.println("First three primes: 2 3 5");
+
+        int last = -1;
+        int secondLast = -1;
+        //scanning the array last to first to find the last two primes.
+        for(int i = intNum; i>=2; i--){
+            if(isPrime[i]){
+                //assigning to "last" if the integer is prime.
+                if(last == -1){
+                    last = i;   //
+                }
+                //assigning second last after last is assigned. Because last will no longer be -1, next prime will be assigned to "secondLast".
+                else if(secondLast == -1){
+                    secondLast = i;
+                    break;
+                }
             }
         }
-        System.out.println("\nExecution time: " + executionTime + " ms");
+        //printing the Last two primes.
+        System.out.print("Last two primes: " + secondLast + " " + last);
+
+        //execution time print
+        System.out.println("\nExecution time: " + executionTime + " ns");
     }
     
     public static void sieveOfSundaram(int intNum){
@@ -786,6 +821,7 @@ public class Group10 {
         //start time
         long startTime = System.nanoTime();
 
+        //switching not primes to true, then primes will remain false.
         for (int i = 1; i <= nNew; i++){
             for (int j = i; i+j+2*i*j <= nNew; j++){
                 marked[i+j+2*i*j] = true;
@@ -796,17 +832,35 @@ public class Group10 {
         long endTime = System.nanoTime();
         long executionTime = (endTime - startTime);
 
-        //printing "2" separately because 2 is even and not included to the algorithm.
-        if(intNum > 2){
-            System.out.print("2 ");
-        }
-        //printing all the false values
-        for (int i = 1; i <= nNew; i++){
-            if(marked[i] == false){
-                System.out.print(2*i+1 + " ");
+        //Because of we want an integer more than or equal to 12, the first three primes are always 2, 3 and 5.
+        System.out.println("First three primes: 2 3 5");
+
+        int last = -1;
+        int secondLast = -1;
+
+        //scanning the array last to first to find the last two primes.
+        for (int i = nNew; i >= 2; i--){
+            if(!marked[i]){
+                //turning i into prime numbers.
+                int prime = 2*i + 1;
+                //assigning to "last" if the integer is prime.
+                if(prime <= intNum){
+                    if(last == -1){
+                        last = prime;
+                    }
+                    //assigning second last after last is assigned. Because last will no longer be -1, next prime will be assigned to "secondLast".
+                    else if(secondLast == -1){
+                        secondLast = prime;
+                        break;
+                    }
+                }
             }
         }
-        System.out.println("\nExecution time: " + executionTime + " ms");
+        //printing the Last two primes.
+        System.out.print("Last two primes: " + secondLast + " " + last);
+
+        //execution time print
+        System.out.println("\nExecution time: " + executionTime + " ns");
     }
 
     public static void sieveOfAtkin(int intNum){
@@ -814,26 +868,76 @@ public class Group10 {
         System.out.println("\nSieve of Atkin:");
 
         boolean[] prime = new boolean[intNum + 1];
-        
+        //start time
+        long startTime = System.nanoTime();
+
+        //we get the squareroot of the input
         int sqrt = (int) Math.sqrt(intNum);
 
         for(int i = 1; i <= sqrt; i++){
             for(int j=1; j<= sqrt; j++){
-                
+                int n = 4*i*i + j*j;
+                if (n <= intNum && (n%12 == 1 || n%12 == 5)){
+                    prime[n] = !prime[n];
+                }
+                n = 3*i*i + j*j;
+                if (n <= intNum && n%12 == 7){
+                    prime[n] = !prime[n];
+                }
+                n = 3*i*i - j*j;
+                if (i>j && n <= intNum && n%12 == 11){
+                    prime[n] = !prime[n];
+                }
             }
         }
 
+        for(int i = 5; i<=sqrt; i++){
+            if(prime[i]){
+                int k = i*i;
+                for(int j=k; j<= intNum; j+=k){
+                    prime[j]= false;
+                }
+            }
+        }
+        //end time
+        long endTime = System.nanoTime();
+        long executionTime = (endTime - startTime);
+
+        //Because of we want an integer more than or equal to 12, the first three primes are always 2, 3 and 5.
+        System.out.println("First three primes: 2 3 5");
+
+        int last = -1;
+        int secondLast = -1;
+
+        for(int i=intNum; i >= 2; i--){
+            if(prime[i]){
+                //assigning to "last" if the integer is prime.
+                if(last == -1){
+                    last = i;
+                }
+                //assigning second last after last is assigned. Because last will no longer be -1, next prime will be assigned to "secondLast".
+                else if(secondLast == -1){
+                    secondLast = i;
+                    break;
+                }
+            }
+        }
+        //printing Last two primes.
+        System.out.print("Last two primes: " + secondLast + " " + last);
+
+        //execution time print
+        System.out.println("\nExecution time: " + executionTime + " ns");
     }
     
     public static void primeNumbers() {
-
         int intNum;
-
+        clearScreen();
         while (true) {
             System.out.print("Please enter an integer (n >= 12): ");
             String num = scanner.nextLine().trim();
     
             if (!isInt(num)) {
+                clearScreen();
                 System.out.println("");
                 System.out.println("Invalid input! ");
                 continue;
@@ -842,6 +946,7 @@ public class Group10 {
             intNum = Integer.parseInt(num);
 
             if (intNum < 12) {
+                clearScreen();
                 System.out.println("");
                 System.out.println("Invalid input! ");
                 continue;
@@ -849,15 +954,341 @@ public class Group10 {
             break;
         }
 
+        clearScreen();
+        System.out.println("Results for integer: " + intNum);
+
         sieveOfEratosthenes(intNum);
-        System.out.println("");
         sieveOfSundaram(intNum);
-        System.out.println("");
         sieveOfAtkin(intNum);
+
+        if(repeat("\n[A] Do it again.\n[M] Return to secondary school menu.\nYour choice: ")){
+            primeNumbers();
+        }
+        else{
+            secondarySchool();
+        }
+    }
+
+    //====================Step by Step Evaluation====================
+    public static void evaluation() {
+        clearScreen();
+        while(true){
+            System.out.print("\nEnter a mathematical expression: ");
+            String input = scanner.nextLine();
+
+            clearScreen();
+
+            String expr = normalize(input);
+            
+            if(!isValidExpression(expr)){
+                System.out.print("Invalid expression! ");
+                continue;
+            }
+
+            List<String> tokens = tokenize(expr);
+            System.out.println(renderForOutput(tokens));
+
+            try {
+                evaluateStepByStep(tokens);
+                break;
+            } 
+            catch (ArithmeticException error) {
+            System.out.println("Division by zero. Please enter a valid mathematical expression!");
+            }
+        }
+        if(repeat("\n[A] Do it again.\n[M] Return to secondary school menu.\nYour choice: ")){
+            evaluation();
+        }
+        else{
+            secondarySchool();
+        }
+    } 
+    
+    static String normalize(String s) {
+        s = s.replace("×", "*");
+        s = s.replace("x", "*");
+        s = s.replace("X", "*");
+        s = s.replace(":", "/");
+        s = s.replace("−", "-");
+        s = s.replace(" ", "");
+    return s;
     }
     
-    public static void evaluation() {
-        System.out.println("=== MATH MENU ===");
+    static boolean isValidExpression(String s) {
+        if(s == null || s.isEmpty()) return false;
+
+        //for paranthesis balance
+        int balance = 0;
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            //if char is not acceptable, return false.
+            if(!(Character.isDigit(c) || c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')')){
+                return false;
+            }
+
+            if (c =='('){
+                balance++;
+            }
+            else if(c == ')'){
+                balance--;
+                if(balance < 0) return false;
+            } 
+        }
+        //if parantheses are not balanced, return false.
+        if (balance !=0) return false;
+
+        final int START=0, NUM=1, OP=2, OPEN=3, CLOSE=4;
+        //creating a prev to check if the next char is acceptable.
+        int prev = START;
+
+        for (int i=0; i< s.length(); i++){
+            char c = s.charAt(i);
+
+            if(Character.isDigit(c)){
+                while(i+1 < s.length() && Character.isDigit(s.charAt(i+1))) i++;
+                prev=NUM;
+            }
+            else if(c == '('){
+                //NUM or CLOSE cannot be before OPEN
+                if (prev == NUM || prev == CLOSE) return false;
+                prev=OPEN;
+            }
+            else if(c == ')'){
+                //Only NUM or CLOSE can be before OP
+                if (!(prev == NUM || prev == CLOSE)) return false;
+                prev=CLOSE;
+            }
+            else if(c == '+' || c == '*' || c == '/'){
+                //Only NUM or CLOSE can be before OP
+                if (!(prev == NUM || prev == CLOSE)) return false;
+                prev=OP;
+            }
+            else if(c == '-'){
+                //"-" can be after three places: at START, OPEN or OP(negative sign).
+                boolean negative = (prev == START || prev == OPEN || prev == OP);
+                if(negative){
+                    //next char must be a digit or else it is not a negative sign.
+                    if(i+1 >= s.length() || !Character.isDigit(s.charAt(i+1))) return false;
+
+                    //if defined negative number has more than 1 digit, it includes the remaining digits.
+                    int j = i+1;
+                    while(j+1 < s.length() && Character.isDigit(s.charAt(j+1)))j++;
+                    i = j;
+                    prev = NUM;
+                }
+                else{
+                    // Operator "-" just can be after NUM or CLOSE
+                    if(!(prev==NUM || prev==CLOSE)) return false;
+                    prev = OP;
+                }
+            }
+        }
+        //Expression must end either with a NUM or CLOSE
+        return (prev == NUM || prev == CLOSE);
+    }
+    //to separate the strings to tokens
+    static List<String> tokenize(String s) {
+        List<String> tokens = new ArrayList<>();
+        int i = 0;
+
+        while (i < s.length()) {
+            char c = s.charAt(i);
+
+            if (Character.isDigit(c)) {
+                int start = i;
+                while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) i++;
+                tokens.add(s.substring(start, i + 1));
+                i++;
+            } 
+            else if (c == '(' || c == ')' || c == '*' || c == '/' || c == '+') {
+                tokens.add(String.valueOf(c));
+                i++;
+            } 
+            else if (c == '-') {
+                //checks if the '-' is at the start
+                boolean atStart = tokens.isEmpty();
+                //checks if '-' comes after an operator.
+                boolean afterOpOrOpen = !tokens.isEmpty() && isOpOrOpen(tokens.get(tokens.size() - 1));
+                //checks if there is a digit after '-'
+                boolean hasNextDigit = (i + 1 < s.length()) && Character.isDigit(s.charAt(i + 1));
+
+                if ((atStart || afterOpOrOpen) && hasNextDigit) {
+                    int start = i;
+                    i++;
+                    while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) i++;
+                    tokens.add(s.substring(start, i + 1));
+                    i++;
+                } else {
+                    tokens.add("-");
+                    i++;
+                }
+            } 
+            else {
+                i++;
+            }
+        }
+        return tokens;
+    }
+    //if the last token is an operator or open paranthesis, then given '-' may be negative sign.
+    static boolean isOpOrOpen(String lastToken) {
+        if (lastToken == null || lastToken.isEmpty()) return false;
+        return lastToken.equals("+") || lastToken.equals("-")
+            || lastToken.equals("*") || lastToken.equals("/")
+            || lastToken.equals("(");
+    }
+    // It reduces and writes one operation at a time until it reduces the entire expression to a single number.
+    static void evaluateStepByStep(List<String> tokens) {
+
+        // The expression is reduced to a single number
+        if (tokens.size() == 1 && isNumberToken(tokens.get(0))) return;
+
+        // find the innermost paranthesis
+        int open = findInnermostOpenParen(tokens);
+        int close = (open != -1) ? findMatchingCloseParen(tokens, open) : -1;
+        int start = (open == -1) ? 0 : open + 1;
+        int endEx = (open == -1) ? tokens.size() : close;
+
+        boolean reduced = reduceOnce(tokens, start, endEx); 
+
+        if (open != -1) {
+            // after reduceOnce, because of index may have shifted, finding close again
+            int close2 = findMatchingCloseParen(tokens, open);
+            boolean removed = removeParen(tokens, open, close2);
+            reduced = reduced || removed;
+        }
+
+        //if there are no reduction, remove the paranthesis
+        if (!reduced && open != -1) {
+            reduced = removeParen(tokens, open, close);
+        }
+
+        // if any action happened, print the result and call it again.
+        if (reduced) {
+            System.out.println("= " + renderForOutput(tokens)); 
+            
+            //call the method again to continue reducing the expression.
+            evaluateStepByStep(tokens); 
+        }
+        // if reduced==false, that means there are no reduction left, so print out the result.
+    }
+
+    static boolean reduceOnce(List<String> tokens, int start, int endEx) {
+        // look for '*' or '/'
+        for (int i = start; i < endEx; i++) {
+            //increase i from first token until last one.
+            String tk = tokens.get(i);
+            if (tk.equals("*") || tk.equals("/")) {
+                //we assing a op to i. That means i-1 and i+1 must be a number
+                if (i - 1 < start || i + 1 >= endEx) return false;
+                //we assign i-1 to left side of the op. And i+1 to right side of the op.
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                if (!(isNumberToken(lhs) && isNumberToken(rhs))) return false;
+
+                long a = parseLongSafe(lhs);
+                long b = parseLongSafe(rhs);
+                long res; //result
+                if (tk.equals("*")) {
+                    res = a * b;
+                } else {
+                    if (b == 0)throw new ArithmeticException("division by zero");
+                    res = a / b;
+                }
+
+                // replace i-1, i, i+1 with the result
+                tokens.subList(i - 1, i + 2).clear();
+                tokens.add(i - 1, Long.toString(res));
+                return true;
+            }
+        }
+
+            // look for '+' or '-'(operator '-', not negativa sign)
+        for (int i = start; i < endEx; i++) {
+            String tk = tokens.get(i);
+            if (tk.equals("+") || tk.equals("-")) {
+                //we assing a op to i. That means i-1 and i+1 must be a number
+                if (i - 1 < start || i + 1 >= endEx) return false;
+                //we assign i-1 to left side of the op. And i+1 to right side of the op.
+                String lhs = tokens.get(i - 1);
+                String rhs = tokens.get(i + 1);
+                if (!(isNumberToken(lhs) && isNumberToken(rhs))) return false;
+
+                long a = parseLongSafe(lhs);
+                long b = parseLongSafe(rhs);
+                long res = tk.equals("+") ? (a + b) : (a - b); //result
+
+                // replace i-1, i, i+1 with the result
+                tokens.subList(i - 1, i + 2).clear();
+                tokens.add(i - 1, Long.toString(res));
+                return true;
+            }
+        }
+
+            return false;
+    }
+
+    static int findInnermostOpenParen(List<String> tokens) {
+        //checking right to left to find the innermost paranthesis
+        for (int i = tokens.size() - 1; i >= 0; i--) {
+            if (tokens.get(i).equals("(")) {
+                return i; //innermost paranthesis has found
+            }
+        }
+        return -1; //if there are no parantheses
+    }
+    //Finds the matching paranthesis for the given ')'
+    static int findMatchingCloseParen(List<String> tokens, int openIdx) {
+        int bal = 0;
+        for (int i = openIdx; i < tokens.size(); i++) {
+            if (tokens.get(i).equals("(")) bal++;
+            else if (tokens.get(i).equals(")")) {
+                bal--;
+                if (bal == 0) return i;
+            }
+        }
+        return -1;
+    }
+    //if there is just a number inside the paranthesis, removes the paranthesis.
+    static boolean removeParen(List<String> tokens, int open, int close) {
+        if (close - open == 2 && isNumberToken(tokens.get(open + 1))) {
+            String val = tokens.get(open + 1);
+            tokens.subList(open, close + 1).clear();
+            tokens.add(open, val);
+            return true;
+        }
+        return false;
+    }
+    //Combines the tokens to print out and switches '*' to 'x' and '/' to ':'.
+    static String renderForOutput(List<String> tokens) {
+        StringBuilder sb = new StringBuilder();
+        for (String tk : tokens) {
+            switch (tk) {
+                case "*" -> sb.append('x');
+                case "/" -> sb.append(':');
+                default -> sb.append(tk);
+            }
+        }
+        return sb.toString();
+    }
+    //checks if the both lhs and rhs tokens are number.
+    static boolean isNumberToken(String tk) {
+        if (tk == null || tk.isEmpty()) return false;
+        int i = 0;
+        if (tk.charAt(0) == '-') {
+            if (tk.length() == 1) return false; //it can't just '-' to be a number.
+            i = 1; //if it is a negative number, skips the sign
+        }
+        for (; i < tk.length(); i++) {
+            char c = tk.charAt(i);
+            if (c < '0' || c > '9') return false; //if it is not a number, false.
+        }
+        return true;
+    }
+
+    static long parseLongSafe(String tk) {
+        //transform the string token to long
+        return Long.parseLong(tk);
     }
 
     // Taha's methods
