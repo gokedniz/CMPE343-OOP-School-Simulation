@@ -92,6 +92,13 @@ public class Group10 {
     public static final String COLOR_GREEN = "\u001B[32m";
     public static final String COLOR_YELLOW= "\u001B[33m";
     public static final String COLOR_BLUE  = "\u001B[34m";
+    public static final String COLOR_LIGHT_RED   = "\u001B[91m";
+    public static final String COLOR_LIGHT_GREEN = "\u001B[92m";
+    public static final String COLOR_LIGHT_YELLOW= "\u001B[38;5;229m";
+    public static final String COLOR_LIGHT_BLUE  = "\u001B[94m";
+    public static final String COLOR_LIGHT_MAGENTA = "\u001B[95m";
+    public static final String COLOR_LIGHT_CYAN  = "\u001B[96m";
+    public static final String COLOR_DARK_BLUE  = "\u001B[38;2;0;45;114m";
 // … and so on
 
 
@@ -765,22 +772,33 @@ public class Group10 {
     public static void secondarySchool(){
 
         clearScreen();
-        System.out.println("");
-        System.out.println("[1] Prime Numbers");
-        System.out.println("[2] Step-by-step Evaluation of Expression");
-        System.out.println("[3] Return to Main Menu\n");
+        System.out.println(COLOR_LIGHT_CYAN);
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║   [1] Prime Number                             ║");
+        System.out.println("║════════════════════════════════════════════════║");
+        System.out.println("║   [2] Step-by-step Evaluation of Expression    ║");
+        System.out.println("║════════════════════════════════════════════════║");
+        System.out.println("║   [3] Return to Main Menu                      ║");
+        System.out.println("╚════════════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
 
         while (true) {
             System.out.print("Enter your choice (1-3): "); 
             String input = scanner.nextLine();
             //If the input is integer or not?
             if (!isInt(input)) {
-                System.out.println("\nInvalid input! ");
+                System.out.println();
+                System.out.print(COLOR_RED);
+                System.out.println("Invalid input! ");
+                System.out.print(COLOR_RESET);
                 continue;
             }
             //If the input is between 1-3?
             if(!isValidMenu(input)){
-                System.out.println("\nInvalid input! ");
+                System.out.println();
+                System.out.print(COLOR_RED);
+                System.out.println("Invalid input! "); 
+                System.out.print(COLOR_RESET);
                 continue;
             }
             //string to integer
@@ -823,15 +841,17 @@ public class Group10 {
             System.out.print(message);
             answer = scanner.nextLine().trim().toUpperCase();
             switch (answer) {
-                case "A" -> {
+                case "1" -> {
                     return true;
                 }
-                case "M" -> {
+                case "2" -> {
                     return false;
                 }
                 default -> {
                     clearScreen(); 
-                    System.out.println("\nPlease enter 'A' or 'M'!");
+                    System.out.println();System.out.println(COLOR_RED);
+                    System.out.println("Please enter '1' or '2'!");
+                    System.out.println(COLOR_RESET);
                 }
             }
         }
@@ -839,7 +859,11 @@ public class Group10 {
 
     public static void sieveOfEratosthenes(int intNum) {
         
-        System.out.println("\nSieve of Eratosthenes:");
+        System.out.println();
+        System.out.print(COLOR_LIGHT_YELLOW);
+        System.out.println("╔═════════════════════════════════════════╗");
+        System.out.println("║          Sieve of Eratosthenes          ║");
+        System.out.println("╚═════════════════════════════════════════╝");
 
         boolean[] isPrime = new boolean[intNum+1];
 
@@ -889,11 +913,16 @@ public class Group10 {
 
         //execution time print
         System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.print(COLOR_RESET);
     }
     
     public static void sieveOfSundaram(int intNum){
         
-        System.out.println("\nSieve of Sundaram:");
+        System.out.println();
+        System.out.print(COLOR_LIGHT_GREEN);
+        System.out.println("╔═════════════════════════════════════════╗");
+        System.out.println("║            Sieve of Sundaram            ║");
+        System.out.println("╚═════════════════════════════════════════╝");
 
         int nNew = (intNum - 1)/2;
         boolean[] marked = new boolean[nNew +1];
@@ -941,11 +970,16 @@ public class Group10 {
 
         //execution time print
         System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.print(COLOR_RESET);
     }
 
     public static void sieveOfAtkin(int intNum){
 
-        System.out.println("\nSieve of Atkin:");
+        System.out.println();
+        System.out.print(COLOR_LIGHT_BLUE);
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║             Sieve of Atkin             ║");
+        System.out.println("╚════════════════════════════════════════╝");
 
         boolean[] prime = new boolean[intNum + 1];
         //start time
@@ -1007,11 +1041,17 @@ public class Group10 {
 
         //execution time print
         System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.print(COLOR_RESET);
     }
     
     public static void primeNumbers() {
         int intNum;
         clearScreen();
+        System.out.println(COLOR_DARK_BLUE);
+        System.out.println("╔═════════════════════════════════════════╗");
+        System.out.println(  "║          === Prime Numbers ===          " + COLOR_YELLOW + "║");
+        System.out.println("╚═════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
         while (true) {
             System.out.print("Please enter an integer (n >= 12): ");
             String num = scanner.nextLine().trim();
@@ -1019,7 +1059,9 @@ public class Group10 {
             if (!isInt(num)) {
                 clearScreen();
                 System.out.println("");
-                System.out.println("Invalid input! ");
+                System.out.print(COLOR_RED);
+                System.out.println("Invalid input! "); 
+                System.out.print(COLOR_RESET);
                 continue;
             }
     
@@ -1028,7 +1070,9 @@ public class Group10 {
             if (intNum < 12) {
                 clearScreen();
                 System.out.println("");
-                System.out.println("Invalid input! ");
+                System.out.print(COLOR_RED);
+                System.out.println("Invalid input! "); 
+                System.out.print(COLOR_RESET);
                 continue;
             }
             break;
@@ -1040,20 +1084,26 @@ public class Group10 {
         sieveOfEratosthenes(intNum);
         sieveOfSundaram(intNum);
         sieveOfAtkin(intNum);
+        System.out.println();
 
-        if(repeat("\n[A] Do it again.\n[M] Return to secondary school menu.\nYour choice: ")){
+        if(repeat("[1] Do it again.\n[2] Return to secondary school menu.\nYour choice: ")){
             primeNumbers();
         }
         else{
             secondarySchool();
         }
     }
-
+    
     //====================Step by Step Evaluation====================
     public static void evaluation() {
         clearScreen();
+        System.out.println(COLOR_YELLOW);
+        System.out.println("╔═════════════════════════════════════════╗");
+        System.out.println(  "║     === Step by Step Evaluation ===     " + COLOR_DARK_BLUE + "║");
+        System.out.println("╚═════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
         while(true){
-            System.out.print("\nEnter a mathematical expression: ");
+            System.out.print("Enter a mathematical expression: ");
             String input = scanner.nextLine();
 
             clearScreen();
@@ -1061,7 +1111,8 @@ public class Group10 {
             String expr = normalize(input);
             
             if(!isValidExpression(expr)){
-                System.out.print("Invalid expression! ");
+                System.out.print(COLOR_RED);
+                System.out.println("Invalid input! " + COLOR_RESET); 
                 continue;
             }
 
@@ -1076,7 +1127,9 @@ public class Group10 {
             System.out.println("Division by zero. Please enter a valid mathematical expression!");
             }
         }
-        if(repeat("\n[A] Do it again.\n[M] Return to secondary school menu.\nYour choice: ")){
+
+        System.out.println("════════════════════════════════════");
+        if(repeat("[1] Do it again.\n[2] Return to secondary school menu.\nYour choice: ")){
             evaluation();
         }
         else{
@@ -1135,8 +1188,12 @@ public class Group10 {
                 prev=OPEN;
             }
             else if(c == ')'){
-                //Only NUM or CLOSE can be before OP
+                //Only NUM or CLOSE can be before CLOSE
                 if (!(prev == NUM || prev == CLOSE)) return false;
+                if (i+1 < s.length()) {
+                    char next = s.charAt(i+1);
+                    if(Character.isDigit(next) || next == '(') return false;
+                }
                 prev=CLOSE;
             }
             else if(c == '+' || c == '*' || c == '/'){
