@@ -1432,10 +1432,10 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
-public static void HighSchoolMenu(){
+    public static void HighSchoolMenu(){
         while (true) {
             clearScreen();
-            // Menu
+            // Menu . ...........
             System.out.println("============== C) High School Menu ==============");
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║   [1] Statistical information about an Array   ║");
