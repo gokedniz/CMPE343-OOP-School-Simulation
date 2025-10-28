@@ -1432,19 +1432,17 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
-public static void HighSchoolMenu(){
+
+    public static void HighSchoolMenu(){
         while (true) {
             clearScreen();
             // Menu
-            System.out.println("============== C) High School Menu ==============");
-            System.out.println("╔════════════════════════════════════════════════╗");
-            System.out.println("║   [1] Statistical information about an Array   ║");
-            System.out.println("║════════════════════════════════════════════════║");
-            System.out.println("║   [2] Distance between two Arrays              ║");
-            System.out.println("║════════════════════════════════════════════════║");
-            System.out.println("║   [3] Return to Main Menu                      ║");
-            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println("=== C: High School Menu ===");
+            System.out.println("1) Statistical Information about an Array");
+            System.out.println("2) Distance between Two Arrays");
+            System.out.println("3) Return to Main Menu");
             System.out.print("Please choose your operation (1-3): ");
+
             int choice = readIntInRange(1, 3);
             switch (choice) {
                 case 1:
@@ -1458,7 +1456,7 @@ public static void HighSchoolMenu(){
                     promptEnterToContinue();
                     break;
                 case 3:
-                    System.out.println("Returning to previous menu...");
+                    System.out.println("Returnin to previous menu...");
                     return;
                 default:
                     // unreachable due to readIntInRange
@@ -1469,13 +1467,13 @@ public static void HighSchoolMenu(){
 
     // Menu selection 1
      private static void statisticalInformation() {
-        System.out.println("===== Statistical Information about an Array =====");
+        System.out.println("--- Statistical Information about an Array ---");
         int n;
         while (true) {
             System.out.print("Enter the length of your array: ");
             n = readPositiveInt();
             if (n <= 0) {
-                System.out.println(COLOR_RED + "Length must be a positive integer. Please try again: " + COLOR_RESET);
+                System.out.println("Length must be a positive integer. Please try again: ");
             } 
             else {
                 break;
@@ -1522,7 +1520,7 @@ public static void HighSchoolMenu(){
             System.out.print("Enter the length of your array: ");
             dim = readPositiveInt();
             if (dim <= 0) {
-                System.out.println(COLOR_RED + "Length must be positive integer. Please try again." + COLOR_RESET);
+                System.out.println("Legnth must be positive integer. Please try again.");
             } 
             else {
                 break;
@@ -1646,13 +1644,13 @@ public static void HighSchoolMenu(){
             try {
                 int val = Integer.parseInt(sc.nextLine().trim());
                 if (val < min || val > max) {
-                    System.out.printf(COLOR_RED + "Input out of range. Please enter an integer between %d and %d." + COLOR_RESET, min, max);
+                    System.out.printf("Input out of range. Please enter an integer between %d and %d.", min, max);
                     continue;
                 }
                 return val;
             } 
             catch (NumberFormatException ex) {
-                System.out.print(COLOR_RED + "Invalid input, please try again: " + COLOR_RESET);
+                System.out.print("Invalid input, please try again: ");
             }
         }
     }
@@ -1664,13 +1662,13 @@ public static void HighSchoolMenu(){
                 String line = sc.nextLine().trim();
                 int val = Integer.parseInt(line);
                 if (val < min || val > max) {
-                    System.out.printf(COLOR_RED + "Invalid input. Please enter an integer between %d and %d.%n" + COLOR_RESET, min, max);
+                    System.out.printf("Invalid input. Please enter an integer between %d and %d.%n", min, max);
                     continue;
                 }
                 return val;
             } 
             catch (NumberFormatException ex) {
-                System.out.println(COLOR_RED + "Invalid input please try again: " + COLOR_RESET);
+                System.out.println("Invalid input please try again: ");
             }
         }
     }
@@ -1687,7 +1685,7 @@ public static void HighSchoolMenu(){
                 return v;
             } 
             catch (NumberFormatException ex) {
-                System.out.print(COLOR_RED + "Invalid input, please enter a positive integer: " + COLOR_RESET);
+                System.out.print("Invalid input, please enter a positive integer: ");
             }
         }
     }
@@ -1700,7 +1698,7 @@ public static void HighSchoolMenu(){
                 return Double.parseDouble(line);
             } 
             catch (NumberFormatException ex) {
-                System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type: " + COLOR_RESET);
+                System.out.println("Invalid input, please enter the values in double data type: ");
             }
         }
     }
@@ -1713,5 +1711,4 @@ public static void HighSchoolMenu(){
         System.out.println("\nPress Enter to continue...");
         sc.nextLine();
     }
-
 }
