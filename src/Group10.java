@@ -1432,15 +1432,18 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
-
     public static void HighSchoolMenu(){
         while (true) {
             clearScreen();
-            // Menu
-            System.out.println("=== C: High School Menu ===");
-            System.out.println("1) Statistical Information about an Array");
-            System.out.println("2) Distance between Two Arrays");
-            System.out.println("3) Return to Main Menu");
+            // Menu . ...........
+            System.out.println("============== C) High School Menu ==============");
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║   [1] Statistical information about an Array   ║");
+            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("║   [2] Distance between two Arrays              ║");
+            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("║   [3] Return to Main Menu                      ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
             System.out.print("Please choose your operation (1-3): ");
 
             int choice = readIntInRange(1, 3);
@@ -1711,4 +1714,5 @@ public class Group10 {
         System.out.println("\nPress Enter to continue...");
         sc.nextLine();
     }
+
 }
