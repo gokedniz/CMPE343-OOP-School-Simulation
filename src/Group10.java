@@ -68,7 +68,9 @@ public class Group10 {
                     break;
 
                 default:
+                    System.out.println(COLOR_RED);
                     System.out.println("Invalid input! Please press any key to try again.");
+                    System.out.println(COLOR_RESET);
                     // Clean leftover '\n' from buffer
                     inputGame.nextLine();
                     // Wait for user to press Enter
@@ -99,11 +101,14 @@ public class Group10 {
     public static final String COLOR_LIGHT_MAGENTA = "\u001B[95m";
     public static final String COLOR_LIGHT_CYAN  = "\u001B[96m";
     public static final String COLOR_DARK_BLUE  = "\u001B[38;2;0;45;114m";
+    public static final String COLOR_ROSE = "\u001B[38;2;255;0;128m";
+    public static final String COLOR_LILAC = "\u001B[38;2;200;162;200m";
+    public static final String COLOR_LIGHT_LILAC = "\u001B[38;2;225;200;225m";
 // … and so on
 
 
     public static void displayWelcomeMessage() {
-        System.out.println(COLOR_RED + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
+        System.out.println(COLOR_LIGHT_CYAN + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
                 "| |  | |    | |                           | |         /  ___|    | |               | |  /  ___(_)               | |     | |            \n" +
                 "| |  | | ___| | ___ ___  _ __ ___   ___   | |_ ___    \\ `--.  ___| |__   ___   ___ | |  \\ `--. _ _ __ ___  _   _| | __ _| |_ ___  _ __ \n" +
                 "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\  | __/ _ \\    `--. \\/ __| '_ \\ / _ \\ / _ \\| |   `--. \\ | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__|\n" +
@@ -534,16 +539,22 @@ public class Group10 {
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
-                        //clearScreen();  //Alt menü başında ekranı temizle
-                        
-                        System.out.println("\nDo you want to select:");
-                        System.out.println("[1] Age and Zodiac");
-                        System.out.println("[2] Reverse Words");
-                        System.out.println("[3] Back to Main Menu");
-                        System.out.print("Enter choice: ");
-                        String choice = input.nextLine().trim();
+                        clearScreen();  //Alt menü başında ekranı temizle
+                        System.out.println("╔════════════════════════════════════════════╗");
+                        System.out.println("║=== A: Primary School Menu ===              ║");
+                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("║Do you want to select:                      ║");
+                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("║[1] Age and Zodiac                          ║");
+                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("║[2] Reverse Words                           ║");
+                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("║[3] Back to Main Menu                       ║");
+                        System.out.println("╚════════════════════════════════════════════╝");
+                        System.out.print("Enter choice: "); // Bu satır çerçeve dışında kalmalı
+                        String Choice = input.nextLine().trim();
 
-                        switch (choice) {
+                        switch (Choice) {
                             case "1":
                                 clearScreen(); // Age and Zodiac başlamadan önce ekranı temizle
                                 ageAndZodiacDetection();
@@ -559,142 +570,199 @@ public class Group10 {
                             case "3":
                                 subMenu = false;
                                 break;
-                                default:
-                                clearScreen(); 
-                                System.out.println("Invalid choice.");
+                            default:
+                                System.out.println(COLOR_RED);
+                                System.out.println("Invalid choice! Try again.");
+                                System.out.println(COLOR_RESET);
                                 System.out.println("Press Enter to continue...");
                                 input.nextLine();
                                 break;
                         }
                     }
                         }
-    ///* Option A: Zodiac and Sign kısmı
+    //* Option A: Zodiac and Sign kısmı
 
     /* Öncelikle kullanıcıdan doğum gününün tarihini ve saatini almam gerekiyor,
     ardından bu bilgilere göre yaş ve burç hesaplaması yapacağım.
-    */ 
-    public static void ageAndZodiacDetection() {
+    */
+    public static int receiveInputDate(String inputString) {
+        while (true) {
+            System.out.println(inputString);
+            // Makes sure that the input is INT
+            if (input.hasNextInt()) {
+                return input.nextInt();
+            } else {
+                System.out.println(COLOR_RED);
+                System.out.println("╔════════════════════════════════════════════╗");
+                System.out.println("║Invalid input! Please enter an integer.     ║");
+                System.out.println("╚════════════════════════════════════════════╝");
+                System.out.println(COLOR_RESET);
+                input.next();
 
-        System.out.println("Age and Zodiac Sign Detection");
+            }
+        }
+    }
+    public static void ageAndZodiacDetection() {
+        System.out.println(COLOR_ROSE);
+        System.out.println("╔═══════════════════════════════╗");
+        System.out.println("║ Age and Zodiac Sign Detection ║");
+        System.out.println("╚═══════════════════════════════╝");
+        System.out.println(COLOR_RESET);
+        //Öncelikle kullanıcıdan doğum tarihini aldım.
+
 
         //Öncelikle kullanıcıdan doğum tarihini aldım.
-         System.out.print("Enter your birth 'day' (1-31):");
-         int birthDay = input.nextInt();
-        System.out.print("Enter your birth 'month' (1-12):");
-        int birthMonth = input.nextInt();
-        System.out.print("Enter your birth 'year':");
-        int birthYear = input.nextInt();
+        int birthDay = receiveInputDate("Enter your birth 'day' (1-31):");
+        input.nextLine();
+        int birthMonth = receiveInputDate("Enter your birth 'month' (1-12):");
+        input.nextLine();
+        int birthYear = receiveInputDate("Enter your birth 'year':");
+        input.nextLine();
+
+
 
         //Bu kısımda girdiği doğum günü tarihlerinin geçerli olup olmadığını kontrol ettim.
         if (!isValidDate(birthDay, birthMonth, birthYear)) {
-            System.out.println("Invalid birth date.");  
+            System.out.println(COLOR_RED);
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║Invalid birth date.                         ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             return;
         }
 
-        System.out.println("Your birthday: " + birthDay + "/" + birthMonth + "/" + birthYear);
+
+        System.out.println("╔══════════════╗");
+        System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
+        System.out.println("╚══════════════╝");
 
         //Sonrasında ise mevcut tarihi aldım.
-        System.out.print("Enter the current 'day' (1-31):");
-        int currentDay = input.nextInt();
-        System.out.print("Enter the current 'month' (1-12):");
-        int currentMonth = input.nextInt();
-        System.out.print("Enter the current 'year':");
-        int currentYear = input.nextInt();  
-
+        int currentDay = receiveInputDate("Enter the current 'day' (1-31):");
+        input.nextLine();
+        int currentMonth = receiveInputDate("Enter the current 'month' (1-12):");
+        input.nextLine();
+        int currentYear = receiveInputDate("Enter the current 'year':");
 
         //Bu kısımda da girdiği 'currentDay, currentMonth ve currentYear' kısımlarıının geçerli olup olmadığını kontrol ettim.
         if (!isValidDate(currentDay, currentMonth, currentYear)) {
-            System.out.println("Invalid current date.");   
+            System.out.println(COLOR_RED);
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║Invalid current date.                       ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             return;
         }
 
-        System.out.println("Current date: " + currentDay + "/" + currentMonth + "/" + currentYear);
+        clearScreen();
+        System.out.println("╔══════════════╗");
+        System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
+        System.out.println("╚══════════════╝");
+        System.out.println("╔══════════════╗");
+        System.out.println("║Current date: ║ "  + currentDay + "/" + currentMonth + "/" + currentYear + "                     ");
+        System.out.println("╚══════════════╝");
 
         // ---------- YAŞ HESAPLAMA
-    
+
         // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
         //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
         int age = currentYear - birthYear;
 
         // Kullanıcının girdiği yılda yaş gününü geçmediyse yaşını 1 azalttım.
         // Çünkü o yılki yaşını henüz doldurmadı.
-        if (currentMonth < birthMonth || 
-            (currentMonth == birthMonth && currentDay < birthDay)) {
+        if (currentMonth < birthMonth ||
+                (currentMonth == birthMonth && currentDay < birthDay)) {
             age--;
         }
 
         //Eğer yaş negatif hesaplanıyorsa kullanıcımız şimdiki zamana kıyasla doğum tarihinden önceki bir yılı girmiştir.
         //Girdiği tarihte henüz doğmamış olacağını gördüğüm için aşağıdaki mesajı verdim.
+
+        input.nextLine();
         if (age < 0) {
-            System.out.println("Invalid birth and current date. Birth date is in the future.");
+            System.out.println(COLOR_RED);
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║Invalid birth and current date. Birth date  ║");
+            System.out.println("║is in the future.                           ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             return;
         }
 
-        System.out.println("Your age is: " + age);
+        System.out.println("╔═════════════╗");
+        System.out.println("║Your age is: ║  " + age + "     ");
+        System.out.println("╚═════════════╝");
 
         // ----------- BURÇ HESAPLAMA
         String zodiac = calculateZodiac(birthDay, birthMonth);
-        System.out.println("Your Zodiac Sign is: " + zodiac);
+
+        System.out.println("╔═════════════════════╗");
+        System.out.println("║Your Zodiac Sign is: ║  " + zodiac + "       ");
+        System.out.println("╚═════════════════════╝");
+
+
+
+
     }
 
     public static boolean isValidDate(int day, int month, int year) {
         if (month < 1 || month > 12) {
-        return false;
-    }
-
-    //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
-    if (day < 1) {
-        return false;
-    }
-
-    if (month == 1 && day > 31) {
-        return false;
-    }
-    if (month == 2 && day > 28) { 
-    }
-    if (month == 3 && day > 31) {
-        return false;
-    }
-    if (month == 4 && day > 30) {
-        return false;
-    }
-    if (month == 5 && day > 31) {
-        return false;
-    }
-    if (month == 6 && day > 30) {
-        return false;
-    }
-    if (month == 7 && day > 31) {
-        return false;
-    }
-    if (month == 8 && day > 31) {
-        return false;
-    }
-    if (month == 9 && day > 30) {
-        return false;
-    }
-    if (month == 10 && day > 31) {
-        return false;
-    }
-    if (month == 11 && day > 30) {
-        return false;
-    }
-    if (month == 12 && day > 31) {
-        return false;
-    }
-     if (month == 2 && day ==29) {
-        if (year % 4 == 0) {
-            return true;
-        } else {
             return false;
         }
+
+        //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
+        if (day < 1) {
+            return false;
+        }
+
+        if (month == 1 && day > 31) {
+            return false;
+        }
+        if (month == 2){
+            if(day > 29)
+                return false;
+            if(day == 29 && year % 4 != 0)
+                return false;
+        }
+        if (month == 3 && day > 31) {
+            return false;
+        }
+        if (month == 4 && day > 30) {
+            return false;
+        }
+        if (month == 5 && day > 31) {
+            return false;
+        }
+        if (month == 6 && day > 30) {
+            return false;
+        }
+        if (month == 7 && day > 31) {
+            return false;
+        }
+        if (month == 8 && day > 31) {
+            return false;
+        }
+        if (month == 9 && day > 30) {
+            return false;
+        }
+        if (month == 10 && day > 31) {
+            return false;
+        }
+        if (month == 11 && day > 30) {
+            return false;
+        }
+        if (month == 12 && day > 31) {
+            return false;
+        }
+        if (month == 2 && day ==29) {
+            if (year % 4 == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
-}
 
-   
-
-        
     public static String calculateZodiac(int day, int month) {
         String zodiac = "";
         if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = "Aquarius";
@@ -712,12 +780,15 @@ public class Group10 {
         else zodiac = "Invalid";
         return zodiac;
     }
-       
 
     // * Option A: Reverse the Words kısmı
     // Bu kısımda kullanıcıdan aldığım cümledeki kelimeleri tek tek ters çevireceğim.
     public static void reverseTheWords() {
-        System.out.println("Reverse the Words");
+        System.out.println(COLOR_LILAC);
+        System.out.println("╔═══════════════════╗");
+        System.out.println("║ Reverse the Words ║");
+        System.out.println("╚═══════════════════╝");
+        System.out.println(COLOR_RESET);
 
         // Kullanıcıdan bir cümle alıyorum.
         System.out.print("Enter a sentence: ");
@@ -732,7 +803,8 @@ public class Group10 {
         // Cümlenin her harfini tek tek kontrol edeceğim
         for (int i = 0; i < sentence.length(); i++) {
             char c = sentence.charAt(i); // sıradaki karakteri al
-            if (c == ' ' || c == ',' || c == '.' || c == '!' || c == '?' || c == ';' || c == ':' || c == '"') {
+            if (c == ' ' || c == ',' || c == '.' || c == '!' || c == '?' || c == ';' || c == ':' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}' || c == '-' || c == '_'
+                    || c == '*' || c == '+' || c == '=' || c == '/' || c == '\\' || c == '|' || c == '<' || c == '>' || c == '~' || c == '`' || c == '@') {
 
                 int letterCount = 0;
                 for (int j = 0; j < word.length(); j++) {
@@ -757,9 +829,13 @@ public class Group10 {
             if (letterCount >= 2) word = reverseWord(word);
             result += word;
         }
-
-        System.out.println("\nReversed sentence:");
+        System.out.println(COLOR_LIGHT_LILAC);
+        System.out.println("\n╔════════════════════╗");
+        System.out.println("║ Reversed sentence: ║");
+        System.out.println("╚════════════════════╝");
+        System.out.println(COLOR_RESET);
         System.out.println(result);
+
     }
 
     public static String reverseWord(String word) {
@@ -1132,7 +1208,7 @@ public class Group10 {
         }
 
         System.out.println("════════════════════════════════════");
-        if(repeat("[1] Do it again.\n[2] Return to secondary school menu.\nYour choice: ")){
+        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice: ")){
             evaluation();
         }
         else{
