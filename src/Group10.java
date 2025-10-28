@@ -1089,7 +1089,7 @@ public class Group10 {
         sieveOfAtkin(intNum);
         System.out.println();
 
-        if(repeat("[1] Do it again.\n[2] Return to secondary school menu.\nYour choice: ")){
+        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice: ")){
             primeNumbers();
         }
         else{
@@ -1436,7 +1436,10 @@ public class Group10 {
         while (true) {
             clearScreen();
             // Menu . ...........
-            System.out.println("============== C) High School Menu ==============");
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║             High School Menu               ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println();
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║   [1] Statistical information about an Array   ║");
             System.out.println("║════════════════════════════════════════════════║");
