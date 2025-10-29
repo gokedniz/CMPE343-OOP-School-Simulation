@@ -8,6 +8,30 @@ import java.util.Random;
 import java.util.Locale;
 
 public class Group10 {
+    /**
+     * The main entry point of the application.
+     * <p>
+     * Displays the main menu to the user with options for different education levels —
+     * Primary School, Secondary School, High School, and University — as well as an Exit option.
+     * The program continuously loops through the menu until the user chooses to exit.
+     * </p>
+     *
+     * <p>
+     * Each menu option redirects the user to the corresponding submenu by invoking its related method:
+     * <ul>
+     *   <li>{@link #PrimarySchoolMenu()} – Opens the Primary School menu</li>
+     *   <li>{@link #secondarySchool()} – Opens the Secondary School menu</li>
+     *   <li>{@link #HighSchoolMenu()} – Opens the High School menu</li>
+     *   <li>{@link #universityMenu()} – Opens the University menu</li>
+     * </ul>
+     * </p>
+     *
+     * @see #PrimarySchoolMenu()
+     * @see #secondarySchool()
+     * @see #HighSchoolMenu()
+     * @see #universityMenu()
+     * @see #clearScreen()
+     */
     public static void main(String[] args) {
         Scanner inputGame = new Scanner(System.in);
         boolean menuContinues = true;
@@ -75,33 +99,78 @@ public class Group10 {
         }
     }
 
-    // C: High School Menu Scanner (Taha's scanner) 
+// === Scanner Instances ===
+
+    /**
+     * Scanner used for High School menu (Taha's section).
+     */
     static Scanner sc = new Scanner(System.in);
-    // Gülfem's scanner
+
+    /**
+     * Scanner used for general input in other sections (Gülfem's section).
+     */
     static Scanner input = new Scanner(System.in);
-    // Kerem's scanner
+
+    /**
+     * Scanner used for university-related menus (Kerem's section).
+     */
     static Scanner scanner = new Scanner(System.in);
 
-    // Gokdeniz's methods
 
+// === ANSI Color Codes ===
+
+    /** Resets text color and style. */
     public static final String COLOR_RESET = "\u001B[0m";
-    public static final String COLOR_RED   = "\u001B[31m";
+
+    /** Standard red text color. */
+    public static final String COLOR_RED = "\u001B[31m";
+
+    /** Standard green text color. */
     public static final String COLOR_GREEN = "\u001B[32m";
-    public static final String COLOR_YELLOW= "\u001B[33m";
-    public static final String COLOR_BLUE  = "\u001B[34m";
-    public static final String COLOR_LIGHT_RED   = "\u001B[91m";
+
+    /** Standard yellow text color. */
+    public static final String COLOR_YELLOW = "\u001B[33m";
+
+    /** Standard blue text color. */
+    public static final String COLOR_BLUE = "\u001B[34m";
+
+    /** Bright red text color. */
+    public static final String COLOR_LIGHT_RED = "\u001B[91m";
+
+    /** Bright green text color. */
     public static final String COLOR_LIGHT_GREEN = "\u001B[92m";
-    public static final String COLOR_LIGHT_YELLOW= "\u001B[38;5;229m";
-    public static final String COLOR_LIGHT_BLUE  = "\u001B[94m";
+
+    /** Light yellow text color for emphasis. */
+    public static final String COLOR_LIGHT_YELLOW = "\u001B[38;5;229m";
+
+    /** Bright blue text color. */
+    public static final String COLOR_LIGHT_BLUE = "\u001B[94m";
+
+    /** Bright magenta text color. */
     public static final String COLOR_LIGHT_MAGENTA = "\u001B[95m";
-    public static final String COLOR_LIGHT_CYAN  = "\u001B[96m";
-    public static final String COLOR_DARK_BLUE  = "\u001B[38;2;0;45;114m";
+
+    /** Bright cyan text color. */
+    public static final String COLOR_LIGHT_CYAN = "\u001B[96m";
+
+    /** Custom dark blue text color (RGB-based). */
+    public static final String COLOR_DARK_BLUE = "\u001B[38;2;0;45;114m";
+
+    /** Custom rose/pink text color (RGB-based). */
     public static final String COLOR_ROSE = "\u001B[38;2;255;0;128m";
+
+    /** Custom lilac (light purple) text color. */
     public static final String COLOR_LILAC = "\u001B[38;2;200;162;200m";
+
+    /** Very light lilac shade used for soft UI accents. */
     public static final String COLOR_LIGHT_LILAC = "\u001B[38;2;225;200;225m";
-// … and so on
-
-
+    /**
+     * Displays the animated welcome banner on the console.
+     * <p>
+     * Prints a large ASCII art title in rose color at the start of the program
+     * to greet the user. This method uses ANSI color codes for styling
+     * and resets the console color afterwards.
+     * </p>
+     */
     public static void displayWelcomeMessage() {
         System.out.println(COLOR_ROSE + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
                 "| |  | |    | |                           | |         /  ___|    | |               | |  /  ___(_)               | |     | |            \n" +
@@ -111,11 +180,32 @@ public class Group10 {
                 " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|   \\__\\___/   \\____/ \\___|_| |_|\\___/ \\___/|_|  \\____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|   \n"+
                 COLOR_RESET);
     }
-
+    /**
+     * Displays the University menu and manages the game setup process.
+     * <p>
+     * This method allows the user to configure the game by selecting:
+     * - The table size
+     * - The game mode (singleplayer or multiplayer)
+     * Once the selections are made, the appropriate game mode is started.
+     * </p>
+     * <p>
+     * The method performs the following steps:
+     * 1. Prints the University menu title.
+     * 2. Lets the user choose the table size via {@link #chooseTableSize(Scanner)}.
+     * 3. Initializes the game board with asterisks using {@link #fillTableWithAsterisk(char[][])}.
+     * 4. Prompts the user to select the game mode with {@link #chooseGameMode(Scanner)}.
+     * 5. Starts either {@link #playSingleplayer(char[][], Scanner)} or {@link #playMultiplayer(char[][], Scanner)} based on the user's choice.
+     * </p>
+     *
+     * @see #chooseTableSize(Scanner)
+     * @see #fillTableWithAsterisk(char[][])
+     * @see #chooseGameMode(Scanner)
+     * @see #playSingleplayer(char[][], Scanner)
+     * @see #playMultiplayer(char[][], Scanner)
+     */
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
-
         System.out.println(COLOR_LIGHT_CYAN);
         System.out.println("╔════════════════════════════════════════════╗");
         System.out.println("║         === D: University Menu ===         ║");
@@ -139,7 +229,17 @@ public class Group10 {
                 break;
         }
     }
-
+    /**
+     * Lets the user choose a table size for the game.
+     * <p>
+     * Shows four options (5x4, 6x5, 7x6, or return to main menu) and validates the input.
+     * If an invalid option is entered, an error message is shown until a valid one is selected.
+     * </p>
+     *
+     * @param input Scanner object to read user input
+     * @return a 2D char array for the selected table size, or null if user returns to main menu
+     * @see #clearScreen()
+     */
     public static char[][] chooseTableSize(Scanner input) {
         String choiceOfTableSize;
         char[][] table = new char[0][0];
@@ -192,7 +292,17 @@ public class Group10 {
 
         return table;
     }
-
+    /**
+     * Asks the user to select the game mode.
+     * <p>
+     * Prompts for singleplayer (<code>s</code>) or multiplayer (<code>m</code>) and
+     * keeps asking until a valid input is entered.
+     * </p>
+     *
+     * @param input Scanner object to read user input
+     * @return "s" for singleplayer or "m" for multiplayer
+     * @see #clearScreen()
+     */
     public static String chooseGameMode(Scanner input) {
         String choiceOfGameMode;
 
@@ -218,7 +328,24 @@ public class Group10 {
 
         return choiceOfGameMode;
     }
-
+    /**
+     * Runs the singleplayer game mode against the computer.
+     * <p>
+     * The player (as '1') takes turns dropping discs into columns,
+     * while the computer (as '2') makes random valid moves.
+     * The game continues until a player wins, the table is full, or the user quits.
+     * </p>
+     *
+     * @param table the 2D char array representing the current game board
+     * @param input Scanner object to read user input
+     *
+     * @see #dropDiscAnimated(char[][], byte, char)
+     * @see #isColumnValid(char[][], byte)
+     * @see #determineWinner(char[][], char)
+     * @see #isTableFull(char[][])
+     * @see #postGameMenu(Scanner)
+     * @see #universityMenu()
+     */
     public static void playSingleplayer(char[][] table, Scanner input){
         char currentPlayer = '1';
         boolean gameContinues = true;
@@ -342,7 +469,24 @@ public class Group10 {
                 return;
         }
     }
-
+    /**
+     * Runs the multiplayer game mode for two human players.
+     * <p>
+     * Players 1 and 2 take turns dropping discs into columns until one wins,
+     * the table becomes full, or a player quits.
+     * Input is validated to ensure only valid column numbers are accepted.
+     * </p>
+     *
+     * @param table the 2D char array representing the current game board
+     * @param input Scanner object to read user input
+     *
+     * @see #dropDiscAnimated(char[][], byte, char)
+     * @see #isColumnValid(char[][], byte)
+     * @see #determineWinner(char[][], char)
+     * @see #isTableFull(char[][])
+     * @see #postGameMenu(Scanner)
+     * @see #universityMenu()
+     */
     public static void playMultiplayer(char[][] table, Scanner input) {
         char currentPlayer = '1';
         boolean gameContinues = true;
@@ -431,8 +575,17 @@ public class Group10 {
                 return;
         }
     }
-
-
+    /**
+     * Shows what the player wants to do after the game.
+     * It asks if they want to:
+     * - Restart the same game (r)
+     * - Go back to the University Menu (m)
+     * - Quit to the main menu (q)
+     * Keeps asking until a valid option is chosen.
+     *
+     * @param input tool that reads what the player types
+     * @return "r", "m" or "q" depending on the player's choice
+     */
     public static String postGameMenu(Scanner input){
         String selection;
 
@@ -454,13 +607,23 @@ public class Group10 {
 
         return selection;
     }
-
+    /**
+     * Clears the console screen by printing several empty lines.
+     * Makes the display look fresh before showing new content.
+     */
     public static void clearScreen() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
-
+    /**
+     * Checks if the selected column is valid for placing a disc.
+     * Returns false if the number is out of range or the column is already full.
+     *
+     * @param table the game board
+     * @param colNum the chosen column number
+     * @return true if the column is valid, false otherwise
+     */
     public static boolean isColumnValid(char[][] table, byte colNum){
         if(colNum <= 0 || colNum > table[0].length)
             return false;
@@ -470,7 +633,13 @@ public class Group10 {
 
         return true;
     }
-
+    /**
+     * Checks if the game board is completely full.
+     * Returns true if there are no empty ('*') cells left.
+     *
+     * @param table the game board
+     * @return true if the table is full, false otherwise
+     */
     public static boolean isTableFull(char[][] table){
         for (char[] chars : table) {
             for (char ch : chars) {
@@ -482,7 +651,15 @@ public class Group10 {
     }
 
 
-
+    /**
+     * Checks if the given player has won the game.
+     * Looks for four matching symbols in a row horizontally,
+     * vertically, or diagonally.
+     *
+     * @param table the game board
+     * @param player the current player ('1' or '2')
+     * @return true if that player has four in a row, false otherwise
+     */
     public static boolean determineWinner(char[][] table, char player) {
         // Horizontal check
         for (int rowIndex = 0; rowIndex < table.length; rowIndex++) {
@@ -528,12 +705,24 @@ public class Group10 {
         }
         return false;
     }
+    /**
+     * Fills the entire game board with asterisks ('*')
+     * to reset it for a new round.
+     *
+     * @param table the game board
+     */
     public static void fillTableWithAsterisk(char[][] table){
         for (char[] chars : table) {
             Arrays.fill(chars, '*');
         }
     }
 
+    /**
+     * Prints the current game board to the screen with borders and colors.
+     * Player 1's discs appear red, Player 2's discs appear yellow.
+     *
+     * @param table the game board
+     */
     public static void printTable(char[][] table) {
         int rows = table.length;
         int cols = table[0].length;
@@ -586,6 +775,15 @@ public class Group10 {
         }
         System.out.println();
     }
+    /**
+     * Animates the disc dropping into the chosen column.
+     * The disc falls step by step until it reaches the correct spot.
+     *
+     * @param table the game board
+     * @param colNum the selected column number
+     * @param player the current player ('1' or '2')
+     * @throws InterruptedException if the animation is interrupted
+     */
     public static void dropDiscAnimated(char[][] table, byte colNum, char player) throws InterruptedException {
         int colIndex = (int)colNum - 1;
 
@@ -616,7 +814,6 @@ public class Group10 {
     * available options (Age and Zodiac, Reverse Words, or returning to the main menu).
     * The menu loops until the user selects '3' to go back.
     */
-
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
@@ -669,7 +866,7 @@ public class Group10 {
                         }
                     }
                         }
-    //* Option A: Zodiac and Sign 
+    // Option A: Zodiac and Sign
 
     /**
     * Takes an integer input from the user and repeatedly prompts in a loop 
