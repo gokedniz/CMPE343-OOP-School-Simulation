@@ -856,7 +856,7 @@ public class Group10 {
                     if (Character.isLetter(word.charAt(j))) letterCount++;
                 }
 
-                if (letterCount >= 2) word = reverseWord(word);
+                if (letterCount >= 2) word = reverseOnlyLetters(word);
 
                 result += word + c;
                 word = "";
@@ -887,6 +887,34 @@ public class Group10 {
         if (word.length() <= 1) return word;
         return word.charAt(word.length() - 1) + reverseWord(word.substring(0, word.length() - 1));
     }
+    public static String reverseOnlyLetters(String word) {
+    char[] chars = word.toCharArray();
+    int left = 0;
+    int right = chars.length - 1;
+
+    // Harf olmayanları atlayarak sadece harfleri yer değiştiren algoritma (Iteration Structure)[cite: 1191].
+    while (left < right) {
+        // Sol işaretçi harf değilse, atla
+        if (!Character.isLetter(chars[left])) {
+            left++;
+            continue; // continue ifadesi döngüdeki kalan kodları atlar[cite: 2443].
+        }
+        // Sağ işaretçi harf değilse, atla
+        if (!Character.isLetter(chars[right])) {
+            right--;
+            continue; // continue ifadesi döngüdeki kalan kodları atlar[cite: 2443].
+        }
+
+        // İkisi de harf ise yer değiştir (swap)
+        char temp = chars[left];
+        chars[left] = chars[right];
+        chars[right] = temp;
+
+        left++;
+        right--;
+    }
+    return new String(chars);
+}
 
    
 
