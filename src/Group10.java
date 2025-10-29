@@ -1264,9 +1264,15 @@ public class Group10 {
     //====================Secondary School====================
 
     /**
-     * Manages the "Secondary School" menu.
-     * It presents the user with options [1] Prime Number, [2] Step-by-step Evaluation,
-     * or [3] Return to Main Menu.
+     * Main menu of "Secondary School".
+     * <p>
+     * This method displays the submenu options for the Secondary School level:
+     * <ul>
+     * <li>{@link #primeNumbers()} - Opens the Prime Number comparison module.</li>
+     * <li>{@link #evaluation()} - Opens the Step-by-Step Expression Evaluation module.</li>
+     * <li>Returns to the main menu.</li>
+     * </ul>
+     * </p>
      */
     public static void secondarySchool(){
 
@@ -1322,9 +1328,9 @@ public class Group10 {
             break;
         }
     }
-    
     /**
      * Checks if the given string is a valid integer.
+     * <p>Used by {@link #secondarySchool()} to validate menu input.</p>
      *
      * @param input The string to check.
      * @return {@code true} if the string can be parsed as an integer, {@code false} otherwise.
@@ -1339,9 +1345,9 @@ public class Group10 {
             return false;
         }
     }
-    
     /**
      * Checks if the input string is a valid menu choice (i.e., "1", "2", or "3").
+     * <p>Used by {@link #secondarySchool()} to validate menu input.</p>
      *
      * @param input The string to check.
      * @return {@code true} if the input is 1, 2, or 3, {@code false} otherwise.
@@ -1357,10 +1363,13 @@ public class Group10 {
     }
     /**
      * Prompts the user with a message and waits for a "1" (repeat) or "2" (return) input.
-     * It will keep prompting until a valid choice is made.
+     * <p>
+     * It will keep prompting until a valid choice is made. This method is used by the
+     * {@link #primeNumbers()} and {@link #evaluation()} modules to ask the user
+     * if they want to try again.
+     * </p>
      *
-     * @param message The prompt message to display to the user 
-     * (e.g., "[1] Try again.\n[2] Return to secondary school menu.\nYour choice: ").
+     * @param message The prompt message to display to the user.
      * @return {@code true} if the user selects "1", {@code false} if the user selects "2".
      */
     static boolean repeat(String message){
@@ -1386,9 +1395,10 @@ public class Group10 {
     }
     /**
      * Finds prime numbers up to a given number 'n' using the Sieve of Eratosthenes algorithm.
-     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     * <p>Prints the first three primes, the last two primes, and the execution time in nanoseconds.</p>
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     * @see #primeNumbers()
      */
     public static void sieveOfEratosthenes(int intNum) {
         
@@ -1450,9 +1460,10 @@ public class Group10 {
     }
     /**
      * Finds prime numbers up to a given number 'n' using the Sieve of Sundaram algorithm.
-     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     * <p>Prints the first three primes, the last two primes, and the execution time in nanoseconds.</p>
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     * @see #primeNumbers()
      */
     public static void sieveOfSundaram(int intNum){
         
@@ -1512,9 +1523,10 @@ public class Group10 {
     }
     /**
      * Finds prime numbers up to a given number 'n' using the Sieve of Atkin algorithm.
-     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     * <p>Prints the first three primes, the last two primes, and the execution time in nanoseconds.</p>
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     * @see #primeNumbers()
      */
     public static void sieveOfAtkin(int intNum){
 
@@ -1588,9 +1600,15 @@ public class Group10 {
     }
     /**
      * Manages the "Prime Numbers" submenu.
+     * <p>
      * It prompts the user to enter an integer n (>= 12).
-     * Then, it runs and compares the performance of the Sieve of Eratosthenes,
-     * Sieve of Sundaram, and Sieve of Atkin algorithms for finding primes up to n.
+     * It then executes and compares the performance of the
+     * {@link #sieveOfEratosthenes(int)}, {@link #sieveOfSundaram(int)},
+     * and {@link #sieveOfAtkin(int)} algorithms for finding primes up to n.
+     * </p>
+     *
+     * @see #secondarySchool()
+     * @see #repeat(String)
      */
     public static void primeNumbers() {
         int intNum;
@@ -1657,10 +1675,21 @@ public class Group10 {
     //====================Step by Step Evaluation====================
     /**
      * Manages the "Step by Step Evaluation" submenu.
-     * It prompts the user to enter a mathematical expression containing numbers,
-     * parentheses, and operators (+, -, *, /).
-     * It then evaluates the expression step-by-step according to operator precedence
-     * and prints each step of the reduction.
+     * <p>
+     * This module prompts the user for a mathematical expression. The expression is first
+     * standardized by {@link #normalize(String)}, validated by {@link #isValidExpression(String)},
+     * and then parsed into tokens by {@link #tokenize(String)}.
+     * </p>
+     * <p>
+     * Finally, the {@link #evaluateStepByStep(List)} method solves the expression
+     * and prints each step.
+     * </p>
+     *
+     * @see #evaluateStepByStep(List)
+     * @see #tokenize(String)
+     * @see #isValidExpression(String)
+     * @see #normalize(String)
+     * @see #secondarySchool()
      */
     public static void evaluation() {
         clearScreen();
@@ -1707,8 +1736,15 @@ public class Group10 {
     } 
     /**
      * Normalizes a raw mathematical expression string.
-     * It removes all whitespace and replaces various user-friendly symbols
-     * (×, x, X, :, −) with their standard programmatic equivalents (*, /, -).
+     * <p>
+     * It removes all whitespace and replaces user-friendly symbols
+     * (e.g., 'x', ':', '−') with their standard programmatic equivalents
+     * (e.g., '*', '/', '-').
+     * </p>
+     * <p>
+     * This is the first step before calling {@link #isValidExpression(String)}
+     * or {@link #tokenize(String)}.
+     * </p>
      *
      * @param s The raw expression string from the user.
      * @return A normalized expression string.
@@ -1724,9 +1760,15 @@ public class Group10 {
     }
     /**
      * Checks if a normalized mathematical expression is syntactically valid.
-     * This includes checking for balanced parentheses, valid operator placement
-     * (e.g., no "5*+3"), and ensuring expressions don't start or end with operators
-     * (exceptions are made for negative numbers).
+     * <p>
+     * This validation includes:
+     * <ul>
+     * <li>Balanced parentheses.</li>
+     * <li>Valid operator placement (e.g., "5*+3" is invalid).</li>
+     * <li>Ensuring the expression does not start or end with invalid operators.</li>
+     * </ul>
+     * This should be used after {@link #normalize(String)}.
+     * </p>
      *
      * @param s The normalized expression string.
      * @return {@code true} if the expression is valid, {@code false} otherwise.
@@ -1810,12 +1852,19 @@ public class Group10 {
     }
     /**
      * Tokenizes a normalized expression string into a list of its components.
+     * <p>
      * It correctly identifies numbers (including multi-digit and negative numbers),
-     * operators, and parentheses.
+     * operators, and parentheses. It uses {@link #isOpOrOpen(String)} to
+     * differentiate between a subtraction operator and a negative sign.
+     * </p>
+     * <p>
      * Example: "-5*(10+2)" becomes ["-5", "*", "(", "10", "+", "2", ")"]
+     * </p>
      *
-     * @param s The normalized expression string.
+     * @param s The normalized expression string, presumably from {@link #normalize(String)}.
      * @return A {@link List} of String tokens.
+     * @see #normalize(String)
+     * @see #isOpOrOpen(String)
      */
     static List<String> tokenize(String s) {
         List<String> tokens = new ArrayList<>();
@@ -1861,9 +1910,11 @@ public class Group10 {
     }
     /**
      * A helper method for the {@link #tokenize(String)} process.
+     * <p>
      * It checks if the previous token was an operator or an open parenthesis.
      * This is used to determine if a '-' character is a negative sign (e.g., "5 * -3")
      * or a subtraction operator (e.g., "5 - 3").
+     * </p>
      *
      * @param lastToken The token immediately preceding the current '-' character.
      * @return {@code true} if the last token is an operator or '(', {@code false} otherwise.
@@ -1874,19 +1925,25 @@ public class Group10 {
             || lastToken.equals("*") || lastToken.equals("/")
             || lastToken.equals("(");
     }
-    // It reduces and writes one operation at a time until it reduces the entire expression to a single number.
     /**
-     * The main recursive method for evaluating the expression.
-     * It follows the order of operations (PEMDAS/BODMAS):
-     * 1. Finds the innermost parentheses.
-     * 2. Reduces the expression inside the parentheses (first * /, then + -).
-     * 3. Removes the parentheses when they contain a single number.
-     * 4. Prints the state of the expression after each reduction.
-     * 5. Repeats until the entire list is reduced to a single number.
+     * The main recursive method for evaluating the expression step-by-step.
+     * <p>
+     * It follows the order of operations (PEMDAS/BODMAS) by:
+     * <ol>
+     * <li>Finding the innermost parentheses using {@link #findInnermostOpenParen(List)}.</li>
+     * <li>Reducing the expression inside using {@link #reduceOnce(List, int, int)}.</li>
+     * <li>Removing redundant parentheses (e.g., "(50)") using {@link #removeParen(List, int, int)}.</li>
+     * <li>Printing each step of the reduction.</li>
+     * </ol>
+     * This method calls itself recursively until the expression is reduced to a single number.
+     * </p>
      *
      * @param tokens The list of tokens representing the expression. 
      * This list is modified in-place with each reduction.
-     * @throws ArithmeticException if a division by zero is attempted.
+     * @throws ArithmeticException if a division by zero is attempted by {@link #reduceOnce(List, int, int)}.
+     * @see #reduceOnce(List, int, int)
+     * @see #findInnermostOpenParen(List)
+     * @see #removeParen(List, int, int)
      */
     static void evaluateStepByStep(List<String> tokens) {
 
@@ -1924,15 +1981,18 @@ public class Group10 {
     }
     /**
      * Performs a single reduction operation within a specified range of the token list.
-     * It scans first for multiplication (*) or division (/) and performs the first one it finds.
-     * If no * or / is found, it scans again for addition (+) or subtraction (-)
-     * and performs the first one it finds.
+     * <p>
+     * It scans first for high-precedence operators (* or /).
+     * If none are found, it scans again for low-precedence operators (+ or -).
+     * It performs the first operation it finds and updates the token list.
+     * </p>
      *
      * @param tokens The token list. This list is modified in-place.
      * @param start The starting index (inclusive) of the range to scan.
      * @param endEx The ending index (exclusive) of the range to scan.
      * @return {@code true} if a reduction was performed, {@code false} if no operation
      * was found to reduce.
+     * @throws ArithmeticException if a division by zero is attempted.
      */
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
         // look for '*' or '/'
@@ -1990,7 +2050,7 @@ public class Group10 {
     }
     /**
      * Finds the index of the innermost (rightmost) open parenthesis '('.
-     * This is the starting point for evaluation.
+     * <p>This serves as the starting point for evaluation in {@link #evaluateStepByStep(List)}.</p>
      *
      * @param tokens The list of tokens.
      * @return The index of the last '(', or -1 if no parentheses are found.
@@ -2004,12 +2064,12 @@ public class Group10 {
         }
         return -1; //if there are no parantheses
     }
-    //Finds the matching paranthesis for the given ')'
     /**
      * Finds the matching close parenthesis ')' for a given open parenthesis '('.
+     * <p>Used by {@link #evaluateStepByStep(List)} to identify the bounds of a sub-expression.</p>
      *
      * @param tokens  The list of tokens.
-     * @param openIdx The index of the '(' token.
+     * @param openIdx The index of the '(', found by {@link #findInnermostOpenParen(List)}.
      * @return The index of the matching ')' token, or -1 if not found.
      */
     static int findMatchingCloseParen(List<String> tokens, int openIdx) {
@@ -2023,10 +2083,10 @@ public class Group10 {
         }
         return -1;
     }
-    //if there is just a number inside the paranthesis, removes the paranthesis.
     /**
      * Removes parentheses from the token list if they contain only a single number.
-     * Example: Replaces ["(", "50", ")"] with ["50"].
+     * <p>Example: Replaces ["(", "50", ")"] with ["50"].</p>
+     * <p>This is a cleanup step used by {@link #evaluateStepByStep(List)}.</p>
      *
      * @param tokens The token list. This list is modified in-place.
      * @param open   The index of the open parenthesis '('.
@@ -2042,10 +2102,9 @@ public class Group10 {
         }
         return false;
     }
-    //Combines the tokens to print out and switches '*' to 'x' and '/' to ':'.
     /**
      * Converts a list of tokens back into a user-friendly, readable string for output.
-     * Replaces programmatic operators with display symbols (e.g., "*" -> "x", "/" -> ":").
+     * <p>Replaces programmatic operators ('*', '/') with display symbols ('x', ':').</p>
      *
      * @param tokens The list of tokens to render.
      * @return A formatted, single-line string representation of the expression.
@@ -2061,9 +2120,12 @@ public class Group10 {
         }
         return sb.toString();
     }
-    //checks if the both lhs and rhs tokens are number.
     /**
      * Checks if a given token string represents a valid number (positive or negative).
+     * <p>
+     * Used by {@link #evaluateStepByStep(List)} and {@link #removeParen(List, int, int)}
+     * before parsing a token.
+     * </p>
      *
      * @param tk The token string to check.
      * @return {@code true} if the token is a number, {@code false} otherwise.
@@ -2081,11 +2143,14 @@ public class Group10 {
         }
         return true;
     }
+    
     /**
      * Safely parses a string token (which is assumed to be a valid number) into a {@code long}.
      *
      * @param tk The number token string.
      * @return The {@code long} value of the token.
+     * @see #isNumberToken(String)
+     * @see #reduceOnce(List, int, int)
      */
     static long parseLongSafe(String tk) {
         //transform the string token to long
