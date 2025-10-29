@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.Locale;
 /*
 Methods that needed to be written
 1. if the chosen column is valid. OK
@@ -911,28 +912,31 @@ public class Group10 {
     public static void secondarySchool(){
 
         clearScreen();
-        System.out.println(COLOR_LIGHT_CYAN);
-        System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║        === Secondary School Menu ===           ║");
-        System.out.println("╚════════════════════════════════════════════════╝");
-        System.out.println(COLOR_LIGHT_BLUE);
-        System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║          Please select your choice:            ║");
-        System.out.println("╚════════════════════════════════════════════════╝");
-        System.out.println(COLOR_RESET);
-        System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║   [1] Prime Number                             ║");
-        System.out.println("║════════════════════════════════════════════════║");
-        System.out.println("║   [2] Step-by-step Evaluation of Expression    ║");
-        System.out.println("║════════════════════════════════════════════════║");
-        System.out.println("║   [3] Return to Main Menu                      ║");
-        System.out.println("╚════════════════════════════════════════════════╝");
+        
 
         while (true) {
+            System.out.println(COLOR_LIGHT_CYAN);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║        === Secondary School Menu ===           ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_LIGHT_BLUE);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║          Please select your choice:            ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║   [1] Prime Number                             ║");
+            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("║   [2] Step-by-step Evaluation of Expression    ║");
+            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("║   [3] Return to Main Menu                      ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
             System.out.print("Enter your choice (1-3): "); 
             String input = scanner.nextLine();
+
             //If the input is integer or not?
             if (!isInt(input)) {
+                clearScreen();
                 System.out.println();
                 System.out.print(COLOR_RED);
                 System.out.println("Invalid input! ");
@@ -941,6 +945,7 @@ public class Group10 {
             }
             //If the input is between 1-3?
             if(!isValidMenu(input)){
+                clearScreen();
                 System.out.println();
                 System.out.print(COLOR_RED);
                 System.out.println("Invalid input! "); 
@@ -1058,7 +1063,7 @@ public class Group10 {
         System.out.print("Last two primes: " + secondLast + " " + last);
 
         //execution time print
-        System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
     
@@ -1078,7 +1083,7 @@ public class Group10 {
 
         //switching not primes to true, then primes will remain false.
         for (int i = 1; i <= nNew; i++){
-            for (int j = i; i+j+2*i*j <= nNew; j++){
+            for (int j = i; (long) i+j+2*(long)i*j <= nNew; j++){
                 marked[i+j+2*i*j] = true;
             }
         }
@@ -1115,7 +1120,7 @@ public class Group10 {
         System.out.print("Last two primes: " + secondLast + " " + last);
 
         //execution time print
-        System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
 
@@ -1186,19 +1191,22 @@ public class Group10 {
         System.out.print("Last two primes: " + secondLast + " " + last);
 
         //execution time print
-        System.out.println("\nExecution time: " + executionTime + " ns");
+        System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
     
     public static void primeNumbers() {
         int intNum;
         clearScreen();
-        System.out.println(COLOR_ROSE);
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║          === Prime Numbers ===          ║");
-        System.out.println("╚═════════════════════════════════════════╝");
-        System.out.println(COLOR_RESET);
+
         while (true) {
+
+            System.out.println(COLOR_ROSE);
+            System.out.println("╔═════════════════════════════════════════╗");
+            System.out.println("║          === Prime Numbers ===          ║");
+            System.out.println("╚═════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+
             System.out.print("Please enter an integer (n >= 12): ");
             String num = scanner.nextLine().trim();
     
@@ -1221,6 +1229,15 @@ public class Group10 {
                 System.out.print(COLOR_RESET);
                 continue;
             }
+
+            if (intNum > 536_848_000) {
+                clearScreen();
+                System.out.println("");
+                System.out.print(COLOR_RED);
+                System.out.println("You entered a very large number!"); 
+                System.out.print(COLOR_RESET);
+                continue;
+            } 
             break;
         }
 
@@ -1243,12 +1260,14 @@ public class Group10 {
     //====================Step by Step Evaluation====================
     public static void evaluation() {
         clearScreen();
-        System.out.println(COLOR_ROSE);
-        System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println("║     === Step by Step Evaluation ===     ║");
-        System.out.println("╚═════════════════════════════════════════╝");
-        System.out.println(COLOR_RESET);
+
         while(true){
+            System.out.println(COLOR_ROSE);
+            System.out.println("╔═════════════════════════════════════════╗");
+            System.out.println("║     === Step by Step Evaluation ===     ║");
+            System.out.println("╚═════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+
             System.out.print("Enter a mathematical expression: ");
             String input = scanner.nextLine();
 
