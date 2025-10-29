@@ -135,7 +135,7 @@ public class Group10 {
             return;
         }
         fillTableWithAsterisk(table);
-
+        clearScreen();
         choiceOfGameMode = chooseGameMode(input);
 
         switch (choiceOfGameMode){
@@ -148,10 +148,11 @@ public class Group10 {
         }
     }
 
-    public static char[][] chooseTableSize(Scanner input){
+    public static char[][] chooseTableSize(Scanner input) {
         String choiceOfTableSize;
         char[][] table = new char[0][0];
-        do{
+
+        do {
             System.out.print(COLOR_LIGHT_BLUE);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║  Please select your choice of table size:  ║");
@@ -170,22 +171,19 @@ public class Group10 {
             System.out.println("║     4-) Return to main menu.     ║");
             System.out.println("╚══════════════════════════════════╝");
             System.out.print("Your choice: ");
-            choiceOfTableSize = input.next();
-            if((!choiceOfTableSize.equalsIgnoreCase("1")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("2")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("3")) &&
-                    !(choiceOfTableSize.equalsIgnoreCase("4"))){
+            choiceOfTableSize = input.nextLine().trim();
+            // Boş veya birden fazla sayı girilirse hata
+            if (!choiceOfTableSize.matches("[1-4]")) {
                 clearScreen();
-                System.out.println(COLOR_RED + "Invalid input. Please try again." + COLOR_RESET);
+                System.out.println(COLOR_RED);
+                System.out.println("╔════════════════════════════════════════════╗");
+                System.out.println("║Invalid input! Please enter 1, 2, 3, or 4.  ║");
+                System.out.println("╚════════════════════════════════════════════╝");
+                System.out.println(COLOR_RESET);
             }
-        }while((!choiceOfTableSize.equalsIgnoreCase("1")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("2")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("3")) &&
-                !(choiceOfTableSize.equalsIgnoreCase("4")));
+        } while (!choiceOfTableSize.matches("[1-4]"));
 
-        choiceOfTableSize = choiceOfTableSize.trim().toLowerCase();
-
-        switch (choiceOfTableSize){
+        switch (choiceOfTableSize) {
             case "1":
                 table = new char[4][5];
                 break;
@@ -199,26 +197,33 @@ public class Group10 {
                 System.out.println("Returning to main menu...");
                 return null;
         }
+
         return table;
     }
 
-    public static String chooseGameMode(Scanner input){
+    public static String chooseGameMode(Scanner input) {
         String choiceOfGameMode;
-        do{
-            clearScreen();
+
+        do {
             System.out.println(COLOR_LIGHT_BLUE);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║    Single Player or Multiplayer (s/m)?     ║");
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.println(COLOR_RESET);
-            choiceOfGameMode = input.next();
-            if(!choiceOfGameMode.equalsIgnoreCase("s") &&
-                    !choiceOfGameMode.equalsIgnoreCase("m"))
-                System.out.println(COLOR_RED + "ınvalid input. Please try again." + COLOR_RESET);
-        }while(!choiceOfGameMode.equalsIgnoreCase("s") &&
-                !choiceOfGameMode.equalsIgnoreCase("m"));
 
-        choiceOfGameMode = choiceOfGameMode.trim().toLowerCase();
+            choiceOfGameMode = input.nextLine().trim().toLowerCase();
+
+            if (!choiceOfGameMode.matches("[sm]")) {
+                clearScreen();
+                System.out.println(COLOR_RED);
+                System.out.println("╔════════════════════════════════════════════╗");
+                System.out.println("║Invalid input! Please enter 's' or 'm'.     ║");
+                System.out.println("╚════════════════════════════════════════════╝");
+                System.out.println(COLOR_RESET);
+            }
+
+        } while (!choiceOfGameMode.matches("[sm]"));
+
         return choiceOfGameMode;
     }
 
@@ -272,6 +277,16 @@ public class Group10 {
             }
             else{
                 byte computersMove;
+                // Computer's thinking
+                System.out.print(COLOR_LIGHT_YELLOW + "\nComputer is thinking" + COLOR_RESET);
+                for (int i = 0; i < 3; i++) {
+                    try {
+                        Thread.sleep(800); // 1 sec. waiting
+                        System.out.print(".");
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
                 do {
                     computersMove = (byte) (random.nextInt(table[0].length) + 1);
                 } while (!isColumnValid(table, computersMove));
@@ -289,10 +304,10 @@ public class Group10 {
                 clearScreen();
                 printTable(table);
                 if(currentPlayer == '1'){
-                    System.out.println("Congratulations! You won the game!");
+                    System.out.println(COLOR_LIGHT_GREEN + "Congratulations! You won the game!" +  COLOR_RESET);
                 }
                 else{
-                    System.out.println("The computer wins!");
+                    System.out.println(COLOR_RED + "The computer wins!" + COLOR_RESET);
                 }
                 gameContinues = false;
             }
