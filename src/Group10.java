@@ -571,7 +571,12 @@ public class Group10 {
     }
 
     ////GÜLFEM
-    
+    /**
+    * Displays the Primary School sub-menu and allows the user to choose between
+    * available options (Age and Zodiac, Reverse Words, or returning to the main menu).
+    * The menu loops until the user selects '3' to go back.
+    */
+
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
@@ -613,7 +618,7 @@ public class Group10 {
                                 break;
                             case "3":
                                 subMenu = false;
-                                break;
+                                break;    
                             default:
                                 System.out.println(COLOR_RED);
                                 System.out.println("Invalid choice! Try again.");
@@ -624,11 +629,16 @@ public class Group10 {
                         }
                     }
                         }
-    //* Option A: Zodiac and Sign kısmı
+    //* Option A: Zodiac and Sign 
 
-    /* Öncelikle kullanıcıdan doğum gününün tarihini ve saatini almam gerekiyor,
-    ardından bu bilgilere göre yaş ve burç hesaplaması yapacağım.
+    /**
+    * Takes an integer input from the user and repeatedly prompts in a loop 
+    * until a valid integer is entered.
+    *   
+    * @param inputString The prompt message to display to the user.
+    * @return The valid integer entered by the user.
     */
+
     public static int receiveInputDate(String inputString) {
         while (true) {
             System.out.println(inputString);
@@ -636,6 +646,7 @@ public class Group10 {
             if (input.hasNextInt()) {
                 return input.nextInt();
             } else {
+                clearScreen();
                 System.out.println(COLOR_RED);
                 System.out.println("╔════════════════════════════════════════════╗");
                 System.out.println("║Invalid input! Please enter an integer.     ║");
@@ -646,16 +657,22 @@ public class Group10 {
             }
         }
     }
+    /**
+    * Takes the user's birth date and the current date, calculates the user's
+    * age based on these dates, and determines their zodiac sign according to the
+    * birth date.
+    * Checks for invalid dates (via {@link #isValidDate(int, int, int)} method)
+    * or a future birth date, and displays appropriate error messages.
+    */
     public static void ageAndZodiacDetection() {
         System.out.println(COLOR_ROSE);
         System.out.println("╔═══════════════════════════════╗");
         System.out.println("║ Age and Zodiac Sign Detection ║");
         System.out.println("╚═══════════════════════════════╝");
         System.out.println(COLOR_RESET);
-        //Öncelikle kullanıcıdan doğum tarihini aldım.
 
+        //First, I took the user's date of birth.
 
-        //Öncelikle kullanıcıdan doğum tarihini aldım.
         int birthDay = receiveInputDate("Enter your birth 'day' (1-31):");
         input.nextLine();
         int birthMonth = receiveInputDate("Enter your birth 'month' (1-12):");
@@ -665,8 +682,9 @@ public class Group10 {
 
 
 
-        //Bu kısımda girdiği doğum günü tarihlerinin geçerli olup olmadığını kontrol ettim.
+        //In this section, I checked whether the birthday dates they entered were valid.
         if (!isValidDate(birthDay, birthMonth, birthYear)) {
+            clearScreen();
             System.out.println(COLOR_RED);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║Invalid birth date.                         ║");
@@ -680,15 +698,16 @@ public class Group10 {
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
         System.out.println("╚══════════════╝");
         System.out.println(COLOR_RESET);
-        //Sonrasında ise mevcut tarihi aldım.
+        //Next, I took the current date.
         int currentDay = receiveInputDate("Enter the current 'day' (1-31):");
         input.nextLine();
         int currentMonth = receiveInputDate("Enter the current 'month' (1-12):");
         input.nextLine();
         int currentYear = receiveInputDate("Enter the current 'year':");
-
-        //Bu kısımda da girdiği 'currentDay, currentMonth ve currentYear' kısımlarıının geçerli olup olmadığını kontrol ettim.
+        input.nextLine();
+        //In this section, I also checked whether the 'currentDay, currentMonth, and currentYear' parts they entered were valid.
         if (!isValidDate(currentDay, currentMonth, currentYear)) {
+            clearScreen();
             System.out.println(COLOR_RED);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║Invalid current date.                       ║");
@@ -706,23 +725,22 @@ public class Group10 {
         System.out.println("║Current date: ║ "  + currentDay + "/" + currentMonth + "/" + currentYear + "                     ");
         System.out.println("╚══════════════╝");
         System.out.println(COLOR_RESET);
-        // ---------- YAŞ HESAPLAMA
 
-        // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
-        //Negatif değerler çıkmasını istemediğim için düzeltip alttaki şekile çevirdim.
+        // ---------- AGE CALCULATION
+
+        //I didn't account for the possibility of negative results when I initially wrote the age calculation section.
+        //To prevent negative values, I made corrections and updated the code/logic to the structure below.
         int age = currentYear - birthYear;
 
-        // Kullanıcının girdiği yılda yaş gününü geçmediyse yaşını 1 azalttım.
-        // Çünkü o yılki yaşını henüz doldurmadı.
+        //Decrement the age if the user's birthday has not yet passed in the given year, as they haven't completed their current age.
         if (currentMonth < birthMonth ||
                 (currentMonth == birthMonth && currentDay < birthDay)) {
             age--;
         }
 
-        //Eğer yaş negatif hesaplanıyorsa kullanıcımız şimdiki zamana kıyasla doğum tarihinden önceki bir yılı girmiştir.
-        //Girdiği tarihte henüz doğmamış olacağını gördüğüm için aşağıdaki mesajı verdim.
+        // A negative age means the user's entered birth date is in the future.
+        // Display an error/informative message indicating that the user is not yet born as of the current date.
 
-        input.nextLine();
         if (age < 0) {
             System.out.println(COLOR_RED);
             System.out.println("╔════════════════════════════════════════════╗");
@@ -737,7 +755,8 @@ public class Group10 {
         System.out.println("║Your age is: ║  " + age + "     ");
         System.out.println("╚═════════════╝");
 
-        // ----------- BURÇ HESAPLAMA
+        // ----------- AGE AND ZODIAC SIGN CALCULATION
+        
         String zodiac = calculateZodiac(birthDay, birthMonth);
 
         System.out.println("╔═════════════════════╗");
@@ -745,16 +764,23 @@ public class Group10 {
         System.out.println("╚═════════════════════╝");
         System.out.println(COLOR_RESET);
 
-
-
     }
+
+        /**
+        * Checks whether the given day, month, and year values constitute a valid calendar date.
+        * Takes into account the number of days in the month and the leap year (February 29) rule.
+        * @param day The day to check (1-31).
+        * @param month The month to check (1-12).
+        * @param year The year to check.
+        * @return {@code true} if the date is valid, otherwise {@code false}.
+        */
 
     public static boolean isValidDate(int day, int month, int year) {
         if (month < 1 || month > 12) {
             return false;
         }
 
-        //Girilen günün o aydaki gün sayısının doğruluğunun kontrolü
+        //Check if the day is valid for the given month.
         if (day < 1) {
             return false;
         }
@@ -808,6 +834,15 @@ public class Group10 {
         return true;
     }
 
+    /**
+    * Calculates and returns the astrological sign based on the given birth day and month.
+    * 
+    * @param day The birth day (1-31).
+    * @param month The birth month (1-12).
+    * @return The name of the determined zodiac sign, or "Invalid" if the 
+    *         month/day combination does not match any zodiac range.
+    */
+
     public static String calculateZodiac(int day, int month) {
         String zodiac = "";
         if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = "Aquarius";
@@ -826,8 +861,16 @@ public class Group10 {
         return zodiac;
     }
 
-    // * Option A: Reverse the Words kısmı
-    // Bu kısımda kullanıcıdan aldığım cümledeki kelimeleri tek tek ters çevireceğim.
+    // OPTINON A: REVERSE THE WORDS
+    // This method reverses the letters of each word in a given sentence,
+    // while keeping the positions of non-letter characters unchanged.
+
+    /**
+    * Takes a sentence from the user and prints the result by reversing "only the letters"
+    * of each word in that sentence. Words are separated by spaces and various punctuation
+    * marks. Only words containing 2 or more letters are reversed.
+    */
+    
     public static void reverseTheWords() {
         System.out.println(COLOR_ROSE);
         System.out.println("╔═══════════════════╗");
@@ -835,19 +878,20 @@ public class Group10 {
         System.out.println("╚═══════════════════╝");
         System.out.println(COLOR_RESET);
 
-        // Kullanıcıdan bir cümle alıyorum.
+        //I will take the sentence from the user.
         System.out.print("Enter a sentence: ");
         String sentence = input.nextLine();
 
-        // Sonucu saklayacağım değişken
+        //The variable that will hold the result.
         String result = "";
 
-        // Geçici olarak bir kelimeyi tutmak için
+        //Temporary storage for a word.
         String word = "";
 
-        // Cümlenin her harfini tek tek kontrol edeceğim
+        //Process the sentence character by character.
+
         for (int i = 0; i < sentence.length(); i++) {
-            char c = sentence.charAt(i); // sıradaki karakteri al
+            char c = sentence.charAt(i); //Current character being processed.
             if (c == ' ' || c == ',' || c == '.' || c == '!' || c == '?' || c == ';' || c == ':' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}' || c == '-' || c == '_'
                     || c == '*' || c == '+' || c == '=' || c == '/' || c == '\\' || c == '|' || c == '<' || c == '>' || c == '~' || c == '`' || c == '@') {
 
@@ -871,9 +915,10 @@ public class Group10 {
                 if (Character.isLetter(word.charAt(j))) letterCount++;
             }
 
-            if (letterCount >= 2) word = reverseWord(word);
+            if (letterCount >= 2) word = reverseOnlyLetters(word);
             result += word;
         }
+
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("\n╔════════════════════╗");
         System.out.println("║ Reversed sentence: ║");
@@ -883,26 +928,42 @@ public class Group10 {
 
     }
 
+    /**
+    * Recursively reverses a given word completely.
+    * This method reverses all characters (letters, numbers, symbols) in the word.
+    * @param word The word to be reversed.
+    * @return The completely reversed word.
+    */
+
     public static String reverseWord(String word) {
         if (word.length() <= 1) return word;
         return word.charAt(word.length() - 1) + reverseWord(word.substring(0, word.length() - 1));
     }
+
+    /**
+    * Reverses the order of "only the letters" within a given word.
+    * Non-letter characters (numbers, symbols) maintain their positions.
+    *
+    * @param word The word whose letters are to be reversed.
+    * @return The word with its letters reversed and non-letter characters preserved in their original positions.
+    */
+
     public static String reverseOnlyLetters(String word) {
     char[] chars = word.toCharArray();
     int left = 0;
     int right = chars.length - 1;
 
-    // Harf olmayanları atlayarak sadece harfleri yer değiştiren algoritma (Iteration Structure)[cite: 1191].
+    // Harf olmayanları atlayarak sadece harfleri yer değiştiren algoritma (Iteration Structure).
     while (left < right) {
         // Sol işaretçi harf değilse, atla
         if (!Character.isLetter(chars[left])) {
             left++;
-            continue; // continue ifadesi döngüdeki kalan kodları atlar[cite: 2443].
+            continue; // continue ifadesi döngüdeki kalan kodları atlar
         }
         // Sağ işaretçi harf değilse, atla
         if (!Character.isLetter(chars[right])) {
             right--;
-            continue; // continue ifadesi döngüdeki kalan kodları atlar[cite: 2443].
+            continue; // continue ifadesi döngüdeki kalan kodları atlar
         }
 
         // İkisi de harf ise yer değiştir (swap)
