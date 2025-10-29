@@ -1646,10 +1646,13 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
+
+    public static int choice;
+
     public static void HighSchoolMenu(){
         while (true) {
             clearScreen();
-            // Menu . ...........
+            // Menu
             System.out.println(COLOR_LIGHT_CYAN);
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║            === High School Menu ===            ║");
@@ -1670,7 +1673,7 @@ public class Group10 {
             System.out.println("╚════════════════════════════════════════════════╝");
             System.out.print("Please choose your operation (1-3): ");
 
-            int choice = readIntInRange(1, 3);
+            choice = readIntInRange(1, 3);
             switch (choice) {
                 case 1:
                     clearScreen();
@@ -1701,14 +1704,17 @@ public class Group10 {
          System.out.println(COLOR_RESET);
         int n;
         while (true) {
-            System.out.print("Enter the length of your array: ");
+            System.out.print("Enter the length of your array(1-20): ");
             n = readPositiveInt();
             if (n <= 0) {
-                System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again: \" + COLOR_RESET");
+                clearScreen();
+                System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again. \" + COLOR_RESET");
+                statisticalInformation();
             }
             else if(n > 20) {
                 clearScreen();
-                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20. " + COLOR_RESET);
+                statisticalInformation();
             }
             else {
                 break;
@@ -1718,6 +1724,7 @@ public class Group10 {
         double[] arr = new double[n];
         System.out.println("Enter the members of your array:");
         for (int i = 0; i < n; i++) {
+            clearScreen();
             arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
         }
 
@@ -1761,29 +1768,34 @@ public class Group10 {
         System.out.println(COLOR_RESET);
         int dim;
         while (true) {
-            System.out.print("Enter the length of your array: ");
+            System.out.print("Enter the length of your array(1-20): ");
             dim = readPositiveInt();
             if (dim <= 0) {
+                clearScreen();
                 System.out.println("COLOR_RED + \"Length must be positive integer. Please try again.\" + COLOR_RESET");
+                distanceBetweenTwoArrays();
             }
             else if(dim > 20) {
                 clearScreen();
                 System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+                distanceBetweenTwoArrays();
             }
             else {
                 break;
             }
         }
 
-        System.out.println("Enter memmbers of the first array (Must be 0-9 integer):");
+        System.out.println("Enter members of the first array (Must be 0-9 integer):");
         int[] a = new int[dim];
         for (int i = 0; i < dim; i++) {
+            clearScreen();
             a[i] = readIntInRangeWithPrompt(0, 9, "a[" + i + "]: ");
         }
 
-        System.out.println("Enter memmbers of the second array (Must be 0-9 integer):");
+        System.out.println("Enter members of the second array (Must be 0-9 integer):");
         int[] b = new int[dim];
         for (int i = 0; i < dim; i++) {
+            clearScreen();
             b[i] = readIntInRangeWithPrompt(0, 9, "b[" + i + "]: ");
         }
         // Calculations
@@ -1917,6 +1929,8 @@ public class Group10 {
                     System.out.println("║   [3] Return to Main Menu                      ║");
                     System.out.println("╚════════════════════════════════════════════════╝");
                     System.out.printf(COLOR_RED + "Input out of range. Please enter an integer between %d and %d." + COLOR_RESET, min, max);
+                    System.out.println();
+                    System.out.print("Please choose your operation (1-3): ");
                     continue;
                 }
                 return val;
@@ -1941,7 +1955,9 @@ public class Group10 {
                 System.out.println("╔════════════════════════════════════════════════╗");
                 System.out.println("║   [3] Return to Main Menu                      ║");
                 System.out.println("╚════════════════════════════════════════════════╝");
-                System.out.print(COLOR_RED + "Invalid input, please try again: " + COLOR_RESET);
+                System.out.print(COLOR_RED + "Invalid input, please try again. " + COLOR_RESET);
+                System.out.println();
+                System.out.print("Please choose your operation (1-3): ");
             }
         }
     }
@@ -1960,7 +1976,8 @@ public class Group10 {
                 return val;
             } 
             catch (NumberFormatException ex) {
-                System.out.println(COLOR_RED + "Invalid input please try again: " + COLOR_RESET);
+                clearScreen();
+                System.out.println(COLOR_RED + "Invalid input please try again. " + COLOR_RESET);
             }
         }
     }
@@ -1972,13 +1989,20 @@ public class Group10 {
                 int v = Integer.parseInt(line);
                 if (v <= 0) {
                     clearScreen();
-                    System.out.print(COLOR_RED + "Enter a positive integer: " + COLOR_RESET);
+                    System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
                     continue;
                 }
                 return v;
             } 
             catch (NumberFormatException ex) {
-                System.out.print(COLOR_RED + "Invalid input, please enter a positive integer: " + COLOR_RESET);
+                clearScreen();
+                System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
+                if(choice == 1){
+                    statisticalInformation();
+                }
+                else if(choice == 2){
+                    distanceBetweenTwoArrays();
+                }
             }
         }
     }
@@ -1991,7 +2015,8 @@ public class Group10 {
                 return Double.parseDouble(line);
             } 
             catch (NumberFormatException ex) {
-                System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type: " + COLOR_RESET);
+                clearScreen();
+                System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type. " + COLOR_RESET);
             }
         }
     }
