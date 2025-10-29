@@ -809,11 +809,29 @@ public class Group10 {
     }
 
     ////GÜLFEM
+  
     /**
-    * Displays the Primary School sub-menu and allows the user to choose between
-    * available options (Age and Zodiac, Reverse Words, or returning to the main menu).
-    * The menu loops until the user selects '3' to go back.
-    */
+     * Displays the Primary School sub-menu and allows the user to choose between
+     * available options (Age and Zodiac, Reverse Words, or returning to the main menu).
+     * The menu loops until the user selects '3' to go back.
+     * 
+     * <p>This method performs the following actions:</p>
+     * <ul>
+     *   <li>Clears the console screen before displaying the menu.</li>
+     *   <li>Presents options: [1] Age and Zodiac, [2] Reverse Words, and [3] Back to Main Menu.</li>
+     *   <li>Reads the user's choice from the console.</li>
+     *   <li>Calls {@link #ageAndZodiacDetection()} for option 1.</li>
+     *   <li>Calls {@link #reverseTheWords()} for option 2.</li>
+     *   <li>Sets the loop control variable {@code subMenu} to {@code false} for option 3, exiting the menu.</li>
+     *   <li>Handles invalid input by displaying an error message and prompting the user to continue.</li>
+     *   <li>Waits for the Enter key press after completing operations or invalid input before re-displaying the menu.</li>
+     * </ul>
+     * 
+     * @see #ageAndZodiacDetection()
+     * @see #reverseTheWords()
+     * @see #clearScreen()
+     */
+
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
@@ -874,6 +892,7 @@ public class Group10 {
     *   
     * @param inputString The prompt message to display to the user.
     * @return The valid integer entered by the user.
+    * @see #clearScreen()
     */
 
     public static int receiveInputDate(String inputString) {
@@ -895,12 +914,19 @@ public class Group10 {
         }
     }
     /**
-    * Takes the user's birth date and the current date, calculates the user's
-    * age based on these dates, and determines their zodiac sign according to the
-    * birth date.
-    * Checks for invalid dates (via {@link #isValidDate(int, int, int)} method)
-    * or a future birth date, and displays appropriate error messages.
-    */
+     * Calculates and displays the user's age and zodiac sign based on their birth date
+     * and the current date entered by the user.
+     * <p>
+     * Validates both dates using {@link #isValidDate(int, int, int)} and determines
+     * the zodiac sign with {@link #calculateZodiac(int, int)}.
+     * </p>
+     *
+     * @see #receiveInputDate(String)
+     * @see #isValidDate(int, int, int)
+     * @see #calculateZodiac(int, int)
+     * @see #clearScreen()
+     */
+
     public static void ageAndZodiacDetection() {
         System.out.println(COLOR_ROSE);
         System.out.println("╔═══════════════════════════════╗");
@@ -959,7 +985,7 @@ public class Group10 {
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
         System.out.println("╚══════════════╝");
         System.out.println("╔══════════════╗");
-        System.out.println("║Current date: ║ "  + currentDay + "/" + currentMonth + "/" + currentYear + "                     ");
+        System.out.println("║Current date: ║ "  + currentDay + "/" + currentMonth + "/" + currentYear + "      ");
         System.out.println("╚══════════════╝");
         System.out.println(COLOR_RESET);
 
@@ -1099,13 +1125,32 @@ public class Group10 {
     }
 
     // OPTINON A: REVERSE THE WORDS
-    // This method reverses the letters of each word in a given sentence,
-    // while keeping the positions of non-letter characters unchanged.
 
     /**
+    * This method reverses the letters of each word in a given sentence,
+    * This method reverses the letters of each word in a given sentence,
     * Takes a sentence from the user and prints the result by reversing "only the letters"
     * of each word in that sentence. Words are separated by spaces and various punctuation
     * marks. Only words containing 2 or more letters are reversed.
+    */
+
+    /**
+    * Processes a user-provided sentence and reverses the letters of each word
+    * that contains two or more letters, preserving the original positions of
+    * non-letter characters within the word and all delimiters.
+    * 
+    * This method:
+    * 
+    * Prompts the user to enter a sentence.
+    * Iterates through the sentence character by character, identifying words separated by spaces or various punctuation marks.
+    * For each identified word, it counts the number of letters.
+    * If a word contains **2 or more letters**, it calls the (presumed helper) method {@code reverseOnlyLetters(String)} to reverse only the letter characters within that word, keeping other characters (like apostrophes or hyphens) in place.
+    * Appends the potentially reversed word and its subsequent delimiter/separator to the {@code result} string.
+    * Handles the last word in the sentence if it is not followed by a delimiter.
+    * Prints the final resulting sentence to the console.
+    * 
+    * @see #reverseOnlyLetters(String) (Presumed helper method used for the actual letter reversal)
+    * @see #clearScreen()
     */
     
     public static void reverseTheWords() {
@@ -1170,6 +1215,7 @@ public class Group10 {
     * This method reverses all characters (letters, numbers, symbols) in the word.
     * @param word The word to be reversed.
     * @return The completely reversed word.
+    * @see #reverseWord(String)
     */
 
     public static String reverseWord(String word) {
@@ -1190,20 +1236,20 @@ public class Group10 {
     int left = 0;
     int right = chars.length - 1;
 
-    // Harf olmayanları atlayarak sadece harfleri yer değiştiren algoritma (Iteration Structure).
+    //Algorithm to reverse only letters, skipping non-alphabetic characters (Iteration Structure).
     while (left < right) {
-        // Sol işaretçi harf değilse, atla
+        // If the left pointer is not a letter, skip it/advance
         if (!Character.isLetter(chars[left])) {
             left++;
-            continue; // continue ifadesi döngüdeki kalan kodları atlar
+            continue; // The continue statement skips the remaining code in the loop.
         }
-        // Sağ işaretçi harf değilse, atla
+        // If the right pointer is not a letter, skip it/advance
         if (!Character.isLetter(chars[right])) {
             right--;
-            continue; // continue ifadesi döngüdeki kalan kodları atlar
+            continue; // The continue statement skips the remaining code in the loop.
         }
 
-        // İkisi de harf ise yer değiştir (swap)
+        // If both are letters, swap them.
         char temp = chars[left];
         chars[left] = chars[right];
         chars[right] = temp;
