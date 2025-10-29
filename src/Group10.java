@@ -6,15 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.Locale;
-/*
-Methods that needed to be written
-1. if the chosen column is valid. OK
-2. drop disc OK
-3. is board full OK
-3. determine the winner. OK
-4. single player game. OK
-5. multiplayer game.
- */
 
 public class Group10 {
     public static void main(String[] args) {
@@ -723,7 +714,7 @@ public class Group10 {
             System.out.println(COLOR_RESET);
             return;
         }
-
+        clearScreen();
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔══════════════╗");
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
