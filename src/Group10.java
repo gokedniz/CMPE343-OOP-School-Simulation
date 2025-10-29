@@ -1260,16 +1260,18 @@ public class Group10 {
     return new String(chars);
 }
 
-   
-
-        //...deneme2
-        //================KEREM IRFANOGLU================ ...
+        //================KEREM IRFANOGLU================
     //====================Secondary School====================
+
+    /**
+     * Manages the "Secondary School" menu.
+     * It presents the user with options [1] Prime Number, [2] Step-by-step Evaluation,
+     * or [3] Return to Main Menu.
+     */
     public static void secondarySchool(){
 
         clearScreen();
         
-
         while (true) {
             System.out.println(COLOR_LIGHT_CYAN);
             System.out.println("╔════════════════════════════════════════════════╗");
@@ -1320,7 +1322,13 @@ public class Group10 {
             break;
         }
     }
-    //Checking the input is integer or not:
+    
+    /**
+     * Checks if the given string is a valid integer.
+     *
+     * @param input The string to check.
+     * @return {@code true} if the string can be parsed as an integer, {@code false} otherwise.
+     */
     private static boolean isInt(String input) {
         try {
             //use Integer.parseInt(input);
@@ -1331,7 +1339,13 @@ public class Group10 {
             return false;
         }
     }
-    //Checking the input is between 1-3:
+    
+    /**
+     * Checks if the input string is a valid menu choice (i.e., "1", "2", or "3").
+     *
+     * @param input The string to check.
+     * @return {@code true} if the input is 1, 2, or 3, {@code false} otherwise.
+     */
     private static boolean isValidMenu(String input) {
         try {
             int number = Integer.parseInt(input);
@@ -1341,7 +1355,14 @@ public class Group10 {
             return false;
         }
     }
-
+    /**
+     * Prompts the user with a message and waits for a "1" (repeat) or "2" (return) input.
+     * It will keep prompting until a valid choice is made.
+     *
+     * @param message The prompt message to display to the user 
+     * (e.g., "[1] Try again.\n[2] Return to secondary school menu.\nYour choice: ").
+     * @return {@code true} if the user selects "1", {@code false} if the user selects "2".
+     */
     static boolean repeat(String message){
         String answer;
         while(true) {
@@ -1363,7 +1384,12 @@ public class Group10 {
             }
         }
     }
-
+    /**
+     * Finds prime numbers up to a given number 'n' using the Sieve of Eratosthenes algorithm.
+     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     *
+     * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     */
     public static void sieveOfEratosthenes(int intNum) {
         
         System.out.println();
@@ -1422,7 +1448,12 @@ public class Group10 {
         System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
-    
+    /**
+     * Finds prime numbers up to a given number 'n' using the Sieve of Sundaram algorithm.
+     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     *
+     * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     */
     public static void sieveOfSundaram(int intNum){
         
         System.out.println();
@@ -1479,7 +1510,12 @@ public class Group10 {
         System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
-
+    /**
+     * Finds prime numbers up to a given number 'n' using the Sieve of Atkin algorithm.
+     * Prints the first three primes, the last two primes, and the execution time in nanoseconds.
+     *
+     * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
+     */
     public static void sieveOfAtkin(int intNum){
 
         System.out.println();
@@ -1550,7 +1586,12 @@ public class Group10 {
         System.out.println("\nExecution time: " + String.format(Locale.GERMANY, "%,d", executionTime) + " ns");
         System.out.print(COLOR_RESET);
     }
-    
+    /**
+     * Manages the "Prime Numbers" submenu.
+     * It prompts the user to enter an integer n (>= 12).
+     * Then, it runs and compares the performance of the Sieve of Eratosthenes,
+     * Sieve of Sundaram, and Sieve of Atkin algorithms for finding primes up to n.
+     */
     public static void primeNumbers() {
         int intNum;
         clearScreen();
@@ -1614,6 +1655,13 @@ public class Group10 {
     }
     
     //====================Step by Step Evaluation====================
+    /**
+     * Manages the "Step by Step Evaluation" submenu.
+     * It prompts the user to enter a mathematical expression containing numbers,
+     * parentheses, and operators (+, -, *, /).
+     * It then evaluates the expression step-by-step according to operator precedence
+     * and prints each step of the reduction.
+     */
     public static void evaluation() {
         clearScreen();
 
@@ -1657,7 +1705,14 @@ public class Group10 {
             secondarySchool();
         }
     } 
-    
+    /**
+     * Normalizes a raw mathematical expression string.
+     * It removes all whitespace and replaces various user-friendly symbols
+     * (×, x, X, :, −) with their standard programmatic equivalents (*, /, -).
+     *
+     * @param s The raw expression string from the user.
+     * @return A normalized expression string.
+     */
     static String normalize(String s) {
         s = s.replace("×", "*");
         s = s.replace("x", "*");
@@ -1667,7 +1722,15 @@ public class Group10 {
         s = s.replace(" ", "");
     return s;
     }
-    
+    /**
+     * Checks if a normalized mathematical expression is syntactically valid.
+     * This includes checking for balanced parentheses, valid operator placement
+     * (e.g., no "5*+3"), and ensuring expressions don't start or end with operators
+     * (exceptions are made for negative numbers).
+     *
+     * @param s The normalized expression string.
+     * @return {@code true} if the expression is valid, {@code false} otherwise.
+     */
     static boolean isValidExpression(String s) {
         if(s == null || s.isEmpty()) return false;
 
@@ -1745,7 +1808,15 @@ public class Group10 {
         //Expression must end either with a NUM or CLOSE
         return (prev == NUM || prev == CLOSE);
     }
-    //to separate the strings to tokens
+    /**
+     * Tokenizes a normalized expression string into a list of its components.
+     * It correctly identifies numbers (including multi-digit and negative numbers),
+     * operators, and parentheses.
+     * Example: "-5*(10+2)" becomes ["-5", "*", "(", "10", "+", "2", ")"]
+     *
+     * @param s The normalized expression string.
+     * @return A {@link List} of String tokens.
+     */
     static List<String> tokenize(String s) {
         List<String> tokens = new ArrayList<>();
         int i = 0;
@@ -1788,7 +1859,15 @@ public class Group10 {
         }
         return tokens;
     }
-    //if the last token is an operator or open paranthesis, then given '-' may be negative sign.
+    /**
+     * A helper method for the {@link #tokenize(String)} process.
+     * It checks if the previous token was an operator or an open parenthesis.
+     * This is used to determine if a '-' character is a negative sign (e.g., "5 * -3")
+     * or a subtraction operator (e.g., "5 - 3").
+     *
+     * @param lastToken The token immediately preceding the current '-' character.
+     * @return {@code true} if the last token is an operator or '(', {@code false} otherwise.
+     */
     static boolean isOpOrOpen(String lastToken) {
         if (lastToken == null || lastToken.isEmpty()) return false;
         return lastToken.equals("+") || lastToken.equals("-")
@@ -1796,6 +1875,19 @@ public class Group10 {
             || lastToken.equals("(");
     }
     // It reduces and writes one operation at a time until it reduces the entire expression to a single number.
+    /**
+     * The main recursive method for evaluating the expression.
+     * It follows the order of operations (PEMDAS/BODMAS):
+     * 1. Finds the innermost parentheses.
+     * 2. Reduces the expression inside the parentheses (first * /, then + -).
+     * 3. Removes the parentheses when they contain a single number.
+     * 4. Prints the state of the expression after each reduction.
+     * 5. Repeats until the entire list is reduced to a single number.
+     *
+     * @param tokens The list of tokens representing the expression. 
+     * This list is modified in-place with each reduction.
+     * @throws ArithmeticException if a division by zero is attempted.
+     */
     static void evaluateStepByStep(List<String> tokens) {
 
         // The expression is reduced to a single number
@@ -1830,7 +1922,18 @@ public class Group10 {
         }
         // if reduced==false, that means there are no reduction left, so print out the result.
     }
-
+    /**
+     * Performs a single reduction operation within a specified range of the token list.
+     * It scans first for multiplication (*) or division (/) and performs the first one it finds.
+     * If no * or / is found, it scans again for addition (+) or subtraction (-)
+     * and performs the first one it finds.
+     *
+     * @param tokens The token list. This list is modified in-place.
+     * @param start The starting index (inclusive) of the range to scan.
+     * @param endEx The ending index (exclusive) of the range to scan.
+     * @return {@code true} if a reduction was performed, {@code false} if no operation
+     * was found to reduce.
+     */
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
         // look for '*' or '/'
         for (int i = start; i < endEx; i++) {
@@ -1885,7 +1988,13 @@ public class Group10 {
 
             return false;
     }
-
+    /**
+     * Finds the index of the innermost (rightmost) open parenthesis '('.
+     * This is the starting point for evaluation.
+     *
+     * @param tokens The list of tokens.
+     * @return The index of the last '(', or -1 if no parentheses are found.
+     */
     static int findInnermostOpenParen(List<String> tokens) {
         //checking right to left to find the innermost paranthesis
         for (int i = tokens.size() - 1; i >= 0; i--) {
@@ -1896,6 +2005,13 @@ public class Group10 {
         return -1; //if there are no parantheses
     }
     //Finds the matching paranthesis for the given ')'
+    /**
+     * Finds the matching close parenthesis ')' for a given open parenthesis '('.
+     *
+     * @param tokens  The list of tokens.
+     * @param openIdx The index of the '(' token.
+     * @return The index of the matching ')' token, or -1 if not found.
+     */
     static int findMatchingCloseParen(List<String> tokens, int openIdx) {
         int bal = 0;
         for (int i = openIdx; i < tokens.size(); i++) {
@@ -1908,6 +2024,15 @@ public class Group10 {
         return -1;
     }
     //if there is just a number inside the paranthesis, removes the paranthesis.
+    /**
+     * Removes parentheses from the token list if they contain only a single number.
+     * Example: Replaces ["(", "50", ")"] with ["50"].
+     *
+     * @param tokens The token list. This list is modified in-place.
+     * @param open   The index of the open parenthesis '('.
+     * @param close  The index of the close parenthesis ')'.
+     * @return {@code true} if the parentheses were removed, {@code false} otherwise.
+     */
     static boolean removeParen(List<String> tokens, int open, int close) {
         if (close - open == 2 && isNumberToken(tokens.get(open + 1))) {
             String val = tokens.get(open + 1);
@@ -1918,6 +2043,13 @@ public class Group10 {
         return false;
     }
     //Combines the tokens to print out and switches '*' to 'x' and '/' to ':'.
+    /**
+     * Converts a list of tokens back into a user-friendly, readable string for output.
+     * Replaces programmatic operators with display symbols (e.g., "*" -> "x", "/" -> ":").
+     *
+     * @param tokens The list of tokens to render.
+     * @return A formatted, single-line string representation of the expression.
+     */
     static String renderForOutput(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
         for (String tk : tokens) {
@@ -1930,6 +2062,12 @@ public class Group10 {
         return sb.toString();
     }
     //checks if the both lhs and rhs tokens are number.
+    /**
+     * Checks if a given token string represents a valid number (positive or negative).
+     *
+     * @param tk The token string to check.
+     * @return {@code true} if the token is a number, {@code false} otherwise.
+     */
     static boolean isNumberToken(String tk) {
         if (tk == null || tk.isEmpty()) return false;
         int i = 0;
@@ -1943,7 +2081,12 @@ public class Group10 {
         }
         return true;
     }
-
+    /**
+     * Safely parses a string token (which is assumed to be a valid number) into a {@code long}.
+     *
+     * @param tk The number token string.
+     * @return The {@code long} value of the token.
+     */
     static long parseLongSafe(String tk) {
         //transform the string token to long
         return Long.parseLong(tk);
