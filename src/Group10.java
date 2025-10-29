@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Group10 {
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║    Please choose an option and start !     ║");
             System.out.println("╚════════════════════════════════════════════╝");
-            System.out.println(COLOR_RESET);
+            System.out.println(COLOR_LIGHT_CYAN);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║     [A] Primary School                     ║");
             System.out.println("║════════════════════════════════════════════║");
@@ -37,6 +39,7 @@ public class Group10 {
             System.out.println("║════════════════════════════════════════════║");
             System.out.println("║     [E] Exit                               ║");
             System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             System.out.print("Your choice: ");
             String menuChoice = inputGame.next().trim().toLowerCase();
 
@@ -108,7 +111,7 @@ public class Group10 {
 
 
     public static void displayWelcomeMessage() {
-        System.out.println(COLOR_LIGHT_CYAN + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
+        System.out.println(COLOR_ROSE + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
                 "| |  | |    | |                           | |         /  ___|    | |               | |  /  ___(_)               | |     | |            \n" +
                 "| |  | | ___| | ___ ___  _ __ ___   ___   | |_ ___    \\ `--.  ___| |__   ___   ___ | |  \\ `--. _ _ __ ___  _   _| | __ _| |_ ___  _ __ \n" +
                 "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\  | __/ _ \\    `--. \\/ __| '_ \\ / _ \\ / _ \\| |   `--. \\ | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__|\n" +
@@ -121,9 +124,9 @@ public class Group10 {
         Scanner input = new Scanner(System.in);
         String choiceOfGameMode;
 
-        System.out.println(COLOR_RED);
+        System.out.println(COLOR_LIGHT_CYAN);
         System.out.println("╔════════════════════════════════════════════╗");
-        System.out.println("║         === D: University Menu ===         " + COLOR_YELLOW + "║");
+        System.out.println("║         === D: University Menu ===         ║");
         System.out.println("╚════════════════════════════════════════════╝");
         System.out.println(COLOR_RESET);
 
@@ -149,10 +152,11 @@ public class Group10 {
         String choiceOfTableSize;
         char[][] table = new char[0][0];
         do{
+            System.out.print(COLOR_LIGHT_BLUE);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║  Please select your choice of table size:  ║");
             System.out.println("╚════════════════════════════════════════════╝");
-            System.out.println();
+            System.out.println(COLOR_RESET);
             System.out.println("╔══════════════════════════════════╗");
             System.out.println("║     1-) 5x4                      ║");
             System.out.println("╚══════════════════════════════════╝");
@@ -202,13 +206,15 @@ public class Group10 {
         String choiceOfGameMode;
         do{
             clearScreen();
+            System.out.println(COLOR_LIGHT_BLUE);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║    Single Player or Multiplayer (s/m)?     ║");
             System.out.println("╚════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             choiceOfGameMode = input.next();
             if(!choiceOfGameMode.equalsIgnoreCase("s") &&
                     !choiceOfGameMode.equalsIgnoreCase("m"))
-                System.out.println("===Invalid input. Please try again.===");
+                System.out.println(COLOR_RED + "ınvalid input. Please try again." + COLOR_RESET);
         }while(!choiceOfGameMode.equalsIgnoreCase("s") &&
                 !choiceOfGameMode.equalsIgnoreCase("m"));
 
@@ -251,13 +257,18 @@ public class Group10 {
                             validInput = true;
                         }
                     } catch (Exception a) {
-                        System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
+                        System.out.println(COLOR_RED + "Invalid input! Please enter a number between 1 and " + table[0].length + "." +COLOR_RESET);
                         System.out.println("Enter '0' if you want to quit the game.");
                         input.nextLine();
                     }
                 }
 
-                dropDisc(table, choiceOfColumn, currentPlayer);
+                try {
+                    dropDiscAnimated(table, choiceOfColumn, currentPlayer);
+                } catch (InterruptedException e) {
+                    System.out.println("Animation interrupted unexpectedly. Returning to University Menu");
+                    universityMenu();
+                }
             }
             else{
                 byte computersMove;
@@ -265,7 +276,12 @@ public class Group10 {
                     computersMove = (byte) (random.nextInt(table[0].length) + 1);
                 } while (!isColumnValid(table, computersMove));
                 System.out.println("Computer chooses column " + computersMove + ".");
-                dropDisc(table, computersMove, currentPlayer);
+                try {
+                    dropDiscAnimated(table, computersMove, currentPlayer);
+                } catch (InterruptedException e) {
+                    System.out.println("Animation interrupted unexpectedly. Returning to University Menu");
+                    universityMenu();
+                }
             }
 
 
@@ -335,18 +351,23 @@ public class Group10 {
                         validInput = true;
                     }
                 } catch (Exception a) {
-                    System.out.println("Invalid input! Please enter a number between 1 and " + table[0].length + ".");
+                    System.out.println(COLOR_RED + "Invalid input! Please enter a number between 1 and " + table[0].length + "."  + COLOR_RESET);
                     System.out.println("Enter '0' if you want to quit the game.");
                     input.nextLine();
                 }
             }
 
-            dropDisc(table, choiceOfColumn, currentPlayer);
+            try {
+                dropDiscAnimated(table, choiceOfColumn, currentPlayer);
+            } catch (InterruptedException e) {
+                System.out.println(COLOR_RED + "Animation interrupted unexpectedly. Returning to University Menu" + COLOR_RESET);
+                universityMenu();
+            }
 
             if(determineWinner(table, currentPlayer)){
                 clearScreen();
                 printTable(table);
-                System.out.println("Player " + currentPlayer + " has won the game.");
+                System.out.println(COLOR_LIGHT_GREEN + "Player " + currentPlayer + " has won the game." + COLOR_RESET);
                 gameContinues = false;
             }
             else if (isTableFull(table)){
@@ -386,7 +407,7 @@ public class Group10 {
 
             if(!selection.equals("r") && !selection.equals("m") &&  !selection.equals("q")){
                 clearScreen();
-                System.out.println("Invalid input. Please try again.");
+                System.out.println(COLOR_RED + "Invalid input. Please try again." + COLOR_RESET);
             }
 
         }while(!selection.equals("r") && !selection.equals("m") &&  !selection.equals("q"));
@@ -420,15 +441,7 @@ public class Group10 {
         return true;
     }
 
-    public static void dropDisc(char[][] table, byte colNum, char player){
-        int colIndex = (int)colNum-1;
-        for(int rowIndex = table.length-1; rowIndex >= 0; rowIndex--){
-            if(table[rowIndex][colIndex] == '*'){
-                table[rowIndex][colIndex] = player;
-                return;
-            }
-        }
-    }
+
 
     public static boolean determineWinner(char[][] table, char player) {
         // Horizontal check
@@ -533,6 +546,29 @@ public class Group10 {
         }
         System.out.println();
     }
+    public static void dropDiscAnimated(char[][] table, byte colNum, char player) throws InterruptedException {
+        int colIndex = (int)colNum - 1;
+
+        // find the correct position that the disk is goingto land
+        int targetRow = -1;
+        for(int rowIndex = table.length-1; rowIndex >= 0; rowIndex--){
+            if(table[rowIndex][colIndex] == '*'){
+                targetRow = rowIndex;
+                break;
+            }
+        }
+
+        // animation of row falling
+        for (int rowIndex = 0; rowIndex <= targetRow; rowIndex++) {
+            table[rowIndex][colIndex] = player;    // put the disk into this row
+            clearScreen();                  // clear the screen
+            printTable(table);              // print the table again
+            Thread.sleep(300);              // 300 miliseconds of waiting
+            if (rowIndex != targetRow) {           // clear the current row before the disk reaches the next rox
+                table[rowIndex][colIndex] = '*';
+            }
+        }
+    }
 
     ////GÜLFEM
     
@@ -540,17 +576,25 @@ public class Group10 {
                     boolean subMenu = true;
                     while (subMenu) {
                         clearScreen();  //Alt menü başında ekranı temizle
+                        System.out.println(COLOR_LIGHT_CYAN);
                         System.out.println("╔════════════════════════════════════════════╗");
-                        System.out.println("║=== A: Primary School Menu ===              ║");
-                        System.out.println("╟────────────────────────────────────────────╢");
-                        System.out.println("║Do you want to select:                      ║");
-                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("║        === Primary School Menu ===         ║");
+                        System.out.println("╚════════════════════════════════════════════╝");
+                        System.out.println(COLOR_LIGHT_BLUE);
+                        System.out.println("╔════════════════════════════════════════════╗");
+                        System.out.println("║Please select your choice:                  ║");
+                        System.out.println("╚════════════════════════════════════════════╝");
+                        System.out.println(COLOR_RESET);
+                        System.out.println("╔════════════════════════════════════════════╗");
                         System.out.println("║[1] Age and Zodiac                          ║");
-                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("╚════════════════════════════════════════════╝");
+                        System.out.println("╔════════════════════════════════════════════╗");
                         System.out.println("║[2] Reverse Words                           ║");
-                        System.out.println("╟────────────────────────────────────────────╢");
+                        System.out.println("╚════════════════════════════════════════════╝");
+                        System.out.println("╔════════════════════════════════════════════╗");
                         System.out.println("║[3] Back to Main Menu                       ║");
                         System.out.println("╚════════════════════════════════════════════╝");
+
                         System.out.print("Enter choice: "); // Bu satır çerçeve dışında kalmalı
                         String Choice = input.nextLine().trim();
 
@@ -631,11 +675,11 @@ public class Group10 {
             return;
         }
 
-
+        System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔══════════════╗");
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
         System.out.println("╚══════════════╝");
-
+        System.out.println(COLOR_RESET);
         //Sonrasında ise mevcut tarihi aldım.
         int currentDay = receiveInputDate("Enter the current 'day' (1-31):");
         input.nextLine();
@@ -654,13 +698,14 @@ public class Group10 {
         }
 
         clearScreen();
+        System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔══════════════╗");
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
         System.out.println("╚══════════════╝");
         System.out.println("╔══════════════╗");
         System.out.println("║Current date: ║ "  + currentDay + "/" + currentMonth + "/" + currentYear + "                     ");
         System.out.println("╚══════════════╝");
-
+        System.out.println(COLOR_RESET);
         // ---------- YAŞ HESAPLAMA
 
         // Yaş hesaplama kısmını ilk başta yazdığımda negatif değerler çıkabileceğini fark etmemiştim.
@@ -687,7 +732,7 @@ public class Group10 {
             System.out.println(COLOR_RESET);
             return;
         }
-
+        System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔═════════════╗");
         System.out.println("║Your age is: ║  " + age + "     ");
         System.out.println("╚═════════════╝");
@@ -698,7 +743,7 @@ public class Group10 {
         System.out.println("╔═════════════════════╗");
         System.out.println("║Your Zodiac Sign is: ║  " + zodiac + "       ");
         System.out.println("╚═════════════════════╝");
-
+        System.out.println(COLOR_RESET);
 
 
 
@@ -784,7 +829,7 @@ public class Group10 {
     // * Option A: Reverse the Words kısmı
     // Bu kısımda kullanıcıdan aldığım cümledeki kelimeleri tek tek ters çevireceğim.
     public static void reverseTheWords() {
-        System.out.println(COLOR_LILAC);
+        System.out.println(COLOR_ROSE);
         System.out.println("╔═══════════════════╗");
         System.out.println("║ Reverse the Words ║");
         System.out.println("╚═══════════════════╝");
@@ -829,7 +874,7 @@ public class Group10 {
             if (letterCount >= 2) word = reverseWord(word);
             result += word;
         }
-        System.out.println(COLOR_LIGHT_LILAC);
+        System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("\n╔════════════════════╗");
         System.out.println("║ Reversed sentence: ║");
         System.out.println("╚════════════════════╝");
@@ -853,13 +898,20 @@ public class Group10 {
         clearScreen();
         System.out.println(COLOR_LIGHT_CYAN);
         System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║        === Secondary School Menu ===           ║");
+        System.out.println("╚════════════════════════════════════════════════╝");
+        System.out.println(COLOR_LIGHT_BLUE);
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║          Please select your choice:            ║");
+        System.out.println("╚════════════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
+        System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║   [1] Prime Number                             ║");
         System.out.println("║════════════════════════════════════════════════║");
         System.out.println("║   [2] Step-by-step Evaluation of Expression    ║");
         System.out.println("║════════════════════════════════════════════════║");
         System.out.println("║   [3] Return to Main Menu                      ║");
         System.out.println("╚════════════════════════════════════════════════╝");
-        System.out.println(COLOR_RESET);
 
         while (true) {
             System.out.print("Enter your choice (1-3): "); 
@@ -1126,9 +1178,9 @@ public class Group10 {
     public static void primeNumbers() {
         int intNum;
         clearScreen();
-        System.out.println(COLOR_DARK_BLUE);
+        System.out.println(COLOR_ROSE);
         System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println(  "║          === Prime Numbers ===          " + COLOR_YELLOW + "║");
+        System.out.println("║          === Prime Numbers ===          ║");
         System.out.println("╚═════════════════════════════════════════╝");
         System.out.println(COLOR_RESET);
         while (true) {
@@ -1176,9 +1228,9 @@ public class Group10 {
     //====================Step by Step Evaluation====================
     public static void evaluation() {
         clearScreen();
-        System.out.println(COLOR_YELLOW);
+        System.out.println(COLOR_ROSE);
         System.out.println("╔═════════════════════════════════════════╗");
-        System.out.println(  "║     === Step by Step Evaluation ===     " + COLOR_DARK_BLUE + "║");
+        System.out.println("║     === Step by Step Evaluation ===     ║");
         System.out.println("╚═════════════════════════════════════════╝");
         System.out.println(COLOR_RESET);
         while(true){
@@ -1512,15 +1564,22 @@ public class Group10 {
         while (true) {
             clearScreen();
             // Menu . ...........
-            System.out.println("╔════════════════════════════════════════════╗");
-            System.out.println("║             High School Menu               ║");
-            System.out.println("╚════════════════════════════════════════════╝");
-            System.out.println();
+            System.out.println(COLOR_LIGHT_CYAN);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║            === High School Menu ===            ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_LIGHT_BLUE);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║           Please select your choice:           ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║   [1] Statistical information about an Array   ║");
-            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║   [2] Distance between two Arrays              ║");
-            System.out.println("║════════════════════════════════════════════════║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║   [3] Return to Main Menu                      ║");
             System.out.println("╚════════════════════════════════════════════════╝");
             System.out.print("Please choose your operation (1-3): ");
@@ -1549,7 +1608,11 @@ public class Group10 {
 
     // Menu selection 1
      private static void statisticalInformation() {
-        System.out.println("===== Statistical Information about an Array =====");
+         System.out.println(COLOR_ROSE);
+         System.out.println("╔════════════════════════════════════════════════╗");
+         System.out.println("║     Statistical information about an Array     ║");
+         System.out.println("╚════════════════════════════════════════════════╝");
+         System.out.println(COLOR_RESET);
         int n;
         while (true) {
             System.out.print("Enter the length of your array: ");
@@ -1576,7 +1639,10 @@ public class Group10 {
         Double geometricMean = computeGeometricMean(arr); 
         Double harmonicMean = computeHarmonicMeanRecursive(arr); 
         // Printing the calculations
-        System.out.println("\n--- Results ---");
+         System.out.println(COLOR_LIGHT_GREEN);
+         System.out.println("╔═════════════════╗");
+         System.out.println("║     Results     ║");
+         System.out.println("╚═════════════════╝");
         System.out.printf("Sorted array: %s%n", Arrays.toString(arr));
         System.out.printf("Median: %s%n", formatDoubleOrMsg(median, ""));
         System.out.printf("Arithmetic Mean: %s%n", formatDoubleOrMsg(arithmeticMean, ""));
@@ -1592,11 +1658,16 @@ public class Group10 {
         else {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
+         System.out.println(COLOR_RESET);
     }
 
     // Menu selection 2
     private static void distanceBetweenTwoArrays() {
-        System.out.println("--- Distance between Two Arrays ---");
+        System.out.println(COLOR_ROSE);
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║           Distance between two arrays          ║");
+        System.out.println("╚════════════════════════════════════════════════╝");
+        System.out.println(COLOR_RESET);
         int dim;
         while (true) {
             System.out.print("Enter the length of your array: ");
@@ -1625,7 +1696,10 @@ public class Group10 {
         double euclidean = computeEuclidean(a, b);
         Double cosine = computeCosineSimilarity(a, b);
         // Printing the Results
-        System.out.println("\n--- Results ---");
+        System.out.println(COLOR_LIGHT_GREEN);
+        System.out.println("╔═════════════════╗");
+        System.out.println("║     Results     ║");
+        System.out.println("╚═════════════════╝");
         System.out.printf("First Array: %s%n", Arrays.toString(a));
         System.out.printf("Second Array: %s%n", Arrays.toString(b));
         System.out.printf("Manhattan Distance: %s%n", formatDoubleOrMsg(manhattan, ""));
@@ -1636,6 +1710,7 @@ public class Group10 {
         else {
             System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
         }
+        System.out.println(COLOR_RESET);
     }
 
     // Calculation Methods
