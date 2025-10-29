@@ -246,26 +246,43 @@ public class Group10 {
                 boolean validInput = false;
 
                 while (!validInput) {
-                    try {
-                        choiceOfColumn = input.nextByte();
-                        if (choiceOfColumn == 0){
-                            clearScreen();
-                            System.out.println("Player " + currentPlayer + ", has quit the game.");
-                            universityMenu();
-                            return;
-                        }
-                        if (!isColumnValid(table, choiceOfColumn)) {
-                            clearScreen();
-                            printTable(table);
-                            System.out.println("The column you entered is not valid. Please enter a number between 1 and " + table[0].length + ".");
-                            System.out.println("Enter '0' if you want to quit the game.");
-                        } else {
-                            validInput = true;
-                        }
-                    } catch (Exception a) {
-                        System.out.println(COLOR_RED + "Invalid input! Please enter a number between 1 and " + table[0].length + "." +COLOR_RESET);
+                    String userInput = input.nextLine().trim();
+
+                    // empty control
+                    if (userInput.isEmpty()) {
+                        clearScreen();
+                        printTable(table);
+                        System.out.println(COLOR_RED + "Input cannot be empty. Please enter a number." + COLOR_RESET);
                         System.out.println("Enter '0' if you want to quit the game.");
-                        input.nextLine();
+                        continue;
+                    }
+
+                    // only accept numbers between 0-9
+                    if (!userInput.matches("[0-9]")) {
+                        clearScreen();
+                        printTable(table);
+                        System.out.println(COLOR_RED + "Invalid input! Please enter a single-digit number between 1 and " + table[0].length + "." + COLOR_RESET);
+                        System.out.println("Enter '0' if you want to quit the game.");
+                        continue;
+                    }
+
+                    // convert it to byte
+                    choiceOfColumn = Byte.parseByte(userInput);
+
+                    // if it wants to quit
+                    if (choiceOfColumn == 0) {
+                        clearScreen();
+                        System.out.println("Player " + currentPlayer + " has quit the game.");
+                        universityMenu();
+                        return;
+                    }
+                    if (!isColumnValid(table, choiceOfColumn)) {
+                        clearScreen();
+                        printTable(table);
+                        System.out.println(COLOR_RED + "The column you entered is not valid. Please enter a number between 1 and " + table[0].length + "." + COLOR_RESET);
+                        System.out.println("Enter '0' if you want to quit the game.");
+                    } else {
+                        validInput = true;
                     }
                 }
 
@@ -335,11 +352,11 @@ public class Group10 {
         }
     }
 
-    public static void playMultiplayer(char[][] table, Scanner input){
+    public static void playMultiplayer(char[][] table, Scanner input) {
         char currentPlayer = '1';
         boolean gameContinues = true;
 
-        while(gameContinues){
+        while (gameContinues) {
             clearScreen();
             printTable(table);
             System.out.println("Player number " + currentPlayer + ", please make your move.");
@@ -350,26 +367,39 @@ public class Group10 {
             boolean validInput = false;
 
             while (!validInput) {
-                try {
-                    choiceOfColumn = input.nextByte();
-                    if (choiceOfColumn == 0){
-                        clearScreen();
-                        System.out.println("Player " + currentPlayer + ", has quit the game.");
-                        universityMenu();
-                        return;
-                    }
-                    if (!isColumnValid(table, choiceOfColumn)) {
-                        clearScreen();
-                        printTable(table);
-                        System.out.println("The column you entered is not valid. Please enter a number between 1 and " + table[0].length + ".");
-                        System.out.println("Enter '0' if you want to quit the game.");
-                    } else {
-                        validInput = true;
-                    }
-                } catch (Exception a) {
-                    System.out.println(COLOR_RED + "Invalid input! Please enter a number between 1 and " + table[0].length + "."  + COLOR_RESET);
+                String userInput = input.nextLine().trim();
+
+                if (userInput.isEmpty()) {
+                    clearScreen();
+                    printTable(table);
+                    System.out.println(COLOR_RED + "Input cannot be empty. Please enter a number." + COLOR_RESET);
                     System.out.println("Enter '0' if you want to quit the game.");
-                    input.nextLine();
+                    continue;
+                }
+
+                if (!userInput.matches("[0-9]")) {
+                    clearScreen();
+                    printTable(table);
+                    System.out.println(COLOR_RED + "Invalid input! Please enter a single-digit number between 1 and " + table[0].length + "." + COLOR_RESET);
+                    System.out.println("Enter '0' if you want to quit the game.");
+                    continue;
+                }
+
+                choiceOfColumn = Byte.parseByte(userInput);
+
+                if (choiceOfColumn == 0) {
+                    clearScreen();
+                    System.out.println("Player " + currentPlayer + " has quit the game.");
+                    universityMenu();
+                    return;
+                }
+                if (!isColumnValid(table, choiceOfColumn)) {
+                    clearScreen();
+                    printTable(table);
+                    System.out.println(COLOR_RED + "The column you entered is not valid. Please enter a number between 1 and " + table[0].length + "." + COLOR_RESET);
+                    System.out.println("Enter '0' if you want to quit the game.");
+                } else {
+                    validInput = true;
                 }
             }
 
@@ -380,26 +410,28 @@ public class Group10 {
                 universityMenu();
             }
 
-            if(determineWinner(table, currentPlayer)){
+            if (determineWinner(table, currentPlayer)) {
                 clearScreen();
                 printTable(table);
                 System.out.println(COLOR_LIGHT_GREEN + "Player " + currentPlayer + " has won the game." + COLOR_RESET);
                 gameContinues = false;
-            }
-            else if (isTableFull(table)){
+            } else if (isTableFull(table)) {
+                clearScreen();
                 printTable(table);
                 System.out.println("It's a draw!");
                 gameContinues = false;
             }
+
             currentPlayer = (currentPlayer == '1') ? '2' : '1';
         }
+
         String nextAction = postGameMenu(input);
-        switch(nextAction){
-            case"r":
+        switch (nextAction) {
+            case "r":
                 fillTableWithAsterisk(table);
                 playMultiplayer(table, input);
                 return;
-            case"m":
+            case "m":
                 clearScreen();
                 universityMenu();
                 return;
@@ -408,6 +440,7 @@ public class Group10 {
                 return;
         }
     }
+
 
     public static String postGameMenu(Scanner input){
         String selection;
@@ -1653,7 +1686,11 @@ public class Group10 {
             n = readPositiveInt();
             if (n <= 0) {
                 System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again: \" + COLOR_RESET");
-            } 
+            }
+            else if(n > 20) {
+                clearScreen();
+                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+            }
             else {
                 break;
             }
@@ -1673,6 +1710,7 @@ public class Group10 {
         Double geometricMean = computeGeometricMean(arr); 
         Double harmonicMean = computeHarmonicMeanRecursive(arr); 
         // Printing the calculations
+         clearScreen();
          System.out.println(COLOR_LIGHT_GREEN);
          System.out.println("╔═════════════════╗");
          System.out.println("║     Results     ║");
@@ -1708,7 +1746,11 @@ public class Group10 {
             dim = readPositiveInt();
             if (dim <= 0) {
                 System.out.println("COLOR_RED + \"Length must be positive integer. Please try again.\" + COLOR_RESET");
-            } 
+            }
+            else if(dim > 20) {
+                clearScreen();
+                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+            }
             else {
                 break;
             }
@@ -1730,6 +1772,7 @@ public class Group10 {
         double euclidean = computeEuclidean(a, b);
         Double cosine = computeCosineSimilarity(a, b);
         // Printing the Results
+        clearScreen();
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔═════════════════╗");
         System.out.println("║     Results     ║");
@@ -1835,12 +1878,50 @@ public class Group10 {
             try {
                 int val = Integer.parseInt(sc.nextLine().trim());
                 if (val < min || val > max) {
+                    clearScreen();
+                    System.out.println(COLOR_LIGHT_CYAN);
+                    System.out.println("╔════════════════════════════════════════════════╗");
+                    System.out.println("║            === High School Menu ===            ║");
+                    System.out.println("╚════════════════════════════════════════════════╝");
+                    System.out.println(COLOR_LIGHT_BLUE);
+                    System.out.println("╔════════════════════════════════════════════════╗");
+                    System.out.println("║           Please select your choice:           ║");
+                    System.out.println("╚════════════════════════════════════════════════╝");
+                    System.out.println(COLOR_RESET);
+                    System.out.println("╔════════════════════════════════════════════════╗");
+                    System.out.println("║   [1] Statistical information about an Array   ║");
+                    System.out.println("╚════════════════════════════════════════════════╝");
+                    System.out.println("╔════════════════════════════════════════════════╗");
+                    System.out.println("║   [2] Distance between two Arrays              ║");
+                    System.out.println("╚════════════════════════════════════════════════╝");
+                    System.out.println("╔════════════════════════════════════════════════╗");
+                    System.out.println("║   [3] Return to Main Menu                      ║");
+                    System.out.println("╚════════════════════════════════════════════════╝");
                     System.out.printf(COLOR_RED + "Input out of range. Please enter an integer between %d and %d." + COLOR_RESET, min, max);
                     continue;
                 }
                 return val;
             } 
             catch (NumberFormatException ex) {
+                clearScreen();
+                System.out.println(COLOR_LIGHT_CYAN);
+                System.out.println("╔════════════════════════════════════════════════╗");
+                System.out.println("║            === High School Menu ===            ║");
+                System.out.println("╚════════════════════════════════════════════════╝");
+                System.out.println(COLOR_LIGHT_BLUE);
+                System.out.println("╔════════════════════════════════════════════════╗");
+                System.out.println("║           Please select your choice:           ║");
+                System.out.println("╚════════════════════════════════════════════════╝");
+                System.out.println(COLOR_RESET);
+                System.out.println("╔════════════════════════════════════════════════╗");
+                System.out.println("║   [1] Statistical information about an Array   ║");
+                System.out.println("╚════════════════════════════════════════════════╝");
+                System.out.println("╔════════════════════════════════════════════════╗");
+                System.out.println("║   [2] Distance between two Arrays              ║");
+                System.out.println("╚════════════════════════════════════════════════╝");
+                System.out.println("╔════════════════════════════════════════════════╗");
+                System.out.println("║   [3] Return to Main Menu                      ║");
+                System.out.println("╚════════════════════════════════════════════════╝");
                 System.out.print(COLOR_RED + "Invalid input, please try again: " + COLOR_RESET);
             }
         }
@@ -1853,6 +1934,7 @@ public class Group10 {
                 String line = sc.nextLine().trim();
                 int val = Integer.parseInt(line);
                 if (val < min || val > max) {
+                    clearScreen();
                     System.out.printf(COLOR_RED + "Invalid input. Please enter an integer between %d and %d.%n" + COLOR_RESET, min, max);
                     continue;
                 }
@@ -1870,7 +1952,8 @@ public class Group10 {
                 String line = sc.nextLine().trim();
                 int v = Integer.parseInt(line);
                 if (v <= 0) {
-                    System.out.print("Enter a positive integer: ");
+                    clearScreen();
+                    System.out.print(COLOR_RED + "Enter a positive integer: " + COLOR_RESET);
                     continue;
                 }
                 return v;
