@@ -1775,13 +1775,13 @@ public class Group10 {
             }
         }
 
-        System.out.println("Enter memmbers of the first array (Must be 0-9 integer):");
+        System.out.println("Enter members of the first array (Must be 0-9 integer):");
         int[] a = new int[dim];
         for (int i = 0; i < dim; i++) {
             a[i] = readIntInRangeWithPrompt(0, 9, "a[" + i + "]: ");
         }
 
-        System.out.println("Enter memmbers of the second array (Must be 0-9 integer):");
+        System.out.println("Enter members of the second array (Must be 0-9 integer):");
         int[] b = new int[dim];
         for (int i = 0; i < dim; i++) {
             b[i] = readIntInRangeWithPrompt(0, 9, "b[" + i + "]: ");
