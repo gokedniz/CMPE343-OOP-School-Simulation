@@ -1646,6 +1646,7 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
+    public static int choice;
     public static void HighSchoolMenu(){
         while (true) {
             clearScreen();
@@ -1970,17 +1971,65 @@ public class Group10 {
         while (true) {
             try {
                 String line = sc.nextLine().trim();
-                int v = Integer.parseInt(line);
-                if (v <= 0) {
+
+                if (line.isEmpty()) {
                     clearScreen();
-                    System.out.print(COLOR_RED + "Enter a positive integer: " + COLOR_RESET);
+                    System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
+                    if (choice == 1) statisticalInformation();
+                    else if (choice == 2) distanceBetweenTwoArrays();
                     continue;
                 }
+                if (line.charAt(0) == '-') {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
+                    if (choice == 1) statisticalInformation();
+                    else if (choice == 2) distanceBetweenTwoArrays();
+                    continue;
+                }
+                if (line.charAt(0) == '+') {
+                    line = line.substring(1);
+                    if (line.isEmpty()) {
+                        clearScreen();
+                        System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
+                        if (choice == 1) statisticalInformation();
+                        else if (choice == 2) distanceBetweenTwoArrays();
+                        continue;
+                    }
+                }
+                if (!line.matches("\\d+")) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
+                    if (choice == 1) statisticalInformation();
+                    else if (choice == 2) distanceBetweenTwoArrays();
+                    continue;
+                }
+                java.math.BigInteger bi = new java.math.BigInteger(line);
+                java.math.BigInteger intMax = java.math.BigInteger.valueOf(Integer.MAX_VALUE);
+                if (bi.compareTo(intMax) > 0) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Input is too large (Overflow). Please enter an number between 1 and 20." + COLOR_RESET);
+                    if (choice == 1) statisticalInformation();
+                    else if (choice == 2) distanceBetweenTwoArrays();
+                    continue;
+                }
+
+                int v = bi.intValue();
+                if (v <= 0) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
+                    if (choice == 1) statisticalInformation();
+                    else if (choice == 2) distanceBetweenTwoArrays();
+                    continue;
+                }
+
                 return v;
-            } 
+
+            }
             catch (NumberFormatException ex) {
                 clearScreen();
-                System.out.print(COLOR_RED + "Invalid input, please enter a positive integer: " + COLOR_RESET);
+                System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
+                if (choice == 1) statisticalInformation();
+                else if (choice == 2) distanceBetweenTwoArrays();
             }
         }
     }
