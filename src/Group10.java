@@ -1960,6 +1960,7 @@ public class Group10 {
                 return val;
             } 
             catch (NumberFormatException ex) {
+                clearScreen();
                 System.out.println(COLOR_RED + "Invalid input please try again: " + COLOR_RESET);
             }
         }
@@ -1978,6 +1979,7 @@ public class Group10 {
                 return v;
             } 
             catch (NumberFormatException ex) {
+                clearScreen();
                 System.out.print(COLOR_RED + "Invalid input, please enter a positive integer: " + COLOR_RESET);
             }
         }
@@ -1991,6 +1993,7 @@ public class Group10 {
                 return Double.parseDouble(line);
             } 
             catch (NumberFormatException ex) {
+                clearScreen();
                 System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type: " + COLOR_RESET);
             }
         }
