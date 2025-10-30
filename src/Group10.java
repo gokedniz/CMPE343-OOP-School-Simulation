@@ -2378,23 +2378,23 @@ public class Group10 {
     // -------------  Taha's methods ----------------
 
     /**
-     * This class handles the High School menu operations of the education application.
+     * Displays the High School menu and handles user navigation.
      * <p>
-     * It allows users to:
+     * This method presents a loop-based menu with the following options:
+     * </p>
+     * <ul>
+     * <li>[1] Statistical information about an Array: Calls {@link #statisticalInformation()}</li>
+     * <li>[2] Distance between two Arrays: Calls {@link #distanceBetweenTwoArrays()}</li>
+     * <li>[3] Return to Main Menu: Exits the loop and returns to the main application menu.</li>
+     * </ul>
+     * <p>
+     * It uses {@link #readIntInRange(int, int)} to ensure valid user input.
      * </p>
      *
-     * <ul>
-     *   <li>Compute statistical information about an array.</li>
-     *   <li>Compute distances between two arrays.</li>
-     *   <li>Return to the main menu.</li>
-     * </ul>
-     *
-     * @see #HighSchoolMenu()
-     * @see #statisticalInformation(int)
-     * @see #distanceBetweenTwoArrays(int)
+     * @see #statisticalInformation()
+     * @see #distanceBetweenTwoArrays()
+     * @see #readIntInRange(int, int)
      */
-
-
     public static void HighSchoolMenu() {
         while (true) {
             clearScreen();
@@ -2423,11 +2423,11 @@ public class Group10 {
             switch (choice) {
                 case 1:
                     clearScreen();
-                    statisticalInformation(choice);
+                    statisticalInformation();
                     break;
                 case 2:
                     clearScreen();
-                    distanceBetweenTwoArrays(choice);
+                    distanceBetweenTwoArrays();
                     break;
                 case 3:
                     System.out.println("Returning to previous menu...");
@@ -2440,171 +2440,208 @@ public class Group10 {
     }
 
     /**
-     * Prompts the user to input an array of doubles, calculates
-     * median, arithmetic mean, geometric mean, and harmonic mean,
-     * then prints the results.
+     * Manages the "Distance Between Two Arrays" module.
      * <p>
-     * Handles input validation for array length and element ranges.
+     * This method runs a self-contained loop that prompts the user to:
+     * 1. Enter the length (dimension) of two arrays (1-20).
+     * 2. Populate both arrays with integer values (0-9).
+     * </p>
+     * <p>
+     * It then calculates and displays the **Manhattan distance**, **Euclidean distance**,
+     * and **cosine similarity** between the two arrays.
+     * The user is then prompted to either try again (restarting the loop)
+     * or return to the High School menu (exiting the method).
+     * </p>
+     * <p>
+     * Input validation is handled by {@link #readPositiveInt()} for length
+     * and {@link #readIntInRangeWithPrompt(int, int, String)} for array elements.
      * </p>
      *
-     * @param choice The menu selection used for contextual navigation.
-     * @see #computeMedian(double[])
-     * @see #computeArithmeticMean(double[])
-     * @see #computeGeometricMean(double[])
-     * @see #computeHarmonicMeanRecursive(double[])
-     */
-
-    // Menu selection 1
-     private static void statisticalInformation(int choice) {
-         System.out.println(COLOR_ROSE);
-         System.out.println("╔════════════════════════════════════════════════╗");
-         System.out.println("║     Statistical information about an Array     ║");
-         System.out.println("╚════════════════════════════════════════════════╝");
-         System.out.println(COLOR_RESET);
-        int n;
-        while (true) {
-            System.out.print("Enter the length of your array(1-20): ");
-            n = readPositiveInt(choice);
-            if (n <= 0) {
-                System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again: \" + COLOR_RESET");
-            }
-            else if(n > 20) {
-                clearScreen();
-                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
-            }
-            else {
-                break;
-            }
-        }
-        // Populating the array
-        double[] arr = new double[n];
-        System.out.println("Enter the members of your array(Between -1_000_000.0 and +1_000_000.0;):");
-        for (int i = 0; i < n; i++) {
-            arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
-        }
-
-        Arrays.sort(arr); // Sorting for the median
-
-        // Calculations
-        double median = computeMedian(arr);
-        double arithmeticMean = computeArithmeticMean(arr);
-        Double geometricMean = computeGeometricMean(arr); 
-        Double harmonicMean = computeHarmonicMeanRecursive(arr); 
-        // Printing the calculations
-         clearScreen();
-         System.out.println(COLOR_LIGHT_GREEN);
-         System.out.println("╔═════════════════╗");
-         System.out.println("║     Results     ║");
-         System.out.println("╚═════════════════╝");
-        System.out.printf("Sorted array: %s%n", Arrays.toString(arr));
-        System.out.printf("Median: %s%n", formatDoubleOrMsg(median, ""));
-        System.out.printf("Arithmetic Mean: %s%n", formatDoubleOrMsg(arithmeticMean, ""));
-        if (geometricMean == null) {
-            System.out.println("Geometric Mean: Undefined (One of the members in this array is <= 0)");
-        } 
-        else {
-            System.out.printf("Geometric Mean: %s%n", formatDoubleOrMsg(geometricMean, ""));
-        }
-        if (harmonicMean == null) {
-            System.out.println("Harmonic Mean: Undefined (One of the members in this array is <= 0)");
-        } 
-        else {
-            System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
-        }
-        System.out.println(COLOR_RESET);
-        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
-            clearScreen();
-            statisticalInformation(choice);
-        }
-        else{
-            HighSchoolMenu();
-        }
-     }
-
-    /**
-     * Prompts the user to input two integer arrays, calculates
-     * Manhattan distance, Euclidean distance, and cosine similarity,
-     * then prints the results.
-     * <p>
-     * Handles input validation for array length and element ranges.
-     * </p>
-     *
-     * @param choice The menu selection used for contextual navigation.
      * @see #computeManhattan(int[], int[])
      * @see #computeEuclidean(int[], int[])
      * @see #computeCosineSimilarity(int[], int[])
+     * @see #readPositiveInt()
+     * @see #readIntInRangeWithPrompt(int, int, String)
      */
-
-    // Menu selection 2
-    private static void distanceBetweenTwoArrays(int choice) {
-        System.out.println(COLOR_ROSE);
-        System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║           Distance between two arrays          ║");
-        System.out.println("╚════════════════════════════════════════════════╝");
-        System.out.println(COLOR_RESET);
-        int dim;
-        while (true) {
-            System.out.print("Enter the length of your array: ");
-            dim = readPositiveInt(choice);
-            if (dim <= 0) {
-                System.out.println("COLOR_RED + \"Length must be positive integer. Please try again.\" + COLOR_RESET");
+// Menu selection 1
+    private static void statisticalInformation() { //
+        while (true) { //
+            System.out.println(COLOR_ROSE);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║     Statistical information about an Array     ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+            int n;
+            while (true) {
+                System.out.print("Enter the length of your array(1-20): ");
+                n = readPositiveInt();
+                if (n <= 0) {
+                    System.out.println(COLOR_RED + "Length must be a positive integer. Please try again: " + COLOR_RESET);
+                }
+                else if(n > 20) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+                }
+                else {
+                    break;
+                }
             }
-            else if(dim > 20) {
-                clearScreen();
-                System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+            // Populating the array
+            double[] arr = new double[n];
+            System.out.println("Enter the members of your array(Between -1_000_000.0 and +1_000_000.0;):");
+            for (int i = 0; i < n; i++) {
+                arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
+            }
+
+            Arrays.sort(arr); // Sorting for the median
+
+            // Calculations
+            double median = computeMedian(arr);
+            double arithmeticMean = computeArithmeticMean(arr);
+            Double geometricMean = computeGeometricMean(arr);
+            Double harmonicMean = computeHarmonicMeanRecursive(arr);
+            // Printing the calculations
+            clearScreen();
+            System.out.println(COLOR_LIGHT_GREEN);
+            System.out.println("╔═════════════════╗");
+            System.out.println("║     Results     ║");
+            System.out.println("╚═════════════════╝");
+            System.out.printf("Sorted array: %s%n", Arrays.toString(arr));
+            System.out.printf("Median: %s%n", formatDoubleOrMsg(median, ""));
+            System.out.printf("Arithmetic Mean: %s%n", formatDoubleOrMsg(arithmeticMean, ""));
+            if (geometricMean == null) {
+                System.out.println("Geometric Mean: Undefined (One of the members in this array is <= 0)");
             }
             else {
-                break;
+                System.out.printf("Geometric Mean: %s%n", formatDoubleOrMsg(geometricMean, ""));
             }
-        }
+            if (harmonicMean == null) {
+                System.out.println("Harmonic Mean: Undefined (One of the members in this array is <= 0)");
+            }
+            else {
+                System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
+            }
+            System.out.println(COLOR_RESET);
 
-        System.out.println("Enter members of the first array (Must be 0-9 integer):");
-        int[] a = new int[dim];
-        for (int i = 0; i < dim; i++) {
-            a[i] = readIntInRangeWithPrompt(0, 9, "a[" + i + "]: ");
-        }
-
-        System.out.println("Enter members of the second array (Must be 0-9 integer):");
-        int[] b = new int[dim];
-        for (int i = 0; i < dim; i++) {
-            b[i] = readIntInRangeWithPrompt(0, 9, "b[" + i + "]: ");
-        }
-        // Calculations
-        double manhattan = computeManhattan(a, b);
-        double euclidean = computeEuclidean(a, b);
-        Double cosine = computeCosineSimilarity(a, b);
-        // Printing the Results
-        clearScreen();
-        System.out.println(COLOR_LIGHT_GREEN);
-        System.out.println("╔═════════════════╗");
-        System.out.println("║     Results     ║");
-        System.out.println("╚═════════════════╝");
-        System.out.printf("First Array: %s%n", Arrays.toString(a));
-        System.out.printf("Second Array: %s%n", Arrays.toString(b));
-        System.out.printf("Manhattan Distance: %s%n", formatDoubleOrMsg(manhattan, ""));
-        System.out.printf("Euclidean Distance: %s%n", formatDoubleOrMsg(euclidean, ""));
-        if (cosine == null) {
-            System.out.println("Cosine Similarity: Undefined (The array has a norm of 0).");
-        } 
-        else {
-            System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
-        }
-        System.out.println(COLOR_RESET);
-        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
-            clearScreen();
-            distanceBetweenTwoArrays(choice);
-        }
-        else{
-            HighSchoolMenu();
+            if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
+                clearScreen();
+                continue;
+            }
+            else{
+                return;
+            }
         }
     }
 
     /**
-     * Computes the median of a sorted array.
+     * Manages the "Distance Between Two Arrays" module.
+     * <p>
+     * This method runs a self-contained loop that prompts the user to:
+     * 1. Enter the length (dimension) of two arrays (1-20).
+     * 2. Populate both arrays with integer values (0-9).
+     * </p>
+     * <p>
+     * It then calculates and displays the **Manhattan distance**, **Euclidean distance**,
+     * and **cosine similarity** between the two arrays.
+     * The user is then prompted to either try again (restarting the loop)
+     * or return to the High School menu (exiting the method).
+     * </p>
      *
-     * @param sortedArr The sorted array of doubles.
+     * <p>
+     * Input validation is handled by {@link #readPositiveInt()} for length
+     * and {@link #readIntInRangeWithPrompt(int, int, String)} for array elements.
+     * </p>
+     *
+     * @see #computeManhattan(int[], int[])
+     * @see #computeEuclidean(int[], int[])
+     * @see #computeCosineSimilarity(int[], int[])
+     * @see #readPositiveInt()
+     * @see #readIntInRangeWithPrompt(int, int, String)
+     */
+// Menu selection 2
+    private static void distanceBetweenTwoArrays() { //
+        while (true) {
+            System.out.println(COLOR_ROSE);
+            System.out.println("╔════════════════════════════════════════════════╗");
+            System.out.println("║           Distance between two arrays          ║");
+            System.out.println("╚════════════════════════════════════════════════╝");
+            System.out.println(COLOR_RESET);
+            int dim;
+            while (true) {
+                System.out.print("Enter the length of your array: ");
+                dim = readPositiveInt();
+                if (dim <= 0) {
+                    System.out.println(COLOR_RED + "Length must be positive integer. Please try again." + COLOR_RESET);
+                }
+                else if(dim > 20) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Length cannot exceed 20. Please enter a value between 1 and 20: " + COLOR_RESET);
+                }
+                else {
+                    break;
+                }
+            }
+
+            System.out.println("Enter members of the first array (Must be 0-9 integer):");
+            int[] a = new int[dim];
+            for (int i = 0; i < dim; i++) {
+                a[i] = readIntInRangeWithPrompt(0, 9, "a[" + i + "]: ");
+            }
+
+            System.out.println("Enter members of the second array (Must be 0-9 integer):");
+            int[] b = new int[dim];
+            for (int i = 0; i < dim; i++) {
+                b[i] = readIntInRangeWithPrompt(0, 9, "b[" + i + "]: ");
+            }
+            // Calculations
+            double manhattan = computeManhattan(a, b);
+            double euclidean = computeEuclidean(a, b);
+            Double cosine = computeCosineSimilarity(a, b);
+            // Printing the Results
+            clearScreen();
+            System.out.println(COLOR_LIGHT_GREEN);
+            System.out.println("╔═════════════════╗");
+            System.out.println("║     Results     ║");
+            System.out.println("╚═════════════════╝");
+            System.out.printf("First Array: %s%n", Arrays.toString(a));
+            System.out.printf("Second Array: %s%n", Arrays.toString(b));
+            System.out.printf("Manhattan Distance: %s%n", formatDoubleOrMsg(manhattan, ""));
+            System.out.printf("Euclidean Distance: %s%n", formatDoubleOrMsg(euclidean, ""));
+            if (cosine == null) {
+                System.out.println("Cosine Similarity: Undefined (The array has a norm of 0).");
+            }
+            else {
+                System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
+            }
+            System.out.println(COLOR_RESET);
+
+            if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
+                clearScreen();
+                continue;
+            }
+            else{
+                return;
+            }
+        }
+    }
+
+    /**
+     * Computes the median (middle value) of a *sorted* array of doubles.
+     * <p>
+     * This method handles two cases:
+     * <ul>
+     * <li><b>Odd length:</b> Returns the single middle element. (e.g., [1, 2, <b>3</b>, 4, 5] -> 3)</li>
+     * <li><b>Even length:</b> Returns the average of the two middle elements. (e.g., [1, 2, <b>3</b>, <b>4</b>, 5, 6] -> 3.5)</li>
+     * </ul>
+     *
+     * <p>
+     * <b>Important:</b> This method <em>assumes</em> the array has already been sorted.
+     * Passing an unsorted array will produce an incorrect result.
+     * </p>
+     *
+     * @param sortedArr The array of doubles. <b>Must be pre-sorted.</b>
      * @return The median value.
-     * @see #statisticalInformation(int)
+     * @see #statisticalInformation()
      */
 
     // Calculation Methods
@@ -2620,11 +2657,11 @@ public class Group10 {
     }
 
     /**
-     * Computes the arithmetic mean of an array.
+     * Computes the arithmetic mean (average) of an array.
      *
      * @param arr The array of doubles.
      * @return The arithmetic mean value.
-     * @see #statisticalInformation(int)
+     * @see #statisticalInformation()
      */
 
     private static double computeArithmeticMean(double[] arr) {
@@ -2635,11 +2672,12 @@ public class Group10 {
 
     /**
      * Computes the geometric mean of an array.
-     * Returns null if any element is &lt;= 0.
+     * <p>
+     * Returns null if any element is non-positive (<= 0).
      *
      * @param arr The array of doubles.
      * @return The geometric mean, or null if undefined.
-     * @see #statisticalInformation(int)
+     * @see #statisticalInformation()
      */
 
     private static Double computeGeometricMean(double[] arr) {
@@ -2657,12 +2695,13 @@ public class Group10 {
 
     /**
      * Computes the harmonic mean of an array recursively.
+     * <p>
      * Returns null if any element is zero.
      *
      * @param arr The array of doubles.
      * @return The harmonic mean, or null if undefined.
      * @see #sumReciprocalRecursive(double[], int)
-     * @see #statisticalInformation(int)
+     * @see #statisticalInformation()
      */
 
     private static Double computeHarmonicMeanRecursive(double[] arr) {
@@ -2847,11 +2886,10 @@ public class Group10 {
      * Reads a positive integer from user input with validation.
      * Handles empty, negative, and overflow inputs.
      *
-     * @param choice The menu selection for contextual navigation.
      * @return The validated positive integer input.
      */
 
-    private static int readPositiveInt(int choice) {
+    private static int readPositiveInt() {
         while (true) {
             try {
                 String line = sc.nextLine().trim();
@@ -2859,15 +2897,11 @@ public class Group10 {
                 if (line.isEmpty()) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation(choice);
-                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '-') {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation(choice);
-                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '+') {
@@ -2875,16 +2909,12 @@ public class Group10 {
                     if (line.isEmpty()) {
                         clearScreen();
                         System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                        if (choice == 1) statisticalInformation(choice);
-                        else if (choice == 2) distanceBetweenTwoArrays(choice);
                         continue;
                     }
                 }
                 if (!line.matches("\\d+")) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation(choice);
-                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 java.math.BigInteger bi = new java.math.BigInteger(line);
@@ -2892,8 +2922,6 @@ public class Group10 {
                 if (bi.compareTo(intMax) > 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Input is too large (Overflow). Please enter an number between 1 and 20." + COLOR_RESET);
-                    if (choice == 1) statisticalInformation(choice);
-                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2901,8 +2929,6 @@ public class Group10 {
                 if (v <= 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation(choice);
-                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2912,8 +2938,6 @@ public class Group10 {
             catch (NumberFormatException ex) {
                 clearScreen();
                 System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                if (choice == 1) statisticalInformation(choice);
-                else if (choice == 2) distanceBetweenTwoArrays(choice);
             }
         }
     }
@@ -2947,7 +2971,6 @@ public class Group10 {
                 String line = sc.nextLine().trim().replace(',', '.');
                 java.math.BigDecimal bd = new java.math.BigDecimal(line);
 
-                // Belirlenen sınırlar içinde mi kontrol et
                 if (bd.compareTo(java.math.BigDecimal.valueOf(MAX_VALUE)) > 0 ||
                     bd.compareTo(java.math.BigDecimal.valueOf(MIN_VALUE)) < 0) {
                     clearScreen();
