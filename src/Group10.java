@@ -1454,7 +1454,6 @@ public class Group10 {
 
         //================KEREM IRFANOGLU================
     //====================Secondary School====================
-
     /**
      * Main menu of "Secondary School".
      * <p>
@@ -1467,7 +1466,6 @@ public class Group10 {
      *   <li>Returns to the main menu.</li>
      * </ul>
      */
-
     public static void secondarySchool(){
 
         clearScreen();
@@ -1972,7 +1970,6 @@ public class Group10 {
      * @param s The normalized expression string.
      * @return {@code true} if the expression is valid, {@code false} otherwise.
      */
-
     static boolean isValidExpression(String s) {
         if(s == null || s.isEmpty()) return false;
 
@@ -2130,7 +2127,6 @@ public class Group10 {
             || lastToken.equals("*") || lastToken.equals("/")
             || lastToken.equals("(");
     }
-
     /**
      * The main recursive method for evaluating the expression step-by-step.
      * <p>
@@ -2156,8 +2152,6 @@ public class Group10 {
      * @see #findInnermostOpenParen(List)
      * @see #removeParen(List, int, int)
      */
-
-
     static void evaluateStepByStep(List<String> tokens) {
 
         // The expression is reduced to a single number
@@ -2192,7 +2186,6 @@ public class Group10 {
         }
         // if reduced==false, that means there are no reduction left, so print out the result.
     }
-
     /**
      * Performs a single reduction operation within a specified range of the token list.
      * <p>
@@ -2208,7 +2201,6 @@ public class Group10 {
      * was found to reduce.
      * @throws ArithmeticException if a division by zero is attempted.
      */
-
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
         // look for '*' or '/'
         for (int i = start; i < endEx; i++) {
@@ -2358,7 +2350,6 @@ public class Group10 {
         }
         return true;
     }
-    
     /**
      * Safely parses a string token (which is assumed to be a valid number) into a {@code long}.
      *
