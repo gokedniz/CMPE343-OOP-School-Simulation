@@ -2102,6 +2102,7 @@ public class Group10 {
             || lastToken.equals("*") || lastToken.equals("/")
             || lastToken.equals("(");
     }
+
     /**
      * The main recursive method for evaluating the expression step-by-step.
      * <p>
@@ -2122,6 +2123,7 @@ public class Group10 {
      * @see #findInnermostOpenParen(List)
      * @see #removeParen(List, int, int)
      */
+
     static void evaluateStepByStep(List<String> tokens) {
 
         // The expression is reduced to a single number
@@ -2156,6 +2158,7 @@ public class Group10 {
         }
         // if reduced==false, that means there are no reduction left, so print out the result.
     }
+
     /**
      * Performs a single reduction operation within a specified range of the token list.
      * <p>
@@ -2171,6 +2174,7 @@ public class Group10 {
      * was found to reduce.
      * @throws ArithmeticException if a division by zero is attempted.
      */
+
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
         // look for '*' or '/'
         for (int i = start; i < endEx; i++) {
@@ -2335,11 +2339,27 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
-    public static int choice;
-    public static void HighSchoolMenu(){
+
+    /**
+     * This class handles the High School menu operations of the education application.
+     * <p>
+     * It allows users to:
+     * <ul>
+     *   <li>Compute statistical information about an array.</li>
+     *   <li>Compute distances between two arrays.</li>
+     *   <li>Return to the main menu.</li>
+     * </ul>
+     * </p>
+     *
+     * @see #HighSchoolMenu()
+     * @see #statisticalInformation(int)
+     * @see #distanceBetweenTwoArrays(int)
+     */
+
+    public static void HighSchoolMenu() {
         while (true) {
             clearScreen();
-            // Menu . ...........
+            // Menu
             System.out.println(COLOR_LIGHT_CYAN);
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║            === High School Menu ===            ║");
@@ -2364,12 +2384,11 @@ public class Group10 {
             switch (choice) {
                 case 1:
                     clearScreen();
-                    statisticalInformation();
-                    promptEnterToContinue();
+                    statisticalInformation(choice);
                     break;
                 case 2:
                     clearScreen();
-                    distanceBetweenTwoArrays();
+                    distanceBetweenTwoArrays(choice);
                     promptEnterToContinue();
                     break;
                 case 3:
@@ -2382,8 +2401,23 @@ public class Group10 {
         }        
     }
 
+    /**
+     * Prompts the user to input an array of doubles, calculates
+     * median, arithmetic mean, geometric mean, and harmonic mean,
+     * then prints the results.
+     * <p>
+     * Handles input validation for array length and element ranges.
+     * </p>
+     *
+     * @param choice The menu selection used for contextual navigation.
+     * @see #computeMedian(double[])
+     * @see #computeArithmeticMean(double[])
+     * @see #computeGeometricMean(double[])
+     * @see #computeHarmonicMeanRecursive(double[])
+     */
+
     // Menu selection 1
-     private static void statisticalInformation() {
+     private static void statisticalInformation(int choice) {
          System.out.println(COLOR_ROSE);
          System.out.println("╔════════════════════════════════════════════════╗");
          System.out.println("║     Statistical information about an Array     ║");
@@ -2391,8 +2425,8 @@ public class Group10 {
          System.out.println(COLOR_RESET);
         int n;
         while (true) {
-            System.out.print("Enter the length of your array: ");
-            n = readPositiveInt();
+            System.out.print("Enter the length of your array(1-20): ");
+            n = readPositiveInt(choice);
             if (n <= 0) {
                 System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again: \" + COLOR_RESET");
             }
@@ -2406,7 +2440,7 @@ public class Group10 {
         }
         // Populating the array
         double[] arr = new double[n];
-        System.out.println("Enter the members of your array:");
+        System.out.println("Enter the members of your array(Between -1_000_000.0 and +1_000_000.0;):");
         for (int i = 0; i < n; i++) {
             arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
         }
@@ -2439,11 +2473,26 @@ public class Group10 {
         else {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
-         System.out.println(COLOR_RESET);
+        System.out.println(COLOR_RESET);
+        promptEnterToContinue();
     }
 
+    /**
+     * Prompts the user to input two integer arrays, calculates
+     * Manhattan distance, Euclidean distance, and cosine similarity,
+     * then prints the results.
+     * <p>
+     * Handles input validation for array length and element ranges.
+     * </p>
+     *
+     * @param choice The menu selection used for contextual navigation.
+     * @see #computeManhattan(int[], int[])
+     * @see #computeEuclidean(int[], int[])
+     * @see #computeCosineSimilarity(int[], int[])
+     */
+
     // Menu selection 2
-    private static void distanceBetweenTwoArrays() {
+    private static void distanceBetweenTwoArrays(int choice) {
         System.out.println(COLOR_ROSE);
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║           Distance between two arrays          ║");
@@ -2452,7 +2501,7 @@ public class Group10 {
         int dim;
         while (true) {
             System.out.print("Enter the length of your array: ");
-            dim = readPositiveInt();
+            dim = readPositiveInt(choice);
             if (dim <= 0) {
                 System.out.println("COLOR_RED + \"Length must be positive integer. Please try again.\" + COLOR_RESET");
             }
@@ -2499,6 +2548,14 @@ public class Group10 {
         System.out.println(COLOR_RESET);
     }
 
+    /**
+     * Computes the median of a sorted array.
+     *
+     * @param sortedArr The sorted array of doubles.
+     * @return The median value.
+     * @see #statisticalInformation(int)
+     */
+
     // Calculation Methods
     private static double computeMedian(double[] sortedArr) {
         int n = sortedArr.length;
@@ -2511,11 +2568,28 @@ public class Group10 {
         }
     }
 
+    /**
+     * Computes the arithmetic mean of an array.
+     *
+     * @param arr The array of doubles.
+     * @return The arithmetic mean value.
+     * @see #statisticalInformation(int)
+     */
+
     private static double computeArithmeticMean(double[] arr) {
         double sum = 0.0;
         for (double v : arr) sum += v;
         return sum / arr.length;
     }
+
+    /**
+     * Computes the geometric mean of an array.
+     * Returns null if any element is <= 0.
+     *
+     * @param arr The array of doubles.
+     * @return The geometric mean, or null if undefined.
+     * @see #statisticalInformation(int)
+     */
 
     private static Double computeGeometricMean(double[] arr) {
         for (double v : arr) {
@@ -2530,6 +2604,16 @@ public class Group10 {
         return Math.exp(logSum / arr.length);
     }
 
+    /**
+     * Computes the harmonic mean of an array recursively.
+     * Returns null if any element is zero.
+     *
+     * @param arr The array of doubles.
+     * @return The harmonic mean, or null if undefined.
+     * @see #sumReciprocalRecursive(double[], int)
+     * @see #statisticalInformation(int)
+     */
+
     private static Double computeHarmonicMeanRecursive(double[] arr) {
         for (double v : arr) {
             if (v == 0.0){
@@ -2539,6 +2623,15 @@ public class Group10 {
         double reciprocalSum = sumReciprocalRecursive(arr, 0);
         return arr.length / reciprocalSum;
     }
+
+    /**
+     * Recursively computes the sum of reciprocals of array elements.
+     *
+     * @param arr The array of doubles
+     * @param idx The current index for recursion
+     * @return Sum of reciprocals from idx to end of the array
+     */
+
     // Recursive Methods
     private static double sumReciprocalRecursive(double[] arr, int idx) {
         if (idx >= arr.length){
@@ -2547,6 +2640,14 @@ public class Group10 {
         return (1.0 / arr[idx]) + sumReciprocalRecursive(arr, idx + 1);
     }
 
+    /**
+     * Computes the Manhattan distance between two arrays.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return The Manhattan distance
+     */
+
     private static double computeManhattan(int[] a, int[] b) {
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -2554,6 +2655,14 @@ public class Group10 {
         }
         return sum;
     }
+
+    /**
+     * Computes the Euclidean distance between two arrays.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return The Euclidean distance
+     */
 
     private static double computeEuclidean(int[] a, int[] b) {
         double sumsq = 0.0;
@@ -2564,6 +2673,15 @@ public class Group10 {
         return Math.sqrt(sumsq);
     }
 
+    /**
+     * Computes the cosine similarity between two arrays.
+     * Returns null if either array has a zero norm.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return Cosine similarity or null if undefined
+     */
+    
     private static Double computeCosineSimilarity(int[] a, int[] b) {
         double dot = 0.0;
         double na = 0.0;
@@ -2580,6 +2698,14 @@ public class Group10 {
         }
         return dot / (normA * normB);
     }
+
+    /**
+     * Reads an integer from user input within a given range.
+     *
+     * @param min Minimum acceptable value.
+     * @param max Maximum acceptable value.
+     * @return The validated integer input.
+     */
 
     // Input and output validation
     private static int readIntInRange(int min, int max) {
@@ -2636,6 +2762,16 @@ public class Group10 {
         }
     }
 
+    /**
+     * Reads an integer from user input within a given range,
+     * with a custom prompt.
+     *
+     * @param min Minimum acceptable value.
+     * @param max Maximum acceptable value.
+     * @param prompt Message displayed to the user.
+     * @return The validated integer input.
+     */
+
     private static int readIntInRangeWithPrompt(int min, int max, String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2656,7 +2792,15 @@ public class Group10 {
         }
     }
 
-    private static int readPositiveInt() {
+    /**
+     * Reads a positive integer from user input with validation.
+     * Handles empty, negative, and overflow inputs.
+     *
+     * @param choice The menu selection for contextual navigation.
+     * @return The validated positive integer input.
+     */
+
+    private static int readPositiveInt(int choice) {
         while (true) {
             try {
                 String line = sc.nextLine().trim();
@@ -2664,15 +2808,15 @@ public class Group10 {
                 if (line.isEmpty()) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '-') {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '+') {
@@ -2680,16 +2824,16 @@ public class Group10 {
                     if (line.isEmpty()) {
                         clearScreen();
                         System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                        if (choice == 1) statisticalInformation();
-                        else if (choice == 2) distanceBetweenTwoArrays();
+                        if (choice == 1) statisticalInformation(choice);
+                        else if (choice == 2) distanceBetweenTwoArrays(choice);
                         continue;
                     }
                 }
                 if (!line.matches("\\d+")) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 java.math.BigInteger bi = new java.math.BigInteger(line);
@@ -2697,8 +2841,8 @@ public class Group10 {
                 if (bi.compareTo(intMax) > 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Input is too large (Overflow). Please enter an number between 1 and 20." + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2706,8 +2850,8 @@ public class Group10 {
                 if (v <= 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2717,33 +2861,84 @@ public class Group10 {
             catch (NumberFormatException ex) {
                 clearScreen();
                 System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                if (choice == 1) statisticalInformation();
-                else if (choice == 2) distanceBetweenTwoArrays();
+                if (choice == 1) statisticalInformation(choice);
+                else if (choice == 2) distanceBetweenTwoArrays(choice);
             }
         }
     }
 
+    /**
+     * Prompts the user to enter a double value within the range -1,000,000 to +1,000,000
+     * and validates the input.
+     * <p>
+     * This method repeatedly asks the user for input until a valid double is entered.
+     * It handles the following cases:
+     * <ul>
+     *     <li>Replaces commas with dots to support locales where comma is used as decimal separator.</li>
+     *     <li>Rejects inputs that are not valid doubles (NumberFormatException).</li>
+     *     <li>Rejects values outside the range -1,000,000 to +1,000,000.</li>
+     *     <li>Rejects NaN values.</li>
+     * </ul>
+     * If the user enters an invalid value, the console is cleared, an error message is displayed,
+     * and the user is prompted again.
+     *
+     * @param prompt The message displayed to the user before reading input.
+     * @return A validated double value entered by the user within the range -1,000,000 to +1,000,000.
+     */
+
     private static double readDoubleWithPrompt(String prompt) {
+        final double MAX_VALUE = 1_000_000.0;
+        final double MIN_VALUE = -1_000_000.0;
+
         while (true) {
             System.out.print(prompt);
             try {
-                String line = sc.nextLine().trim().replace(',', '.'); // Replace comma with a dot
-                return Double.parseDouble(line);
+                String line = sc.nextLine().trim().replace(',', '.');
+                java.math.BigDecimal bd = new java.math.BigDecimal(line);
+
+                // Belirlenen sınırlar içinde mi kontrol et
+                if (bd.compareTo(java.math.BigDecimal.valueOf(MAX_VALUE)) > 0 ||
+                    bd.compareTo(java.math.BigDecimal.valueOf(MIN_VALUE)) < 0) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Input out of range. Please enter a number between " 
+                                    + MIN_VALUE + " and " + MAX_VALUE + "." + COLOR_RESET);
+                    continue;
+                }
+
+                double value = bd.doubleValue();
+
+                if (Double.isNaN(value)) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Invalid input (Not a Number). Please enter a valid double." + COLOR_RESET);
+                    continue;
+                }
+
+                return value;
             } 
             catch (NumberFormatException ex) {
                 clearScreen();
-                System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type: " + COLOR_RESET);
+                System.out.println(COLOR_RED + "Invalid input, please enter a valid double: " + COLOR_RESET);
             }
         }
     }
+    /**
+     * Formats a double value to a string with 6 decimal places.
+     *
+     * @param d The double value to format.
+     * @param unused Placeholder parameter (not used).
+     * @return The formatted string.
+     */
 
     private static String formatDoubleOrMsg(double d, String unused) {
         return String.format("%.6f", d);
     }
 
+    /**
+     * Pauses execution until the user presses Enter.
+     */
+    
     private static void promptEnterToContinue() {
         System.out.println("\nPress Enter to continue...");
         sc.nextLine();
     }
-
 }
