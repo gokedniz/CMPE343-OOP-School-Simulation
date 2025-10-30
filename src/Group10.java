@@ -1000,34 +1000,32 @@ public class Group10 {
         }
     }
 
-    ////GÜLFEM
+    //GÜLFEM
   
     /**
      * Displays the Primary School sub-menu and allows the user to choose between
      * available options (Age and Zodiac, Reverse Words, or returning to the main menu).
      * The menu loops until the user selects '3' to go back.
-     * 
      * <p>This method performs the following actions:</p>
      * <ul>
-     *   <li>Clears the console screen before displaying the menu.</li>
-     *   <li>Presents options: [1] Age and Zodiac, [2] Reverse Words, and [3] Back to Main Menu.</li>
-     *   <li>Reads the user's choice from the console.</li>
-     *   <li>Calls {@link #ageAndZodiacDetection()} for option 1.</li>
-     *   <li>Calls {@link #reverseTheWords()} for option 2.</li>
-     *   <li>Sets the loop control variable {@code subMenu} to {@code false} for option 3, exiting the menu.</li>
-     *   <li>Handles invalid input by displaying an error message and prompting the user to continue.</li>
-     *   <li>Waits for the Enter key press after completing operations or invalid input before re-displaying the menu.</li>
+     * <li>Clears the console screen before displaying the menu.</li>
+     * <li>Presents options: [1] Age and Zodiac, [2] Reverse Words, and [3] Back to Main Menu.</li>
+     * <li>Reads the user's choice from the console.</li>
+     * <li>Calls {@link #ageAndZodiacDetection()} for option 1.</li>
+     * <li>Calls {@link #reverseTheWords()} for option 2.</li>
+     * <li>Sets the loop control variable {@code subMenu} to {@code false} for option 3, exiting the menu.</li>
+     * <li>Handles invalid input by displaying an error message and prompting the user to continue.</li>
+     * <li>Waits for the Enter key press after completing operations or invalid input before re-displaying the menu.</li>
      * </ul>
-     * 
+     *
      * @see #ageAndZodiacDetection()
      * @see #reverseTheWords()
      * @see #clearScreen()
      */
-
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
-                        clearScreen();  //Alt menü başında ekranı temizle
+                        clearScreen();  // Clear the screen at the start of the submenu
                         System.out.println(COLOR_LIGHT_CYAN);
                         System.out.println("╔════════════════════════════════════════════╗");
                         System.out.println("║        === Primary School Menu ===         ║");
@@ -1047,18 +1045,18 @@ public class Group10 {
                         System.out.println("║[3] Back to Main Menu                       ║");
                         System.out.println("╚════════════════════════════════════════════╝");
 
-                        System.out.print("Enter choice: "); // Bu satır çerçeve dışında kalmalı
+                        System.out.print("Enter choice: "); // This line should remain outside the frame
                         String Choice = input.nextLine().trim();
 
                         switch (Choice) {
                             case "1":
-                                clearScreen(); // Age and Zodiac başlamadan önce ekranı temizle
+                                clearScreen(); // Clear screen before starting Age and Zodiac
                                 ageAndZodiacDetection();
                                 System.out.println("\nPress Enter to return to Primary School Menu...");
                                 input.nextLine();
                                 break;
                             case "2":
-                                clearScreen(); // Reverse Words başlamadan önce ekranı temizle
+                                clearScreen(); // Clear screen before starting Reverse Words
                                 reverseTheWords();
                                 System.out.println("\nPress Enter to return to Primary School Menu...");
                                 input.nextLine();
@@ -1077,16 +1075,13 @@ public class Group10 {
                     }
                         }
     // Option A: Zodiac and Sign
-
     /**
     * Takes an integer input from the user and repeatedly prompts in a loop 
     * until a valid integer is entered.
-    *   
-    * @param inputString The prompt message to display to the user.
+    * * @param inputString The prompt message to display to the user.
     * @return The valid integer entered by the user.
     * @see #clearScreen()
     */
-
     public static int receiveInputDate(String inputString) {
         while (true) {
             System.out.println(inputString);
@@ -1100,25 +1095,27 @@ public class Group10 {
                 System.out.println("║Invalid input! Please enter an integer.     ║");
                 System.out.println("╚════════════════════════════════════════════╝");
                 System.out.println(COLOR_RESET);
-                input.next();
+                input.next(); // Consume the invalid input
 
             }
         }
     }
     /**
-     * Calculates and displays the user's age and zodiac sign based on their birth date
-     * and the current date entered by the user.
+     * Calculates and displays the user's age (in years, months, and days) and their zodiac sign
+     * based on their birth date and the current date entered by the user.
      * <p>
      * Validates both dates using {@link #isValidDate(int, int, int)} and determines
-     * the zodiac sign with {@link #calculateZodiac(int, int)}.
+     * the zodiac sign with {@link #calculateZodiac(int, int)}. The age calculation
+     * is done manually without using built-in date/time libraries as per project requirements.
      * </p>
      *
      * @see #receiveInputDate(String)
      * @see #isValidDate(int, int, int)
      * @see #calculateZodiac(int, int)
+     * @see #getDaysInMonth(int, int)
+     * @see #isLeapYear(int)
      * @see #clearScreen()
      */
-
     public static void ageAndZodiacDetection() {
         System.out.println(COLOR_ROSE);
         System.out.println("╔═══════════════════════════════╗");
@@ -1126,18 +1123,15 @@ public class Group10 {
         System.out.println("╚═══════════════════════════════╝");
         System.out.println(COLOR_RESET);
 
-        //First, I took the user's date of birth.
-
+        //First, get the user's date of birth.
         int birthDay = receiveInputDate("Enter your birth 'day' (1-31):");
-        input.nextLine();
+        input.nextLine(); // Consume newline
         int birthMonth = receiveInputDate("Enter your birth 'month' (1-12):");
-        input.nextLine();
+        input.nextLine(); // Consume newline
         int birthYear = receiveInputDate("Enter your birth 'year':");
-        input.nextLine();
+        input.nextLine(); // Consume newline
 
-
-
-        //In this section, I checked whether the birthday dates they entered were valid.
+        //In this section, check if the entered birthday is valid.
         if (!isValidDate(birthDay, birthMonth, birthYear)) {
             clearScreen();
             System.out.println(COLOR_RED);
@@ -1147,20 +1141,23 @@ public class Group10 {
             System.out.println(COLOR_RESET);
             return;
         }
+        
         clearScreen();
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔══════════════╗");
         System.out.println("║Your birthday:║ " + birthDay + "/" + birthMonth + "/" + birthYear + "    ");
         System.out.println("╚══════════════╝");
         System.out.println(COLOR_RESET);
-        //Next, I took the current date.
+        
+        //Next, get the current date.
         int currentDay = receiveInputDate("Enter the current 'day' (1-31):");
-        input.nextLine();
+        input.nextLine(); // Consume newline
         int currentMonth = receiveInputDate("Enter the current 'month' (1-12):");
-        input.nextLine();
+        input.nextLine(); // Consume newline
         int currentYear = receiveInputDate("Enter the current 'year':");
-        input.nextLine();
-        //In this section, I also checked whether the 'currentDay, currentMonth, and currentYear' parts they entered were valid.
+        input.nextLine(); // Consume newline
+        
+        //In this section, check if the entered current date is valid.
         if (!isValidDate(currentDay, currentMonth, currentYear)) {
             clearScreen();
             System.out.println(COLOR_RED);
@@ -1181,22 +1178,35 @@ public class Group10 {
         System.out.println("╚══════════════╝");
         System.out.println(COLOR_RESET);
 
-        // ---------- AGE CALCULATION
+        // ---------- AGE CALCULATION (in Years, Months, and Days)
 
-        //I didn't account for the possibility of negative results when I initially wrote the age calculation section.
-        //To prevent negative values, I made corrections and updated the code/logic to the structure below.
-        int age = currentYear - birthYear;
+        int years = currentYear - birthYear;
+        int months = currentMonth - birthMonth;
+        int days = currentDay - birthDay;
 
-        //Decrement the age if the user's birthday has not yet passed in the given year, as they haven't completed their current age.
-        if (currentMonth < birthMonth ||
-                (currentMonth == birthMonth && currentDay < birthDay)) {
-            age--;
+        // If days are negative, "borrow" from the previous month
+        if (days < 0) {
+            // Go back one month
+            months--; 
+            // Get the number of days from the previous month and add it to "days"
+            int prevMonth = (currentMonth - 1);
+            int prevYear = currentYear;
+            if (prevMonth == 0) {
+                prevMonth = 12;
+                prevYear--; // Important for leap year calculation
+            }
+            // Add the days from the "borrowed" month
+            days += getDaysInMonth(prevMonth, prevYear);
+        }
+
+        // If months are negative, "borrow" from the previous year
+        if (months < 0) {
+            years--; // Decrease the year by one
+            months += 12; // Add 12 to months (1 year = 12 months)
         }
 
         // A negative age means the user's entered birth date is in the future.
-        // Display an error/informative message indicating that the user is not yet born as of the current date.
-
-        if (age < 0) {
+        if (years < 0) {
             System.out.println(COLOR_RED);
             System.out.println("╔════════════════════════════════════════════╗");
             System.out.println("║Invalid birth and current date. Birth date  ║");
@@ -1205,9 +1215,10 @@ public class Group10 {
             System.out.println(COLOR_RESET);
             return;
         }
+        
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔═════════════╗");
-        System.out.println("║Your age is: ║  " + age + "     ");
+        System.out.println(  "║Your age is: ║  " + years + " years, " + months + " months, and " + days + " days.");
         System.out.println("╚═════════════╝");
 
         // ----------- AGE AND ZODIAC SIGN CALCULATION
@@ -1220,84 +1231,119 @@ public class Group10 {
         System.out.println(COLOR_RESET);
 
     }
-
-        /**
-        * Checks whether the given day, month, and year values constitute a valid calendar date.
-        * Takes into account the number of days in the month and the leap year (February 29) rule.
-        * @param day The day to check (1-31).
-        * @param month The month to check (1-12).
-        * @param year The year to check.
-        * @return {@code true} if the date is valid, otherwise {@code false}.
-        */
-
+    /**
+    * Checks whether the given day, month, and year values constitute a valid calendar date.
+    * Takes into account the number of days in the month and the leap year (February 29) rule.
+    * Uses the isLeapYear() helper method for leap year logic.
+    *
+    * @param day The day to check (1-31).
+    * @param month The month to check (1-12).
+    * @param year The year to check.
+    * @return {@code true} if the date is valid, otherwise {@code false}.
+    * @see #isLeapYear(int)
+    */
     public static boolean isValidDate(int day, int month, int year) {
         if (month < 1 || month > 12) {
-            return false;
+            return false; // Month is out of range
         }
 
-        //Check if the day is valid for the given month.
         if (day < 1) {
-            return false;
+            return false; // Day is out of range
         }
 
-        if (month == 1 && day > 31) {
+        // Check days based on month
+        if (month == 1 && day > 31) { // January
             return false;
         }
-        if (month == 2){
-            if(day > 29)
-                return false;
-            if(day == 29 && year % 4 != 0)
-                return false;
-        }
-        if (month == 3 && day > 31) {
-            return false;
-        }
-        if (month == 4 && day > 30) {
-            return false;
-        }
-        if (month == 5 && day > 31) {
-            return false;
-        }
-        if (month == 6 && day > 30) {
-            return false;
-        }
-        if (month == 7 && day > 31) {
-            return false;
-        }
-        if (month == 8 && day > 31) {
-            return false;
-        }
-        if (month == 9 && day > 30) {
-            return false;
-        }
-        if (month == 10 && day > 31) {
-            return false;
-        }
-        if (month == 11 && day > 30) {
-            return false;
-        }
-        if (month == 12 && day > 31) {
-            return false;
-        }
-        if (month == 2 && day ==29) {
-            if (year % 4 == 0) {
-                return true;
-            } else {
-                return false;
+        if (month == 2) { // February
+            if (day > 29) { // February can never have more than 29 days
+                 return false;
             }
+            // If day is 29, it's only valid IF it's a leap year
+            if (day == 29 && !isLeapYear(year)) { 
+                 return false; // Not a leap year, so Feb 29 is invalid
+            }
+            // If day <= 28, it's always valid
+            // If day == 29 and it IS a leap year, it's also valid
         }
+        if (month == 3 && day > 31) { // March
+            return false;
+        }
+        if (month == 4 && day > 30) { // April
+            return false;
+        }
+        if (month == 5 && day > 31) { // May
+            return false;
+        }
+        if (month == 6 && day > 30) { // June
+            return false;
+        }
+        if (month == 7 && day > 31) { // July
+            return false;
+        }
+        if (month == 8 && day > 31) { // August
+            return false;
+        }
+        if (month == 9 && day > 30) { // September
+            return false;
+        }
+        if (month == 10 && day > 31) { // October
+            return false;
+        }
+        if (month == 11 && day > 30) { // November
+            return false;
+        }
+        if (month == 12 && day > 31) { // December
+            return false;
+        }
+        
+        // If none of the invalid conditions were met, the date is valid.
         return true;
     }
-
+    /**
+     * Returns the number of days in the specified month and year.
+     * Takes leap years into account.
+     * @param month The month (1-12)
+     * @param year The year
+     * @return The number of days in that month
+     */
+    public static int getDaysInMonth(int month, int year) {
+        switch (month) {
+            case 1: // January
+            case 3: // March
+            case 5: // May
+            case 7: // July
+            case 8: // August
+            case 10: // October
+            case 12: // December
+                return 31;
+            case 4: // April
+            case 6: // June
+            case 9: // September
+            case 11: // November
+                return 30;
+            case 2: // February
+                return isLeapYear(year) ? 29 : 28;
+            default:
+                return -1; // Invalid month
+        }
+    }
+    /**
+     * Checks if a given year is a leap year.
+     * Rule: If it is divisible by 400 OR (divisible by 4 AND NOT divisible by 100).
+     * @param year The year to check
+     * @return true if it is a leap year, false otherwise
+     */
+    public static boolean isLeapYear(int year) {
+        return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+    }
     /**
     * Calculates and returns the astrological sign based on the given birth day and month.
-    * 
-    * @param day The birth day (1-31).
+    * * @param day The birth day (1-31).
     * @param month The birth month (1-12).
     * @return The name of the determined zodiac sign, or "Invalid" if the 
-    *         month/day combination does not match any zodiac range.
+    * month/day combination does not match any zodiac range.
     */
-
     public static String calculateZodiac(int day, int month) {
         String zodiac = "";
         if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = "Aquarius";
@@ -1317,7 +1363,6 @@ public class Group10 {
     }
 
     // OPTINON A: REVERSE THE WORDS
-
     /**
     * This method reverses the letters of each word in a given sentence,
     * This method reverses the letters of each word in a given sentence,
