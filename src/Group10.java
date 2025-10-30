@@ -31,11 +31,16 @@ public class Group10 {
      * @see #HighSchoolMenu()
      * @see #universityMenu()
      * @see #clearScreen()
+     * @author Gökdeniz Demircioğlu
      */
     public static void main(String[] args) {
         Scanner inputGame = new Scanner(System.in);
         boolean menuContinues = true;
-
+        try {
+            displayIntro();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         while (menuContinues) {
             clearScreen();
             displayWelcomeMessage();
@@ -82,6 +87,11 @@ public class Group10 {
                     break;
 
                 case "e":
+                    try {
+                        specialThanks();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.println("Exiting program... Goodbye!");
                     menuContinues = false;
                     break;
@@ -163,6 +173,173 @@ public class Group10 {
 
     /** Very light lilac shade used for soft UI accents. */
     public static final String COLOR_LIGHT_LILAC = "\u001B[38;2;225;200;225m";
+
+    /**
+     * Displays the animated ASCII intro screen of the program.
+     * <p>
+     * Shows several ASCII banners with timed delays, clears the screen
+     * between transitions, and ends with a “Press any key to continue” prompt.
+     * </p>
+     * @see #clearScreen()
+     * @author Gökdeniz Demircioğlu
+     */
+    public static void displayIntro() throws InterruptedException {
+        clearScreen();
+        System.out.println(COLOR_LIGHT_CYAN);
+        System.out.println(
+                "                     █████████  ██████   ██████ ███████████  ██████████     ████████  █████ █████   ████████                         \n" +
+                "                    ███▒▒▒▒▒███▒▒██████ ██████ ▒▒███▒▒▒▒▒███▒▒███▒▒▒▒▒█    ███▒▒▒▒███▒▒███ ▒▒███   ███▒▒▒▒███                        \n" +
+                "                   ███     ▒▒▒  ▒███▒█████▒███  ▒███    ▒███ ▒███  █ ▒    ▒▒▒    ▒███ ▒███  ▒███ █▒▒▒    ▒███                        \n" +
+                "                  ▒███          ▒███▒▒███ ▒███  ▒██████████  ▒██████         ██████▒  ▒███████████   ██████▒                         \n" +
+                "                  ▒███          ▒███ ▒▒▒  ▒███  ▒███▒▒▒▒▒▒   ▒███▒▒█        ▒▒▒▒▒▒███ ▒▒▒▒▒▒▒███▒█  ▒▒▒▒▒▒███                        \n" +
+                "                  ▒▒███     ███ ▒███      ▒███  ▒███         ▒███ ▒   █    ███   ▒███       ▒███▒  ███   ▒███                        \n" +
+                "                   ▒▒█████████  █████     █████ █████        ██████████   ▒▒████████        █████ ▒▒████████                         \n" +
+                "                    ▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒     ▒▒▒▒▒ ▒▒▒▒▒        ▒▒▒▒▒▒▒▒▒▒     ▒▒▒▒▒▒▒▒        ▒▒▒▒▒   ▒▒▒▒▒▒▒▒                          \n" +
+                "                                                                                                                                     \n");
+        Thread.sleep(2000);
+        System.out.println(
+                "    ███████       ███████    ███████████     █████                                                                                   \n" +
+                "  ███▒▒▒▒▒███   ███▒▒▒▒▒███ ▒▒███▒▒▒▒▒███   ▒▒███                                                                                    \n" +
+                " ███     ▒▒███ ███     ▒▒███ ▒███    ▒███    ▒███         ██████   ████████    ███████ █████ ████  ██████    ███████  ██████   █████ \n" +
+                "▒███      ▒███▒███      ▒███ ▒██████████     ▒███        ▒▒▒▒▒███ ▒▒███▒▒███  ███▒▒███▒▒███ ▒███  ▒▒▒▒▒███  ███▒▒███ ███▒▒███ ███▒▒  \n" +
+                "▒███      ▒███▒███      ▒███ ▒███▒▒▒▒▒▒      ▒███         ███████  ▒███ ▒███ ▒███ ▒███ ▒███ ▒███   ███████ ▒███ ▒███▒███████ ▒▒█████ \n" +
+                "▒▒███     ███ ▒▒███     ███  ▒███            ▒███      █ ███▒▒███  ▒███ ▒███ ▒███ ▒███ ▒███ ▒███  ███▒▒███ ▒███ ▒███▒███▒▒▒   ▒▒▒▒███\n" +
+                " ▒▒▒███████▒   ▒▒▒███████▒   █████           ███████████▒▒████████ ████ █████▒▒███████ ▒▒████████▒▒████████▒▒███████▒▒██████  ██████ \n" +
+                "   ▒▒▒▒▒▒▒       ▒▒▒▒▒▒▒    ▒▒▒▒▒           ▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒ ▒▒▒▒ ▒▒▒▒▒  ▒▒▒▒▒███  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒███ ▒▒▒▒▒▒  ▒▒▒▒▒▒  \n" +
+                "                                                                              ███ ▒███                      ███ ▒███                 \n" +
+                "                                                                             ▒▒██████                      ▒▒██████                  \n" +
+                "                                                                              ▒▒▒▒▒▒                        ▒▒▒▒▒▒                   \n");
+        Thread.sleep(2000);
+        clearScreen();
+        System.out.println(
+                "                      █████████                                                           ████     █████   \n" +
+                "                     ███▒▒▒▒▒███                                                         ▒▒███   ███▒▒▒███ \n" +
+                "                    ███     ▒▒▒  ████████   ██████  █████ ████ ████████                   ▒███  ███   ▒▒███\n" +
+                "                   ▒███         ▒▒███▒▒███ ███▒▒███▒▒███ ▒███ ▒▒███▒▒███    ██████████    ▒███ ▒███    ▒███\n" +
+                "                   ▒███    █████ ▒███ ▒▒▒ ▒███ ▒███ ▒███ ▒███  ▒███ ▒███   ▒▒▒▒▒▒▒▒▒▒     ▒███ ▒███    ▒███\n" +
+                "                   ▒▒███  ▒▒███  ▒███     ▒███ ▒███ ▒███ ▒███  ▒███ ▒███                  ▒███ ▒▒███   ███ \n" +
+                "                    ▒▒█████████  █████    ▒▒██████  ▒▒████████ ▒███████                   █████ ▒▒▒█████▒  \n" +
+                "                     ▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒      ▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒  ▒███▒▒▒                   ▒▒▒▒▒    ▒▒▒▒▒▒   \n" +
+                "                                                               ▒███                                        \n" +
+                "                                                               █████                                       \n" +
+                "                                                              ▒▒▒▒▒                                        \n\n");
+        Thread.sleep(2000);
+        System.out.println(
+                "          ███████████                                                  █████                 █████    █████                  \n" +
+                "         ▒▒███▒▒▒▒▒███                                                ▒▒███                 ▒▒███    ▒▒███                   \n" +
+                "          ▒███    ▒███ ████████   ██████   █████   ██████  ████████   ███████    ██████   ███████     ▒███████  █████ ████ ██\n" +
+                "          ▒██████████ ▒▒███▒▒███ ███▒▒███ ███▒▒   ███▒▒███▒▒███▒▒███ ▒▒▒███▒    ███▒▒███ ███▒▒███     ▒███▒▒███▒▒███ ▒███ ▒▒ \n" +
+                "          ▒███▒▒▒▒▒▒   ▒███ ▒▒▒ ▒███████ ▒▒█████ ▒███████  ▒███ ▒███   ▒███    ▒███████ ▒███ ▒███     ▒███ ▒███ ▒███ ▒███    \n" +
+                "          ▒███         ▒███     ▒███▒▒▒   ▒▒▒▒███▒███▒▒▒   ▒███ ▒███   ▒███ ███▒███▒▒▒  ▒███ ▒███     ▒███ ▒███ ▒███ ▒███    \n" +
+                "          █████        █████    ▒▒██████  ██████ ▒▒██████  ████ █████  ▒▒█████ ▒▒██████ ▒▒████████    ████████  ▒▒███████  ██\n" +
+                "         ▒▒▒▒▒        ▒▒▒▒▒      ▒▒▒▒▒▒  ▒▒▒▒▒▒   ▒▒▒▒▒▒  ▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒   ▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒    ▒▒▒▒▒███ ▒▒ \n" +
+                "                                                                                                                 ███ ▒███    \n" +
+                "                                                                                                                ▒▒██████     \n" +
+                "                                                                                                                 ▒▒▒▒▒▒      ");
+        Thread.sleep(2000);
+        // Team members
+        clearScreen();
+        System.out.println(
+                        "             ______      __       __           _          ____                 _           _             __     \n" +
+                        "            / ____/___  / /______/ /__  ____  (_)___     / __ \\___  ____ ___  (_)_________(_)___  ____ _/ /_  __\n" +
+                        "           / / __/ __ \\/ //_/ __  / _ \\/ __ \\/ /_  /    / / / / _ \\/ __ `__ \\/ / ___/ ___/ / __ \\/ __ `/ / / / /\n" +
+                        "          / /_/ / /_/ / ,< / /_/ /  __/ / / / / / /_   / /_/ /  __/ / / / / / / /  / /__/ / /_/ / /_/ / / /_/ / \n" +
+                        "          \\____/\\____/_/|_|\\__,_/\\___/_/ /_/_/ /___/  /_____/\\___/_/ /_/ /_/_/_/   \\___/_/\\____/\\__, /_/\\__,_/  \n" +
+                        "                                                                                               /____/           ");
+        Thread.sleep(2000);
+        clearScreen();
+        System.out.println(
+                        "            ______      __             _____                   __ \n" +
+                        "           /_  __/___ _/ /_  ____ _   / ___/____  ____ ___  __/ /_\n" +
+                        "            / / / __ `/ __ \\/ __ `/   \\__ \\/ __ \\/ __ `/ / / / __/\n" +
+                        "           / / / /_/ / / / / /_/ /   ___/ / /_/ / /_/ / /_/ / /_  \n" +
+                        "          /_/  \\__,_/_/ /_/\\__,_/   /____/\\____/\\__, /\\__,_/\\__/  \n" +
+                        "                                               /____/             ");
+        Thread.sleep(2000);
+
+        clearScreen();
+        System.out.println(
+                        "              ___                                       ______      ______                  __ __                                     \n" +
+                        "             /   | __  __________  ____  __  _______   / ____/_  __/ / __/__  ____ ___     / //_/___  ____ ___  __  ______________  __\n" +
+                        "            / /| |/ / / / ___/ _ \\/ __ \\/ / / / ___/  / / __/ / / / / /_/ _ \\/ __ `__ \\   / ,< / __ \\/ __ `__ \\/ / / / ___/ ___/ / / /\n" +
+                        "           / ___ / /_/ (__  )  __/ / / / /_/ / /     / /_/ / /_/ / / __/  __/ / / / / /  / /| / /_/ / / / / / / /_/ / /  / /__/ /_/ / \n" +
+                        "          /_/  |_\\__, /____/\\___/_/ /_/\\__,_/_/      \\____/\\__,_/_/_/  \\___/_/ /_/ /_/  /_/ |_\\____/_/ /_/ /_/\\__,_/_/   \\___/\\__,_/  \n" +
+                        "                /____/                                                                                                                ");
+        Thread.sleep(2000);
+
+        clearScreen();
+        System.out.println(
+                        "              __ __                            ____     ____                        __     \n" +
+                        "             / //_/__  ________  ____ ___     /  _/____/ __/___ _____  ____  ____ _/ /_  __\n" +
+                        "            / ,< / _ \\/ ___/ _ \\/ __ `__ \\    / // ___/ /_/ __ `/ __ \\/ __ \\/ __ `/ / / / /\n" +
+                        "           / /| /  __/ /  /  __/ / / / / /  _/ // /  / __/ /_/ / / / / /_/ / /_/ / / /_/ / \n" +
+                        "          /_/ |_\\___/_/   \\___/_/ /_/ /_/  /___/_/  /_/  \\__,_/_/ /_/\\____/\\__, /_/\\__,_/  \n" +
+                        "                                                                          /____/           ");
+        Thread.sleep(2000);
+        clearScreen();
+        System.out.println(
+                        "    ____                                    __               __                            __  _                        \n" +
+                        "   / __ \\________  __________   ___  ____  / /____  _____   / /_____     _________  ____  / /_(_)___  __  _____         \n" +
+                        "  / /_/ / ___/ _ \\/ ___/ ___/  / _ \\/ __ \\/ __/ _ \\/ ___/  / __/ __ \\   / ___/ __ \\/ __ \\/ __/ / __ \\/ / / / _ \\        \n" +
+                        " / ____/ /  /  __(__  |__  )  /  __/ / / / /_/  __/ /     / /_/ /_/ /  / /__/ /_/ / / / / /_/ / / / / /_/ /  __/  _ _ _ \n" +
+                        "/_/   /_/   \\___/____/____/   \\___/_/ /_/\\__/\\___/_/      \\__/\\____/   \\___/\\____/_/ /_/\\__/_/_/ /_/\\__,_/\\___/  (_|_|_)\n" +
+                        "                                                                                                                        ");
+        input.nextLine();
+        System.out.println(COLOR_RESET);
+    }
+    /**
+     * Displays a special animated ASCII-art screen to thank
+     * the professor and the assistant.
+     * <p>
+     * This method uses {@link #clearScreen()} to refresh the console
+     * and {@link Thread#sleep(long)} to create small timed delays
+     * between ASCII-art transitions for a smooth animation effect.
+     * </p>
+     * @author Gökdeniz Demircioğlu
+     */
+    public static void specialThanks() throws InterruptedException {
+        clearScreen();
+        System.out.println(COLOR_RED +
+                        " _____                 _       _   _____ _                 _          _____         \n" +
+                        "/  ___|               (_)     | | |_   _| |               | |        |_   _|      _ \n" +
+                        "\\ `--. _ __   ___  ___ _  __ _| |   | | | |__   __ _ _ __ | | _____    | | ___   (_)\n" +
+                        " `--. \\ '_ \\ / _ \\/ __| |/ _` | |   | | | '_ \\ / _` | '_ \\| |/ / __|   | |/ _ \\     \n" +
+                        "/\\__/ / |_) |  __/ (__| | (_| | |   | | | | | | (_| | | | |   <\\__ \\   | | (_) |  _ \n" +
+                        "\\____/| .__/ \\___|\\___|_|\\__,_|_|   \\_/ |_| |_|\\__,_|_| |_|_|\\_\\___/   \\_/\\___/  (_)\n" +
+                        "      | |                                                                           \n" +
+                        "      |_|                                                                           \n");
+        System.out.println(COLOR_YELLOW +
+                "  ___          _      ______           __  ______        _____ _ _    _                 ___       \n" +
+                " / _ \\        | |     | ___ \\         / _| |  _  \\      |_   _| | |  | |               / _ \\      \n" +
+                "/ /_\\ \\___ ___| |_    | |_/ / __ ___ | |_  | | | |_ __    | | | | | _| |_ __ _ _ __   / /_\\ \\_ __ \n" +
+                "|  _  / __/ __| __|   |  __/ '__/ _ \\|  _| | | | | '__|   | | | | |/ / __/ _` | '_ \\  |  _  | '__|\n" +
+                "| | | \\__ \\__ \\ |_ _  | |  | | | (_) | |_  | |/ /| |_    _| |_| |   <| || (_| | | | | | | | | |   \n" +
+                "\\_| |_/___/___/\\__(_) \\_|  |_|  \\___/|_(_) |___/ |_(_)   \\___/|_|_|\\_\\\\__\\__,_|_| |_| \\_| |_/_|   \n" +
+                "                                                                                                  \n" + COLOR_RESET);
+        Thread.sleep(3000);
+        clearScreen();
+        System.out.println(
+                        "                 _       \n" +
+                        "                | |      \n" +
+                        "  __ _ _ __   __| |      \n" +
+                        " / _` | '_ \\ / _` |      \n" +
+                        "| (_| | | | | (_| |_ _ _ \n" +
+                        " \\__,_|_| |_|\\__,_(_|_|_)\n" +
+                        "                         \n" +
+                        "                         ");
+        Thread.sleep(1500);
+        clearScreen();
+        System.out.println(COLOR_LIGHT_CYAN +
+                "______    _   _ _       _____ _   _ _            \n" +
+                "|  ___|  | | (_) |     |  __ (_) (_) |           \n" +
+                "| |_ __ _| |_ _| |__   | |  \\/ ___ | | __ _  ___ \n" +
+                "|  _/ _` | __| | '_ \\  | | __ / _ \\| |/ _` |/ _ \\\n" +
+                "| || (_| | |_| | | | | | |_\\ \\ (_) | | (_| |  __/\n" +
+                "\\_| \\__,_|\\__|_|_| |_|  \\____/\\___/|_|\\__, |\\___|\n" +
+                "                                       __/ |     \n" +
+                "                                      |___/      \n" + COLOR_RESET);
+        Thread.sleep(3000);
+    }
     /**
      * Displays the animated welcome banner on the console.
      * <p>
@@ -170,6 +347,7 @@ public class Group10 {
      * to greet the user. This method uses ANSI color codes for styling
      * and resets the console color afterwards.
      * </p>
+     * @author Gökdeniz Demircioğlu
      */
     public static void displayWelcomeMessage() {
         System.out.println(COLOR_ROSE + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
@@ -202,6 +380,7 @@ public class Group10 {
      * @see #chooseGameMode(Scanner)
      * @see #playSingleplayer(char[][], Scanner)
      * @see #playMultiplayer(char[][], Scanner)
+     * @author Gökdeniz Demircioğlu
      */
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
@@ -239,6 +418,7 @@ public class Group10 {
      * @param input Scanner object to read user input
      * @return a 2D char array for the selected table size, or null if user returns to main menu
      * @see #clearScreen()
+     * @author Gökdeniz Demircioğlu
      */
     public static char[][] chooseTableSize(Scanner input) {
         String choiceOfTableSize;
@@ -302,6 +482,7 @@ public class Group10 {
      * @param input Scanner object to read user input
      * @return "s" for singleplayer or "m" for multiplayer
      * @see #clearScreen()
+     * @author Gökdeniz Demircioğlu
      */
     public static String chooseGameMode(Scanner input) {
         String choiceOfGameMode;
@@ -345,6 +526,7 @@ public class Group10 {
      * @see #isTableFull(char[][])
      * @see #postGameMenu(Scanner)
      * @see #universityMenu()
+     * @author Gökdeniz Demircioğlu
      */
     public static void playSingleplayer(char[][] table, Scanner input){
         char currentPlayer = '1';
@@ -486,6 +668,7 @@ public class Group10 {
      * @see #isTableFull(char[][])
      * @see #postGameMenu(Scanner)
      * @see #universityMenu()
+     * @author Gökdeniz Demircioğlu
      */
     public static void playMultiplayer(char[][] table, Scanner input) {
         char currentPlayer = '1';
@@ -563,14 +746,17 @@ public class Group10 {
         String nextAction = postGameMenu(input);
         switch (nextAction) {
             case "r":
+                input.nextLine(); // buffer cleaning
                 fillTableWithAsterisk(table);
                 playMultiplayer(table, input);
                 return;
             case "m":
+                input.nextLine(); // buffer cleaning
                 clearScreen();
                 universityMenu();
                 return;
             case "q":
+                input.nextLine(); // buffer cleaning
                 System.out.println("Returning to Main Menu...");
                 return;
         }
@@ -585,6 +771,7 @@ public class Group10 {
      *
      * @param input tool that reads what the player types
      * @return "r", "m" or "q" depending on the player's choice
+     * @author Gökdeniz Demircioğlu
      */
     public static String postGameMenu(Scanner input){
         String selection;
@@ -610,6 +797,7 @@ public class Group10 {
     /**
      * Clears the console screen by printing several empty lines.
      * Makes the display look fresh before showing new content.
+     * @author Gökdeniz Demircioğlu
      */
     public static void clearScreen() {
         for (int i = 0; i < 50; i++) {
@@ -623,6 +811,7 @@ public class Group10 {
      * @param table the game board
      * @param colNum the chosen column number
      * @return true if the column is valid, false otherwise
+     * @author Gökdeniz Demircioğlu
      */
     public static boolean isColumnValid(char[][] table, byte colNum){
         if(colNum <= 0 || colNum > table[0].length)
@@ -639,6 +828,7 @@ public class Group10 {
      *
      * @param table the game board
      * @return true if the table is full, false otherwise
+     * @author Gökdeniz Demircioğlu
      */
     public static boolean isTableFull(char[][] table){
         for (char[] chars : table) {
@@ -659,6 +849,7 @@ public class Group10 {
      * @param table the game board
      * @param player the current player ('1' or '2')
      * @return true if that player has four in a row, false otherwise
+     * @author Gökdeniz Demircioğlu
      */
     public static boolean determineWinner(char[][] table, char player) {
         // Horizontal check
@@ -710,6 +901,7 @@ public class Group10 {
      * to reset it for a new round.
      *
      * @param table the game board
+     * @author Gökdeniz Demircioğlu
      */
     public static void fillTableWithAsterisk(char[][] table){
         for (char[] chars : table) {
@@ -722,6 +914,7 @@ public class Group10 {
      * Player 1's discs appear red, Player 2's discs appear yellow.
      *
      * @param table the game board
+     * @author Gökdeniz Demircioğlu
      */
     public static void printTable(char[][] table) {
         int rows = table.length;
@@ -783,6 +976,7 @@ public class Group10 {
      * @param colNum the selected column number
      * @param player the current player ('1' or '2')
      * @throws InterruptedException if the animation is interrupted
+     * @author Gökdeniz Demircioğlu
      */
     public static void dropDiscAnimated(char[][] table, byte colNum, char player) throws InterruptedException {
         int colIndex = (int)colNum - 1;
@@ -830,6 +1024,7 @@ public class Group10 {
      * @see #ageAndZodiacDetection()
      * @see #reverseTheWords()
      * @see #clearScreen()
+     * @author Ayşenur Gülfem Kömürcü
      */
 
     public static void PrimarySchoolMenu() {
@@ -893,6 +1088,7 @@ public class Group10 {
     * @param inputString The prompt message to display to the user.
     * @return The valid integer entered by the user.
     * @see #clearScreen()
+     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static int receiveInputDate(String inputString) {
@@ -925,6 +1121,7 @@ public class Group10 {
      * @see #isValidDate(int, int, int)
      * @see #calculateZodiac(int, int)
      * @see #clearScreen()
+     * @author Ayşenur Gülfem Kömürcü
      */
 
     public static void ageAndZodiacDetection() {
@@ -1036,6 +1233,7 @@ public class Group10 {
         * @param month The month to check (1-12).
         * @param year The year to check.
         * @return {@code true} if the date is valid, otherwise {@code false}.
+         * @author Ayşenur Gülfem Kömürcü
         */
 
     public static boolean isValidDate(int day, int month, int year) {
@@ -1104,6 +1302,7 @@ public class Group10 {
     * @param month The birth month (1-12).
     * @return The name of the determined zodiac sign, or "Invalid" if the 
     *         month/day combination does not match any zodiac range.
+     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String calculateZodiac(int day, int month) {
@@ -1151,6 +1350,7 @@ public class Group10 {
     * 
     * @see #reverseOnlyLetters(String) (Presumed helper method used for the actual letter reversal)
     * @see #clearScreen()
+     * @author Ayşenur Gülfem Kömürcü
     */
     
     public static void reverseTheWords() {
@@ -1216,6 +1416,7 @@ public class Group10 {
     * @param word The word to be reversed.
     * @return The completely reversed word.
     * @see #reverseWord(String)
+     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String reverseWord(String word) {
@@ -1229,6 +1430,7 @@ public class Group10 {
     *
     * @param word The word whose letters are to be reversed.
     * @return The word with its letters reversed and non-letter characters preserved in their original positions.
+     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String reverseOnlyLetters(String word) {
@@ -1273,6 +1475,7 @@ public class Group10 {
      * <li>Returns to the main menu.</li>
      * </ul>
      * </p>
+     * @author Kerem İrfanoğlu
      */
     public static void secondarySchool(){
 
@@ -1334,6 +1537,7 @@ public class Group10 {
      *
      * @param input The string to check.
      * @return {@code true} if the string can be parsed as an integer, {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     private static boolean isInt(String input) {
         try {
@@ -1351,6 +1555,7 @@ public class Group10 {
      *
      * @param input The string to check.
      * @return {@code true} if the input is 1, 2, or 3, {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     private static boolean isValidMenu(String input) {
         try {
@@ -1371,6 +1576,7 @@ public class Group10 {
      *
      * @param message The prompt message to display to the user.
      * @return {@code true} if the user selects "1", {@code false} if the user selects "2".
+     * @author Kerem İrfanoğlu
      */
     static boolean repeat(String message){
         String answer;
@@ -1399,6 +1605,7 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
+     * @author Kerem İrfanoğlu
      */
     public static void sieveOfEratosthenes(int intNum) {
         
@@ -1464,6 +1671,7 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
+     * @author Kerem İrfanoğlu
      */
     public static void sieveOfSundaram(int intNum){
         
@@ -1527,6 +1735,7 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
+     * @author Kerem İrfanoğlu
      */
     public static void sieveOfAtkin(int intNum){
 
@@ -1609,6 +1818,7 @@ public class Group10 {
      *
      * @see #secondarySchool()
      * @see #repeat(String)
+     * @author Kerem İrfanoğlu
      */
     public static void primeNumbers() {
         int intNum;
@@ -1690,6 +1900,7 @@ public class Group10 {
      * @see #isValidExpression(String)
      * @see #normalize(String)
      * @see #secondarySchool()
+     * @author Kerem İrfanoğlu
      */
     public static void evaluation() {
         clearScreen();
@@ -1749,6 +1960,7 @@ public class Group10 {
      *
      * @param s The raw expression string from the user.
      * @return A normalized expression string.
+     * @author Kerem İrfanoğlu
      */
     static String normalize(String s) {
         s = s.replace("×", "*");
@@ -1773,6 +1985,7 @@ public class Group10 {
      *
      * @param s The normalized expression string.
      * @return {@code true} if the expression is valid, {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     static boolean isValidExpression(String s) {
         if(s == null || s.isEmpty()) return false;
@@ -1871,6 +2084,7 @@ public class Group10 {
      * @return A {@link List} of String tokens.
      * @see #normalize(String)
      * @see #isOpOrOpen(String)
+     * @author Kerem İrfanoğlu
      */
     static List<String> tokenize(String s) {
         List<String> tokens = new ArrayList<>();
@@ -1924,6 +2138,7 @@ public class Group10 {
      *
      * @param lastToken The token immediately preceding the current '-' character.
      * @return {@code true} if the last token is an operator or '(', {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     static boolean isOpOrOpen(String lastToken) {
         if (lastToken == null || lastToken.isEmpty()) return false;
@@ -1931,6 +2146,7 @@ public class Group10 {
             || lastToken.equals("*") || lastToken.equals("/")
             || lastToken.equals("(");
     }
+
     /**
      * The main recursive method for evaluating the expression step-by-step.
      * <p>
@@ -1950,7 +2166,9 @@ public class Group10 {
      * @see #reduceOnce(List, int, int)
      * @see #findInnermostOpenParen(List)
      * @see #removeParen(List, int, int)
+     * @author Kerem İrfanoğlu
      */
+
     static void evaluateStepByStep(List<String> tokens) {
 
         // The expression is reduced to a single number
@@ -1985,6 +2203,7 @@ public class Group10 {
         }
         // if reduced==false, that means there are no reduction left, so print out the result.
     }
+
     /**
      * Performs a single reduction operation within a specified range of the token list.
      * <p>
@@ -1999,7 +2218,9 @@ public class Group10 {
      * @return {@code true} if a reduction was performed, {@code false} if no operation
      * was found to reduce.
      * @throws ArithmeticException if a division by zero is attempted.
+     * @author Kerem İrfanoğlu
      */
+
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
         // look for '*' or '/'
         for (int i = start; i < endEx; i++) {
@@ -2060,6 +2281,7 @@ public class Group10 {
      *
      * @param tokens The list of tokens.
      * @return The index of the last '(', or -1 if no parentheses are found.
+     * @author Kerem İrfanoğlu
      */
     static int findInnermostOpenParen(List<String> tokens) {
         //checking right to left to find the innermost paranthesis
@@ -2077,6 +2299,7 @@ public class Group10 {
      * @param tokens  The list of tokens.
      * @param openIdx The index of the '(', found by {@link #findInnermostOpenParen(List)}.
      * @return The index of the matching ')' token, or -1 if not found.
+     * @author Kerem İrfanoğlu
      */
     static int findMatchingCloseParen(List<String> tokens, int openIdx) {
         int bal = 0;
@@ -2098,6 +2321,7 @@ public class Group10 {
      * @param open   The index of the open parenthesis '('.
      * @param close  The index of the close parenthesis ')'.
      * @return {@code true} if the parentheses were removed, {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     static boolean removeParen(List<String> tokens, int open, int close) {
         if (close - open == 2 && isNumberToken(tokens.get(open + 1))) {
@@ -2114,6 +2338,7 @@ public class Group10 {
      *
      * @param tokens The list of tokens to render.
      * @return A formatted, single-line string representation of the expression.
+     * @author Kerem İrfanoğlu
      */
     static String renderForOutput(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
@@ -2135,6 +2360,7 @@ public class Group10 {
      *
      * @param tk The token string to check.
      * @return {@code true} if the token is a number, {@code false} otherwise.
+     * @author Kerem İrfanoğlu
      */
     static boolean isNumberToken(String tk) {
         if (tk == null || tk.isEmpty()) return false;
@@ -2157,6 +2383,7 @@ public class Group10 {
      * @return The {@code long} value of the token.
      * @see #isNumberToken(String)
      * @see #reduceOnce(List, int, int)
+     * @author Kerem İrfanoğlu
      */
     static long parseLongSafe(String tk) {
         //transform the string token to long
@@ -2164,11 +2391,28 @@ public class Group10 {
     }
 
     // -------------  Taha's methods ----------------
-    public static int choice;
-    public static void HighSchoolMenu(){
+
+    /**
+     * This class handles the High School menu operations of the education application.
+     * <p>
+     * It allows users to:
+     * <ul>
+     *   <li>Compute statistical information about an array.</li>
+     *   <li>Compute distances between two arrays.</li>
+     *   <li>Return to the main menu.</li>
+     * </ul>
+     * </p>
+     *
+     * @see #HighSchoolMenu()
+     * @see #statisticalInformation(int)
+     * @see #distanceBetweenTwoArrays(int)
+     * @author Taha Söğüt
+     */
+
+    public static void HighSchoolMenu() {
         while (true) {
             clearScreen();
-            // Menu . ...........
+            // Menu
             System.out.println(COLOR_LIGHT_CYAN);
             System.out.println("╔════════════════════════════════════════════════╗");
             System.out.println("║            === High School Menu ===            ║");
@@ -2193,12 +2437,11 @@ public class Group10 {
             switch (choice) {
                 case 1:
                     clearScreen();
-                    statisticalInformation();
-                    promptEnterToContinue();
+                    statisticalInformation(choice);
                     break;
                 case 2:
                     clearScreen();
-                    distanceBetweenTwoArrays();
+                    distanceBetweenTwoArrays(choice);
                     promptEnterToContinue();
                     break;
                 case 3:
@@ -2211,8 +2454,24 @@ public class Group10 {
         }        
     }
 
+    /**
+     * Prompts the user to input an array of doubles, calculates
+     * median, arithmetic mean, geometric mean, and harmonic mean,
+     * then prints the results.
+     * <p>
+     * Handles input validation for array length and element ranges.
+     * </p>
+     *
+     * @param choice The menu selection used for contextual navigation.
+     * @see #computeMedian(double[])
+     * @see #computeArithmeticMean(double[])
+     * @see #computeGeometricMean(double[])
+     * @see #computeHarmonicMeanRecursive(double[])
+     * @author Taha Söğüt
+     */
+
     // Menu selection 1
-     private static void statisticalInformation() {
+     private static void statisticalInformation(int choice) {
          System.out.println(COLOR_ROSE);
          System.out.println("╔════════════════════════════════════════════════╗");
          System.out.println("║     Statistical information about an Array     ║");
@@ -2220,8 +2479,8 @@ public class Group10 {
          System.out.println(COLOR_RESET);
         int n;
         while (true) {
-            System.out.print("Enter the length of your array: ");
-            n = readPositiveInt();
+            System.out.print("Enter the length of your array(1-20): ");
+            n = readPositiveInt(choice);
             if (n <= 0) {
                 System.out.println("COLOR_RED + \"Length must be a positive integer. Please try again: \" + COLOR_RESET");
             }
@@ -2235,7 +2494,7 @@ public class Group10 {
         }
         // Populating the array
         double[] arr = new double[n];
-        System.out.println("Enter the members of your array:");
+        System.out.println("Enter the members of your array(Between -1_000_000.0 and +1_000_000.0;):");
         for (int i = 0; i < n; i++) {
             arr[i] = readDoubleWithPrompt("Member " + (i + 1) + ": ");
         }
@@ -2268,11 +2527,27 @@ public class Group10 {
         else {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
-         System.out.println(COLOR_RESET);
+        System.out.println(COLOR_RESET);
+        promptEnterToContinue();
     }
 
+    /**
+     * Prompts the user to input two integer arrays, calculates
+     * Manhattan distance, Euclidean distance, and cosine similarity,
+     * then prints the results.
+     * <p>
+     * Handles input validation for array length and element ranges.
+     * </p>
+     *
+     * @param choice The menu selection used for contextual navigation.
+     * @see #computeManhattan(int[], int[])
+     * @see #computeEuclidean(int[], int[])
+     * @see #computeCosineSimilarity(int[], int[])
+     * @author Taha Söğüt
+     */
+
     // Menu selection 2
-    private static void distanceBetweenTwoArrays() {
+    private static void distanceBetweenTwoArrays(int choice) {
         System.out.println(COLOR_ROSE);
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║           Distance between two arrays          ║");
@@ -2281,7 +2556,7 @@ public class Group10 {
         int dim;
         while (true) {
             System.out.print("Enter the length of your array: ");
-            dim = readPositiveInt();
+            dim = readPositiveInt(choice);
             if (dim <= 0) {
                 System.out.println("COLOR_RED + \"Length must be positive integer. Please try again.\" + COLOR_RESET");
             }
@@ -2328,6 +2603,15 @@ public class Group10 {
         System.out.println(COLOR_RESET);
     }
 
+    /**
+     * Computes the median of a sorted array.
+     *
+     * @param sortedArr The sorted array of doubles.
+     * @return The median value.
+     * @see #statisticalInformation(int)
+     * @author Taha Söğüt
+     */
+
     // Calculation Methods
     private static double computeMedian(double[] sortedArr) {
         int n = sortedArr.length;
@@ -2340,11 +2624,30 @@ public class Group10 {
         }
     }
 
+    /**
+     * Computes the arithmetic mean of an array.
+     *
+     * @param arr The array of doubles.
+     * @return The arithmetic mean value.
+     * @see #statisticalInformation(int)
+     * @author Taha Söğüt
+     */
+
     private static double computeArithmeticMean(double[] arr) {
         double sum = 0.0;
         for (double v : arr) sum += v;
         return sum / arr.length;
     }
+
+    /**
+     * Computes the geometric mean of an array.
+     * Returns null if any element is <= 0.
+     *
+     * @param arr The array of doubles.
+     * @return The geometric mean, or null if undefined.
+     * @see #statisticalInformation(int)
+     * @author Taha Söğüt
+     */
 
     private static Double computeGeometricMean(double[] arr) {
         for (double v : arr) {
@@ -2359,6 +2662,17 @@ public class Group10 {
         return Math.exp(logSum / arr.length);
     }
 
+    /**
+     * Computes the harmonic mean of an array recursively.
+     * Returns null if any element is zero.
+     *
+     * @param arr The array of doubles.
+     * @return The harmonic mean, or null if undefined.
+     * @see #sumReciprocalRecursive(double[], int)
+     * @see #statisticalInformation(int)
+     * @author Taha Söğüt
+     */
+
     private static Double computeHarmonicMeanRecursive(double[] arr) {
         for (double v : arr) {
             if (v == 0.0){
@@ -2368,6 +2682,16 @@ public class Group10 {
         double reciprocalSum = sumReciprocalRecursive(arr, 0);
         return arr.length / reciprocalSum;
     }
+
+    /**
+     * Recursively computes the sum of reciprocals of array elements.
+     *
+     * @param arr The array of doubles
+     * @param idx The current index for recursion
+     * @return Sum of reciprocals from idx to end of the array
+     * @author Taha Söğüt
+     */
+
     // Recursive Methods
     private static double sumReciprocalRecursive(double[] arr, int idx) {
         if (idx >= arr.length){
@@ -2376,6 +2700,15 @@ public class Group10 {
         return (1.0 / arr[idx]) + sumReciprocalRecursive(arr, idx + 1);
     }
 
+    /**
+     * Computes the Manhattan distance between two arrays.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return The Manhattan distance
+     * @author Taha Söğüt
+     */
+
     private static double computeManhattan(int[] a, int[] b) {
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -2383,6 +2716,15 @@ public class Group10 {
         }
         return sum;
     }
+
+    /**
+     * Computes the Euclidean distance between two arrays.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return The Euclidean distance
+     * @author Taha Söğüt
+     */
 
     private static double computeEuclidean(int[] a, int[] b) {
         double sumsq = 0.0;
@@ -2393,6 +2735,16 @@ public class Group10 {
         return Math.sqrt(sumsq);
     }
 
+    /**
+     * Computes the cosine similarity between two arrays.
+     * Returns null if either array has a zero norm.
+     *
+     * @param a First array of integers
+     * @param b Second array of integers
+     * @return Cosine similarity or null if undefined
+     * @author Taha Söğüt
+     */
+    
     private static Double computeCosineSimilarity(int[] a, int[] b) {
         double dot = 0.0;
         double na = 0.0;
@@ -2409,6 +2761,15 @@ public class Group10 {
         }
         return dot / (normA * normB);
     }
+
+    /**
+     * Reads an integer from user input within a given range.
+     *
+     * @param min Minimum acceptable value.
+     * @param max Maximum acceptable value.
+     * @return The validated integer input.
+     * @author Taha Söğüt
+     */
 
     // Input and output validation
     private static int readIntInRange(int min, int max) {
@@ -2435,7 +2796,7 @@ public class Group10 {
                     System.out.println("╔════════════════════════════════════════════════╗");
                     System.out.println("║   [3] Return to Main Menu                      ║");
                     System.out.println("╚════════════════════════════════════════════════╝");
-                    System.out.printf(COLOR_RED + "Input out of range. Please enter an integer between %d and %d." + COLOR_RESET, min, max);
+                    System.out.printf(COLOR_RED + "Input out of range. Please enter an integer between %d and %d: " + COLOR_RESET, min, max);
                     continue;
                 }
                 return val;
@@ -2465,6 +2826,17 @@ public class Group10 {
         }
     }
 
+    /**
+     * Reads an integer from user input within a given range,
+     * with a custom prompt.
+     *
+     * @param min Minimum acceptable value.
+     * @param max Maximum acceptable value.
+     * @param prompt Message displayed to the user.
+     * @return The validated integer input.
+     * @author Taha Söğüt
+     */
+
     private static int readIntInRangeWithPrompt(int min, int max, String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -2485,7 +2857,16 @@ public class Group10 {
         }
     }
 
-    private static int readPositiveInt() {
+    /**
+     * Reads a positive integer from user input with validation.
+     * Handles empty, negative, and overflow inputs.
+     *
+     * @param choice The menu selection for contextual navigation.
+     * @return The validated positive integer input.
+     * @author Taha Söğüt
+     */
+
+    private static int readPositiveInt(int choice) {
         while (true) {
             try {
                 String line = sc.nextLine().trim();
@@ -2493,15 +2874,15 @@ public class Group10 {
                 if (line.isEmpty()) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '-') {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 if (line.charAt(0) == '+') {
@@ -2509,16 +2890,16 @@ public class Group10 {
                     if (line.isEmpty()) {
                         clearScreen();
                         System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                        if (choice == 1) statisticalInformation();
-                        else if (choice == 2) distanceBetweenTwoArrays();
+                        if (choice == 1) statisticalInformation(choice);
+                        else if (choice == 2) distanceBetweenTwoArrays(choice);
                         continue;
                     }
                 }
                 if (!line.matches("\\d+")) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
                 java.math.BigInteger bi = new java.math.BigInteger(line);
@@ -2526,8 +2907,8 @@ public class Group10 {
                 if (bi.compareTo(intMax) > 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Input is too large (Overflow). Please enter an number between 1 and 20." + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2535,8 +2916,8 @@ public class Group10 {
                 if (v <= 0) {
                     clearScreen();
                     System.out.println(COLOR_RED + "Enter a positive integer. " + COLOR_RESET);
-                    if (choice == 1) statisticalInformation();
-                    else if (choice == 2) distanceBetweenTwoArrays();
+                    if (choice == 1) statisticalInformation(choice);
+                    else if (choice == 2) distanceBetweenTwoArrays(choice);
                     continue;
                 }
 
@@ -2546,33 +2927,87 @@ public class Group10 {
             catch (NumberFormatException ex) {
                 clearScreen();
                 System.out.println(COLOR_RED + "Invalid input, please enter a positive integer. " + COLOR_RESET);
-                if (choice == 1) statisticalInformation();
-                else if (choice == 2) distanceBetweenTwoArrays();
+                if (choice == 1) statisticalInformation(choice);
+                else if (choice == 2) distanceBetweenTwoArrays(choice);
             }
         }
     }
 
+    /**
+     * Prompts the user to enter a double value within the range -1,000,000 to +1,000,000
+     * and validates the input.
+     * <p>
+     * This method repeatedly asks the user for input until a valid double is entered.
+     * It handles the following cases:
+     * <ul>
+     *     <li>Replaces commas with dots to support locales where comma is used as decimal separator.</li>
+     *     <li>Rejects inputs that are not valid doubles (NumberFormatException).</li>
+     *     <li>Rejects values outside the range -1,000,000 to +1,000,000.</li>
+     *     <li>Rejects NaN values.</li>
+     * </ul>
+     * If the user enters an invalid value, the console is cleared, an error message is displayed,
+     * and the user is prompted again.
+     *
+     * @param prompt The message displayed to the user before reading input.
+     * @return A validated double value entered by the user within the range -1,000,000 to +1,000,000.
+     * @author Taha Söğüt
+     */
+
     private static double readDoubleWithPrompt(String prompt) {
+        final double MAX_VALUE = 1_000_000.0;
+        final double MIN_VALUE = -1_000_000.0;
+
         while (true) {
             System.out.print(prompt);
             try {
-                String line = sc.nextLine().trim().replace(',', '.'); // Replace comma with a dot
-                return Double.parseDouble(line);
+                String line = sc.nextLine().trim().replace(',', '.');
+                java.math.BigDecimal bd = new java.math.BigDecimal(line);
+
+                // Belirlenen sınırlar içinde mi kontrol et
+                if (bd.compareTo(java.math.BigDecimal.valueOf(MAX_VALUE)) > 0 ||
+                    bd.compareTo(java.math.BigDecimal.valueOf(MIN_VALUE)) < 0) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Input out of range. Please enter a number between " 
+                                    + MIN_VALUE + " and " + MAX_VALUE + "." + COLOR_RESET);
+                    continue;
+                }
+
+                double value = bd.doubleValue();
+
+                if (Double.isNaN(value)) {
+                    clearScreen();
+                    System.out.println(COLOR_RED + "Invalid input (Not a Number). Please enter a valid double." + COLOR_RESET);
+                    continue;
+                }
+
+                return value;
             } 
             catch (NumberFormatException ex) {
                 clearScreen();
-                System.out.println(COLOR_RED + "Invalid input, please enter the values in double data type: " + COLOR_RESET);
+                System.out.println(COLOR_RED + "Invalid input, please enter a valid double: " + COLOR_RESET);
             }
         }
     }
+    /**
+     * Formats a double value to a string with 6 decimal places.
+     *
+     * @param d The double value to format.
+     * @param unused Placeholder parameter (not used).
+     * @return The formatted string.
+     * @author Taha Söğüt
+     */
 
     private static String formatDoubleOrMsg(double d, String unused) {
         return String.format("%.6f", d);
     }
 
+    /**
+     * Pauses execution until the user presses Enter.
+     * @author Taha Söğüt
+     */
+    
     private static void promptEnterToContinue() {
         System.out.println("\nPress Enter to continue...");
         sc.nextLine();
     }
-
 }
