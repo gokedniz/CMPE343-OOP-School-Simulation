@@ -1557,7 +1557,7 @@ public class Group10 {
      * Prompts the user with a message and waits for a "1" (repeat) or "2" (return) input.
      * <p>
      * It will keep prompting until a valid choice is made. This method is used by the
-     * {@link #primeNumbers()} and {@link #evaluation()} modules to ask the user
+     * {@link #primeNumbers()}, {@link #evaluation()}, {@link #statisticalInformation()} and {@link #distanceBetweenTwoArrays()} modules to ask the user
      * if they want to try again.
      * </p>
      *
