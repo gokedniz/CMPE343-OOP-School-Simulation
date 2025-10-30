@@ -2962,7 +2962,6 @@ public class Group10 {
     }
     /**
      * Formats a double value to a string with 6 decimal places.
-     *
      * @param d The double value to format.
      * @param unused Placeholder parameter (not used).
      * @return The formatted string.
