@@ -1657,7 +1657,7 @@ public class Group10 {
         }
 
         clearScreen();
-        System.out.println("Results for integer: " + intNum);
+        System.out.println("Results for integer: " + String.format(Locale.GERMANY, "%,d", intNum));
 
         sieveOfEratosthenes(intNum);
         sieveOfSundaram(intNum);
