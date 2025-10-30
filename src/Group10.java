@@ -45,14 +45,11 @@ public class Group10 {
     public static void main(String[] args) {
         Scanner inputGame = new Scanner(System.in);
         boolean menuContinues = true;
-        /*
         try {
             displayIntro();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-         */
         while (menuContinues) {
             clearScreen();
             displayWelcomeMessage();
