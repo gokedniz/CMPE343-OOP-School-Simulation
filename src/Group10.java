@@ -1027,7 +1027,7 @@ public class Group10 {
     public static void PrimarySchoolMenu() {
                     boolean subMenu = true;
                     while (subMenu) {
-                        clearScreen();  //Alt menü başında ekranı temizle
+                        clearScreen();  
                         System.out.println(COLOR_LIGHT_CYAN);
                         System.out.println("╔════════════════════════════════════════════╗");
                         System.out.println("║        === Primary School Menu ===         ║");
@@ -1047,18 +1047,18 @@ public class Group10 {
                         System.out.println("║[3] Back to Main Menu                       ║");
                         System.out.println("╚════════════════════════════════════════════╝");
 
-                        System.out.print("Enter choice: "); // Bu satır çerçeve dışında kalmalı
+                        System.out.print("Enter choice: "); 
                         String Choice = input.nextLine().trim();
 
                         switch (Choice) {
                             case "1":
-                                clearScreen(); // Age and Zodiac başlamadan önce ekranı temizle
+                                clearScreen(); 
                                 ageAndZodiacDetection();
                                 System.out.println("\nPress Enter to return to Primary School Menu...");
                                 input.nextLine();
                                 break;
                             case "2":
-                                clearScreen(); // Reverse Words başlamadan önce ekranı temizle
+                                clearScreen(); 
                                 reverseTheWords();
                                 System.out.println("\nPress Enter to return to Primary School Menu...");
                                 input.nextLine();
@@ -1205,10 +1205,27 @@ public class Group10 {
             System.out.println(COLOR_RESET);
             return;
         }
+       
+        // ---------- AGE CALCULATION CONTINUED - MONTHS AND DAYS
+        int monthsPassed = currentMonth - birthMonth;
+        int daysPassed = currentDay - birthDay;
+
+        // Adjust for negative day difference
+        if (daysPassed < 0) {
+            daysPassed += 30; // We assume every moth has 30 days for simplicity
+            monthsPassed--;
+        }
+
+        // Adjust for negative month difference
+        if (monthsPassed < 0) {
+            monthsPassed += 12;
+        }
+
         System.out.println(COLOR_LIGHT_GREEN);
         System.out.println("╔═════════════╗");
-        System.out.println("║Your age is: ║  " + age + "     ");
+        System.out.println("║Your age is: ║  " + age + " years, " + monthsPassed + " months, " + daysPassed + " days.");
         System.out.println("╚═════════════╝");
+        System.out.println(COLOR_RESET);
 
         // ----------- AGE AND ZODIAC SIGN CALCULATION
         
@@ -1246,7 +1263,7 @@ public class Group10 {
         if (month == 2){
             if(day > 29)
                 return false;
-            if(day == 29 && year % 4 != 0)
+            if(day == 29 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)))
                 return false;
         }
         if (month == 3 && day > 31) {
@@ -2472,7 +2489,6 @@ public class Group10 {
         }
 
         Arrays.sort(arr); // Sorting for the median
-
         // Calculations
         double median = computeMedian(arr);
         double arithmeticMean = computeArithmeticMean(arr);
@@ -2500,7 +2516,6 @@ public class Group10 {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
         System.out.println(COLOR_RESET);
-        promptEnterToContinue();
     }
 
     /**
