@@ -45,11 +45,14 @@ public class Group10 {
     public static void main(String[] args) {
         Scanner inputGame = new Scanner(System.in);
         boolean menuContinues = true;
+        /*
         try {
             displayIntro();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+         */
         while (menuContinues) {
             clearScreen();
             displayWelcomeMessage();
@@ -2416,7 +2419,6 @@ public class Group10 {
                 case 2:
                     clearScreen();
                     distanceBetweenTwoArrays(choice);
-                    promptEnterToContinue();
                     break;
                 case 3:
                     System.out.println("Returning to previous menu...");
@@ -2573,6 +2575,7 @@ public class Group10 {
             System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
         }
         System.out.println(COLOR_RESET);
+        promptEnterToContinue();
     }
 
     /**
@@ -2963,9 +2966,8 @@ public class Group10 {
     /**
      * Pauses execution until the user presses Enter.
      */
-    
+
     private static void promptEnterToContinue() {
         System.out.println("\nPress Enter to continue...");
-        sc.nextLine();
-    }
+        sc.nextLine(); }
 }
