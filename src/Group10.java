@@ -1851,7 +1851,7 @@ public class Group10 {
         }
 
         clearScreen();
-        System.out.println("Results for integer: " + intNum);
+        System.out.println("Results for integer: " + String.format(Locale.GERMANY, "%,d", intNum));
 
         sieveOfEratosthenes(intNum);
         sieveOfSundaram(intNum);
@@ -1916,7 +1916,8 @@ public class Group10 {
                 break;
             } 
             catch (ArithmeticException error) {
-            System.out.println("Division by zero. Please enter a valid mathematical expression!");
+                System.out.print(COLOR_RED);
+                System.out.println("Division by zero. Please enter a valid mathematical expression!" + COLOR_RESET);
             }
         }
 
@@ -2036,6 +2037,11 @@ public class Group10 {
                     //if defined negative number has more than 1 digit, it includes the remaining digits.
                     int j = i+1;
                     while(j+1 < s.length() && Character.isDigit(s.charAt(j+1)))j++;
+                    //checks if negative number is 0
+                    String numPart = s.substring(i + 1, j + 1);
+                    if (numPart.equals("0")) {
+                        return false;
+                    }
                     i = j;
                     prev = NUM;
                 }
