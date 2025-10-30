@@ -2500,8 +2500,14 @@ public class Group10 {
             System.out.printf("Harmonic Mean: %s%n", formatDoubleOrMsg(harmonicMean, ""));
         }
         System.out.println(COLOR_RESET);
-        promptEnterToContinue();
-    }
+        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
+            clearScreen();
+            statisticalInformation(choice);
+        }
+        else{
+            HighSchoolMenu();
+        }
+     }
 
     /**
      * Prompts the user to input two integer arrays, calculates
@@ -2572,7 +2578,13 @@ public class Group10 {
             System.out.printf("Cosine Similarity: %s%n", formatDoubleOrMsg(cosine, ""));
         }
         System.out.println(COLOR_RESET);
-        promptEnterToContinue();
+        if(repeat("[1] Try again.\n[2] Return to secondary school menu.\nYour choice:")){
+            clearScreen();
+            distanceBetweenTwoArrays(choice);
+        }
+        else{
+            HighSchoolMenu();
+        }
     }
 
     /**
@@ -2959,12 +2971,4 @@ public class Group10 {
     private static String formatDoubleOrMsg(double d, String unused) {
         return String.format("%.6f", d);
     }
-
-    /**
-     * Pauses execution until the user presses Enter.
-     */
-
-    private static void promptEnterToContinue() {
-        System.out.println("\nPress Enter to continue...");
-        sc.nextLine(); }
 }
