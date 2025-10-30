@@ -1231,73 +1231,40 @@ public class Group10 {
         System.out.println(COLOR_RESET);
 
     }
-    /**
+/**
     * Checks whether the given day, month, and year values constitute a valid calendar date.
-    * Takes into account the number of days in the month and the leap year (February 29) rule.
-    * Uses the isLeapYear() helper method for leap year logic.
+    * This method uses getDaysInMonth() to check for the maximum valid day,
+    * preventing code duplication.
     *
     * @param day The day to check (1-31).
     * @param month The month to check (1-12).
     * @param year The year to check.
     * @return {@code true} if the date is valid, otherwise {@code false}.
+    * @see #getDaysInMonth(int, int)
     * @see #isLeapYear(int)
     */
     public static boolean isValidDate(int day, int month, int year) {
-        if (month < 1 || month > 12) {
-            return false; // Month is out of range
-        }
-
-        if (day < 1) {
-            return false; // Day is out of range
-        }
-
-        // Check days based on month
-        if (month == 1 && day > 31) { // January
-            return false;
-        }
-        if (month == 2) { // February
-            if (day > 29) { // February can never have more than 29 days
-                 return false;
-            }
-            // If day is 29, it's only valid IF it's a leap year
-            if (day == 29 && !isLeapYear(year)) { 
-                 return false; // Not a leap year, so Feb 29 is invalid
-            }
-            // If day <= 28, it's always valid
-            // If day == 29 and it IS a leap year, it's also valid
-        }
-        if (month == 3 && day > 31) { // March
-            return false;
-        }
-        if (month == 4 && day > 30) { // April
-            return false;
-        }
-        if (month == 5 && day > 31) { // May
-            return false;
-        }
-        if (month == 6 && day > 30) { // June
-            return false;
-        }
-        if (month == 7 && day > 31) { // July
-            return false;
-        }
-        if (month == 8 && day > 31) { // August
-            return false;
-        }
-        if (month == 9 && day > 30) { // September
-            return false;
-        }
-        if (month == 10 && day > 31) { // October
-            return false;
-        }
-        if (month == 11 && day > 30) { // November
-            return false;
-        }
-        if (month == 12 && day > 31) { // December
-            return false;
-        }
         
-        // If none of the invalid conditions were met, the date is valid.
+        // 1. Check if month is valid (1-12)
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+        // 2. Check if day is valid (at least 1)
+        if (day < 1) {
+            return false;
+        }
+
+        // 3. Get the maximum allowed days for this *specific* month and year
+        //    (This call handles all leap year logic for February automatically)
+        int maxDaysInMonth = getDaysInMonth(month, year);
+
+        // 4. Check if the given day exceeds the maximum allowed days
+        if (day > maxDaysInMonth) {
+            return false;
+        }
+
+        // 5. If all checks passed, the date is valid.
         return true;
     }
     /**
