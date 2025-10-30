@@ -6,7 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.Locale;
-
+/**
+ * Main class for the School Simulation project.
+ * Contains all menu, gameplay and animation methods.
+ * @author Gökdeniz Demircioğlu
+ * @author Taha Söğüt
+ * @author Kerem İrfanoğlu
+ * @author Ayşenur Gülfem Kömürcü
+ */
 public class Group10 {
     /**
      * The main entry point of the application.
@@ -18,21 +25,23 @@ public class Group10 {
      *
      * <p>
      * Each menu option redirects the user to the corresponding submenu by invoking its related method:
+     * </p>
+     *
      * <ul>
      *   <li>{@link #PrimarySchoolMenu()} – Opens the Primary School menu</li>
      *   <li>{@link #secondarySchool()} – Opens the Secondary School menu</li>
      *   <li>{@link #HighSchoolMenu()} – Opens the High School menu</li>
      *   <li>{@link #universityMenu()} – Opens the University menu</li>
      * </ul>
-     * </p>
      *
      * @see #PrimarySchoolMenu()
      * @see #secondarySchool()
      * @see #HighSchoolMenu()
      * @see #universityMenu()
      * @see #clearScreen()
-     * @author Gökdeniz Demircioğlu
+     * @param args command-line arguments
      */
+
     public static void main(String[] args) {
         Scanner inputGame = new Scanner(System.in);
         boolean menuContinues = true;
@@ -181,7 +190,7 @@ public class Group10 {
      * between transitions, and ends with a “Press any key to continue” prompt.
      * </p>
      * @see #clearScreen()
-     * @author Gökdeniz Demircioğlu
+     * @throws InterruptedException if the animation thread is interrupted
      */
     public static void displayIntro() throws InterruptedException {
         clearScreen();
@@ -295,7 +304,7 @@ public class Group10 {
      * and {@link Thread#sleep(long)} to create small timed delays
      * between ASCII-art transitions for a smooth animation effect.
      * </p>
-     * @author Gökdeniz Demircioğlu
+     * @throws InterruptedException if the animation thread is interrupted.
      */
     public static void specialThanks() throws InterruptedException {
         clearScreen();
@@ -347,7 +356,6 @@ public class Group10 {
      * to greet the user. This method uses ANSI color codes for styling
      * and resets the console color afterwards.
      * </p>
-     * @author Gökdeniz Demircioğlu
      */
     public static void displayWelcomeMessage() {
         System.out.println(COLOR_ROSE + " _    _      _                             _           _____      _                 _    _____ _                 _       _             \n" +
@@ -380,7 +388,6 @@ public class Group10 {
      * @see #chooseGameMode(Scanner)
      * @see #playSingleplayer(char[][], Scanner)
      * @see #playMultiplayer(char[][], Scanner)
-     * @author Gökdeniz Demircioğlu
      */
     public static void universityMenu(){
         Scanner input = new Scanner(System.in);
@@ -418,7 +425,6 @@ public class Group10 {
      * @param input Scanner object to read user input
      * @return a 2D char array for the selected table size, or null if user returns to main menu
      * @see #clearScreen()
-     * @author Gökdeniz Demircioğlu
      */
     public static char[][] chooseTableSize(Scanner input) {
         String choiceOfTableSize;
@@ -482,7 +488,6 @@ public class Group10 {
      * @param input Scanner object to read user input
      * @return "s" for singleplayer or "m" for multiplayer
      * @see #clearScreen()
-     * @author Gökdeniz Demircioğlu
      */
     public static String chooseGameMode(Scanner input) {
         String choiceOfGameMode;
@@ -526,7 +531,6 @@ public class Group10 {
      * @see #isTableFull(char[][])
      * @see #postGameMenu(Scanner)
      * @see #universityMenu()
-     * @author Gökdeniz Demircioğlu
      */
     public static void playSingleplayer(char[][] table, Scanner input){
         char currentPlayer = '1';
@@ -668,7 +672,6 @@ public class Group10 {
      * @see #isTableFull(char[][])
      * @see #postGameMenu(Scanner)
      * @see #universityMenu()
-     * @author Gökdeniz Demircioğlu
      */
     public static void playMultiplayer(char[][] table, Scanner input) {
         char currentPlayer = '1';
@@ -771,7 +774,6 @@ public class Group10 {
      *
      * @param input tool that reads what the player types
      * @return "r", "m" or "q" depending on the player's choice
-     * @author Gökdeniz Demircioğlu
      */
     public static String postGameMenu(Scanner input){
         String selection;
@@ -797,7 +799,6 @@ public class Group10 {
     /**
      * Clears the console screen by printing several empty lines.
      * Makes the display look fresh before showing new content.
-     * @author Gökdeniz Demircioğlu
      */
     public static void clearScreen() {
         for (int i = 0; i < 50; i++) {
@@ -811,7 +812,6 @@ public class Group10 {
      * @param table the game board
      * @param colNum the chosen column number
      * @return true if the column is valid, false otherwise
-     * @author Gökdeniz Demircioğlu
      */
     public static boolean isColumnValid(char[][] table, byte colNum){
         if(colNum <= 0 || colNum > table[0].length)
@@ -828,7 +828,6 @@ public class Group10 {
      *
      * @param table the game board
      * @return true if the table is full, false otherwise
-     * @author Gökdeniz Demircioğlu
      */
     public static boolean isTableFull(char[][] table){
         for (char[] chars : table) {
@@ -849,7 +848,6 @@ public class Group10 {
      * @param table the game board
      * @param player the current player ('1' or '2')
      * @return true if that player has four in a row, false otherwise
-     * @author Gökdeniz Demircioğlu
      */
     public static boolean determineWinner(char[][] table, char player) {
         // Horizontal check
@@ -901,7 +899,6 @@ public class Group10 {
      * to reset it for a new round.
      *
      * @param table the game board
-     * @author Gökdeniz Demircioğlu
      */
     public static void fillTableWithAsterisk(char[][] table){
         for (char[] chars : table) {
@@ -914,7 +911,6 @@ public class Group10 {
      * Player 1's discs appear red, Player 2's discs appear yellow.
      *
      * @param table the game board
-     * @author Gökdeniz Demircioğlu
      */
     public static void printTable(char[][] table) {
         int rows = table.length;
@@ -976,7 +972,6 @@ public class Group10 {
      * @param colNum the selected column number
      * @param player the current player ('1' or '2')
      * @throws InterruptedException if the animation is interrupted
-     * @author Gökdeniz Demircioğlu
      */
     public static void dropDiscAnimated(char[][] table, byte colNum, char player) throws InterruptedException {
         int colIndex = (int)colNum - 1;
@@ -1024,7 +1019,6 @@ public class Group10 {
      * @see #ageAndZodiacDetection()
      * @see #reverseTheWords()
      * @see #clearScreen()
-     * @author Ayşenur Gülfem Kömürcü
      */
 
     public static void PrimarySchoolMenu() {
@@ -1088,7 +1082,6 @@ public class Group10 {
     * @param inputString The prompt message to display to the user.
     * @return The valid integer entered by the user.
     * @see #clearScreen()
-     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static int receiveInputDate(String inputString) {
@@ -1121,7 +1114,6 @@ public class Group10 {
      * @see #isValidDate(int, int, int)
      * @see #calculateZodiac(int, int)
      * @see #clearScreen()
-     * @author Ayşenur Gülfem Kömürcü
      */
 
     public static void ageAndZodiacDetection() {
@@ -1233,7 +1225,6 @@ public class Group10 {
         * @param month The month to check (1-12).
         * @param year The year to check.
         * @return {@code true} if the date is valid, otherwise {@code false}.
-         * @author Ayşenur Gülfem Kömürcü
         */
 
     public static boolean isValidDate(int day, int month, int year) {
@@ -1302,7 +1293,6 @@ public class Group10 {
     * @param month The birth month (1-12).
     * @return The name of the determined zodiac sign, or "Invalid" if the 
     *         month/day combination does not match any zodiac range.
-     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String calculateZodiac(int day, int month) {
@@ -1350,7 +1340,6 @@ public class Group10 {
     * 
     * @see #reverseOnlyLetters(String) (Presumed helper method used for the actual letter reversal)
     * @see #clearScreen()
-     * @author Ayşenur Gülfem Kömürcü
     */
     
     public static void reverseTheWords() {
@@ -1416,7 +1405,6 @@ public class Group10 {
     * @param word The word to be reversed.
     * @return The completely reversed word.
     * @see #reverseWord(String)
-     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String reverseWord(String word) {
@@ -1430,7 +1418,6 @@ public class Group10 {
     *
     * @param word The word whose letters are to be reversed.
     * @return The word with its letters reversed and non-letter characters preserved in their original positions.
-     * @author Ayşenur Gülfem Kömürcü
     */
 
     public static String reverseOnlyLetters(String word) {
@@ -1468,15 +1455,16 @@ public class Group10 {
     /**
      * Main menu of "Secondary School".
      * <p>
-     * This method displays the submenu options for the Secondary School level:
-     * <ul>
-     * <li>{@link #primeNumbers()} - Opens the Prime Number comparison module.</li>
-     * <li>{@link #evaluation()} - Opens the Step-by-Step Expression Evaluation module.</li>
-     * <li>Returns to the main menu.</li>
-     * </ul>
+     * This method displays the submenu options for the Secondary School level.
      * </p>
-     * @author Kerem İrfanoğlu
+     *
+     * <ul>
+     *   <li>{@link #primeNumbers()} - Opens the Prime Number comparison module.</li>
+     *   <li>{@link #evaluation()} - Opens the Step-by-Step Expression Evaluation module.</li>
+     *   <li>Returns to the main menu.</li>
+     * </ul>
      */
+
     public static void secondarySchool(){
 
         clearScreen();
@@ -1537,7 +1525,6 @@ public class Group10 {
      *
      * @param input The string to check.
      * @return {@code true} if the string can be parsed as an integer, {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
     private static boolean isInt(String input) {
         try {
@@ -1555,7 +1542,6 @@ public class Group10 {
      *
      * @param input The string to check.
      * @return {@code true} if the input is 1, 2, or 3, {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
     private static boolean isValidMenu(String input) {
         try {
@@ -1576,7 +1562,6 @@ public class Group10 {
      *
      * @param message The prompt message to display to the user.
      * @return {@code true} if the user selects "1", {@code false} if the user selects "2".
-     * @author Kerem İrfanoğlu
      */
     static boolean repeat(String message){
         String answer;
@@ -1605,7 +1590,6 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
-     * @author Kerem İrfanoğlu
      */
     public static void sieveOfEratosthenes(int intNum) {
         
@@ -1671,7 +1655,6 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
-     * @author Kerem İrfanoğlu
      */
     public static void sieveOfSundaram(int intNum){
         
@@ -1735,7 +1718,6 @@ public class Group10 {
      *
      * @param intNum The upper limit (n) to find primes up to. Must be >= 12.
      * @see #primeNumbers()
-     * @author Kerem İrfanoğlu
      */
     public static void sieveOfAtkin(int intNum){
 
@@ -1818,7 +1800,6 @@ public class Group10 {
      *
      * @see #secondarySchool()
      * @see #repeat(String)
-     * @author Kerem İrfanoğlu
      */
     public static void primeNumbers() {
         int intNum;
@@ -1900,7 +1881,6 @@ public class Group10 {
      * @see #isValidExpression(String)
      * @see #normalize(String)
      * @see #secondarySchool()
-     * @author Kerem İrfanoğlu
      */
     public static void evaluation() {
         clearScreen();
@@ -1959,7 +1939,6 @@ public class Group10 {
      *
      * @param s The raw expression string from the user.
      * @return A normalized expression string.
-     * @author Kerem İrfanoğlu
      */
     static String normalize(String s) {
         s = s.replace("×", "*");
@@ -1974,18 +1953,22 @@ public class Group10 {
      * Checks if a normalized mathematical expression is syntactically valid.
      * <p>
      * This validation includes:
+     * </p>
+     *
      * <ul>
-     * <li>Balanced parentheses.</li>
-     * <li>Valid operator placement (e.g., "5*+3" is invalid).</li>
-     * <li>Ensuring the expression does not start or end with invalid operators.</li>
+     *   <li>Balanced parentheses.</li>
+     *   <li>Valid operator placement (e.g., "5*+3" is invalid).</li>
+     *   <li>Ensuring the expression does not start or end with invalid operators.</li>
      * </ul>
+     *
+     * <p>
      * This should be used after {@link #normalize(String)}.
      * </p>
      *
      * @param s The normalized expression string.
      * @return {@code true} if the expression is valid, {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
+
     static boolean isValidExpression(String s) {
         if(s == null || s.isEmpty()) return false;
 
@@ -2078,7 +2061,6 @@ public class Group10 {
      * @return A {@link List} of String tokens.
      * @see #normalize(String)
      * @see #isOpOrOpen(String)
-     * @author Kerem İrfanoğlu
      */
     static List<String> tokenize(String s) {
         List<String> tokens = new ArrayList<>();
@@ -2132,7 +2114,6 @@ public class Group10 {
      *
      * @param lastToken The token immediately preceding the current '-' character.
      * @return {@code true} if the last token is an operator or '(', {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
     static boolean isOpOrOpen(String lastToken) {
         if (lastToken == null || lastToken.isEmpty()) return false;
@@ -2145,23 +2126,28 @@ public class Group10 {
      * The main recursive method for evaluating the expression step-by-step.
      * <p>
      * It follows the order of operations (PEMDAS/BODMAS) by:
+     * </p>
+     *
      * <ol>
-     * <li>Finding the innermost parentheses using {@link #findInnermostOpenParen(List)}.</li>
-     * <li>Reducing the expression inside using {@link #reduceOnce(List, int, int)}.</li>
-     * <li>Removing redundant parentheses (e.g., "(50)") using {@link #removeParen(List, int, int)}.</li>
-     * <li>Printing each step of the reduction.</li>
+     *   <li>Finding the innermost parentheses using {@link #findInnermostOpenParen(List)}.</li>
+     *   <li>Reducing the expression inside using {@link #reduceOnce(List, int, int)}.</li>
+     *   <li>Removing redundant parentheses (e.g., "(50)") using {@link #removeParen(List, int, int)}.</li>
+     *   <li>Printing each step of the reduction.</li>
      * </ol>
+     *
+     * <p>
      * This method calls itself recursively until the expression is reduced to a single number.
      * </p>
      *
-     * @param tokens The list of tokens representing the expression. 
-     * This list is modified in-place with each reduction.
-     * @throws ArithmeticException if a division by zero is attempted by {@link #reduceOnce(List, int, int)}.
+     * @param tokens The list of tokens representing the expression.
+     *               This list is modified in-place with each reduction.
+     * @throws ArithmeticException if a division by zero is attempted
+     *                             by {@link #reduceOnce(List, int, int)}.
      * @see #reduceOnce(List, int, int)
      * @see #findInnermostOpenParen(List)
      * @see #removeParen(List, int, int)
-     * @author Kerem İrfanoğlu
      */
+
 
     static void evaluateStepByStep(List<String> tokens) {
 
@@ -2212,7 +2198,6 @@ public class Group10 {
      * @return {@code true} if a reduction was performed, {@code false} if no operation
      * was found to reduce.
      * @throws ArithmeticException if a division by zero is attempted.
-     * @author Kerem İrfanoğlu
      */
 
     static boolean reduceOnce(List<String> tokens, int start, int endEx) {
@@ -2275,7 +2260,6 @@ public class Group10 {
      *
      * @param tokens The list of tokens.
      * @return The index of the last '(', or -1 if no parentheses are found.
-     * @author Kerem İrfanoğlu
      */
     static int findInnermostOpenParen(List<String> tokens) {
         //checking right to left to find the innermost paranthesis
@@ -2293,7 +2277,6 @@ public class Group10 {
      * @param tokens  The list of tokens.
      * @param openIdx The index of the '(', found by {@link #findInnermostOpenParen(List)}.
      * @return The index of the matching ')' token, or -1 if not found.
-     * @author Kerem İrfanoğlu
      */
     static int findMatchingCloseParen(List<String> tokens, int openIdx) {
         int bal = 0;
@@ -2315,7 +2298,6 @@ public class Group10 {
      * @param open   The index of the open parenthesis '('.
      * @param close  The index of the close parenthesis ')'.
      * @return {@code true} if the parentheses were removed, {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
     static boolean removeParen(List<String> tokens, int open, int close) {
         if (close - open == 2 && isNumberToken(tokens.get(open + 1))) {
@@ -2332,7 +2314,6 @@ public class Group10 {
      *
      * @param tokens The list of tokens to render.
      * @return A formatted, single-line string representation of the expression.
-     * @author Kerem İrfanoğlu
      */
     static String renderForOutput(List<String> tokens) {
         StringBuilder sb = new StringBuilder();
@@ -2354,7 +2335,6 @@ public class Group10 {
      *
      * @param tk The token string to check.
      * @return {@code true} if the token is a number, {@code false} otherwise.
-     * @author Kerem İrfanoğlu
      */
     static boolean isNumberToken(String tk) {
         if (tk == null || tk.isEmpty()) return false;
@@ -2377,7 +2357,6 @@ public class Group10 {
      * @return The {@code long} value of the token.
      * @see #isNumberToken(String)
      * @see #reduceOnce(List, int, int)
-     * @author Kerem İrfanoğlu
      */
     static long parseLongSafe(String tk) {
         //transform the string token to long
@@ -2390,18 +2369,19 @@ public class Group10 {
      * This class handles the High School menu operations of the education application.
      * <p>
      * It allows users to:
+     * </p>
+     *
      * <ul>
      *   <li>Compute statistical information about an array.</li>
      *   <li>Compute distances between two arrays.</li>
      *   <li>Return to the main menu.</li>
      * </ul>
-     * </p>
      *
      * @see #HighSchoolMenu()
      * @see #statisticalInformation(int)
      * @see #distanceBetweenTwoArrays(int)
-     * @author Taha Söğüt
      */
+
 
     public static void HighSchoolMenu() {
         while (true) {
@@ -2461,7 +2441,6 @@ public class Group10 {
      * @see #computeArithmeticMean(double[])
      * @see #computeGeometricMean(double[])
      * @see #computeHarmonicMeanRecursive(double[])
-     * @author Taha Söğüt
      */
 
     // Menu selection 1
@@ -2537,7 +2516,6 @@ public class Group10 {
      * @see #computeManhattan(int[], int[])
      * @see #computeEuclidean(int[], int[])
      * @see #computeCosineSimilarity(int[], int[])
-     * @author Taha Söğüt
      */
 
     // Menu selection 2
@@ -2603,7 +2581,6 @@ public class Group10 {
      * @param sortedArr The sorted array of doubles.
      * @return The median value.
      * @see #statisticalInformation(int)
-     * @author Taha Söğüt
      */
 
     // Calculation Methods
@@ -2624,7 +2601,6 @@ public class Group10 {
      * @param arr The array of doubles.
      * @return The arithmetic mean value.
      * @see #statisticalInformation(int)
-     * @author Taha Söğüt
      */
 
     private static double computeArithmeticMean(double[] arr) {
@@ -2635,12 +2611,11 @@ public class Group10 {
 
     /**
      * Computes the geometric mean of an array.
-     * Returns null if any element is <= 0.
+     * Returns null if any element is &lt;= 0.
      *
      * @param arr The array of doubles.
      * @return The geometric mean, or null if undefined.
      * @see #statisticalInformation(int)
-     * @author Taha Söğüt
      */
 
     private static Double computeGeometricMean(double[] arr) {
@@ -2664,7 +2639,6 @@ public class Group10 {
      * @return The harmonic mean, or null if undefined.
      * @see #sumReciprocalRecursive(double[], int)
      * @see #statisticalInformation(int)
-     * @author Taha Söğüt
      */
 
     private static Double computeHarmonicMeanRecursive(double[] arr) {
@@ -2683,7 +2657,6 @@ public class Group10 {
      * @param arr The array of doubles
      * @param idx The current index for recursion
      * @return Sum of reciprocals from idx to end of the array
-     * @author Taha Söğüt
      */
 
     // Recursive Methods
@@ -2700,7 +2673,6 @@ public class Group10 {
      * @param a First array of integers
      * @param b Second array of integers
      * @return The Manhattan distance
-     * @author Taha Söğüt
      */
 
     private static double computeManhattan(int[] a, int[] b) {
@@ -2717,7 +2689,6 @@ public class Group10 {
      * @param a First array of integers
      * @param b Second array of integers
      * @return The Euclidean distance
-     * @author Taha Söğüt
      */
 
     private static double computeEuclidean(int[] a, int[] b) {
@@ -2736,7 +2707,6 @@ public class Group10 {
      * @param a First array of integers
      * @param b Second array of integers
      * @return Cosine similarity or null if undefined
-     * @author Taha Söğüt
      */
     
     private static Double computeCosineSimilarity(int[] a, int[] b) {
@@ -2762,7 +2732,6 @@ public class Group10 {
      * @param min Minimum acceptable value.
      * @param max Maximum acceptable value.
      * @return The validated integer input.
-     * @author Taha Söğüt
      */
 
     // Input and output validation
@@ -2828,7 +2797,6 @@ public class Group10 {
      * @param max Maximum acceptable value.
      * @param prompt Message displayed to the user.
      * @return The validated integer input.
-     * @author Taha Söğüt
      */
 
     private static int readIntInRangeWithPrompt(int min, int max, String prompt) {
@@ -2857,7 +2825,6 @@ public class Group10 {
      *
      * @param choice The menu selection for contextual navigation.
      * @return The validated positive integer input.
-     * @author Taha Söğüt
      */
 
     private static int readPositiveInt(int choice) {
@@ -2944,7 +2911,6 @@ public class Group10 {
      *
      * @param prompt The message displayed to the user before reading input.
      * @return A validated double value entered by the user within the range -1,000,000 to +1,000,000.
-     * @author Taha Söğüt
      */
 
     private static double readDoubleWithPrompt(String prompt) {
@@ -2988,7 +2954,6 @@ public class Group10 {
      * @param d The double value to format.
      * @param unused Placeholder parameter (not used).
      * @return The formatted string.
-     * @author Taha Söğüt
      */
 
     private static String formatDoubleOrMsg(double d, String unused) {
@@ -2997,7 +2962,6 @@ public class Group10 {
 
     /**
      * Pauses execution until the user presses Enter.
-     * @author Taha Söğüt
      */
     
     private static void promptEnterToContinue() {
