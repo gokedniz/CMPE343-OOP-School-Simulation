@@ -646,14 +646,17 @@ public class Group10 {
         String nextAction = postGameMenu(input);
         switch(nextAction){
             case"r":
+                input.nextLine(); // buffer cleaning
                 fillTableWithAsterisk(table);
                 playSingleplayer(table, input);
                 return;
             case"m":
+                input.nextLine(); // buffer cleaning
                 clearScreen();
                 universityMenu();
                 return;
             case "q":
+                input.nextLine(); // buffer cleaning
                 System.out.println("Returning to Main Menu...");
                 return;
         }
