@@ -67,7 +67,7 @@ public class Group10 {
             System.out.println("║════════════════════════════════════════════║");
             System.out.println("║     [D] University                         ║");
             System.out.println("║════════════════════════════════════════════║");
-            System.out.println("║     [E] Exit                               ║");
+            System.out.println("║     [E] Terminate                          ║");
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.println(COLOR_RESET);
             System.out.print("Your choice: ");
@@ -1078,7 +1078,7 @@ public class Group10 {
     /**
     * Takes an integer input from the user and repeatedly prompts in a loop 
     * until a valid integer is entered.
-    * * @param inputString The prompt message to display to the user.
+    * @param inputString The prompt message to display to the user.
     * @return The valid integer entered by the user.
     * @see #clearScreen()
     */
@@ -1331,19 +1331,6 @@ public class Group10 {
 
     // OPTINON A: REVERSE THE WORDS
     /**
-    * This method reverses the letters of each word in a given sentence,
-    * This method reverses the letters of each word in a given sentence,
-    * Takes a sentence from the user and prints the result by reversing "only the letters"
-    * of each word in that sentence. Words are separated by spaces and various punctuation
-    * marks. Only words containing 2 or more letters are reversed.
-    */
-
-    /**
-    * Processes a user-provided sentence and reverses the letters of each word
-    * that contains two or more letters, preserving the original positions of
-    * non-letter characters within the word and all delimiters.
-    * 
-    * This method:
     * 
     * Prompts the user to enter a sentence.
     * Iterates through the sentence character by character, identifying words separated by spaces or various punctuation marks.
