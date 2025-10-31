@@ -1306,7 +1306,7 @@ public class Group10 {
     }
     /**
     * Calculates and returns the astrological sign based on the given birth day and month.
-    * * @param day The birth day (1-31).
+    * @param day The birth day (1-31).
     * @param month The birth month (1-12).
     * @return The name of the determined zodiac sign, or "Invalid" if the 
     * month/day combination does not match any zodiac range.
@@ -2660,7 +2660,7 @@ public class Group10 {
     /**
      * Computes the geometric mean of an array.
      * <p>
-     * Returns null if any element is non-positive (<= 0).
+     * Returns null if any element is non-positive.
      *
      * @param arr The array of doubles.
      * @return The geometric mean, or null if undefined.
