@@ -79,7 +79,6 @@ public class Group10 {
                     PrimarySchoolMenu();
                     break;
 
-
                 case "b":
                     clearScreen();
                     secondarySchool();
@@ -107,7 +106,7 @@ public class Group10 {
 
                 default:
                     System.out.println(COLOR_RED);
-                    System.out.println("Invalid input! Please press any key to try again.");
+                    System.out.println("Invalid input! Please press enter to try again.");
                     System.out.println(COLOR_RESET);
                     // Clean leftover '\n' from buffer
                     inputGame.nextLine();
