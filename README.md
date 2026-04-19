@@ -2,15 +2,6 @@
 
 A console-based, menu-driven Java application developed for the CMPE343 Object-Oriented Programming course. The program simulates different levels of an educational journey — from Primary School to University — each offering interactive tasks and mini-games implemented entirely in Java.
 
-## Team — Group 10
-
-| Name | Role |
-|---|---|
-| Gökdeniz Demircioğlu | Primary School module |
-| Taha Söğüt | High School module |
-| Kerem İrfanoğlu | University module |
-| Ayşenur Gülfem Kömürcü | Secondary School module |
-
 ## Features Overview
 
 The application presents a main menu with four school-level sections plus an exit option:
